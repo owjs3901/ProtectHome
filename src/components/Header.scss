@@ -1,0 +1,138 @@
+.header_pc_container {
+    background-color: #73A2FC;
+    width: 100vw;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.header_pc_profileIntroduce {
+    font: Bold 22px/34px NanumSquareOTF_ac;
+    display: flex;
+    margin-left: 20px;
+    flex-direction: column;
+    color: white;
+    letter-spacing: 0.66px;
+}
+
+.header_pc_profileImg {
+    margin-left: 34.6px;
+}
+
+.header_pc_logoLogin {
+    @extend .noRespondButton;
+    border-radius: 40px;
+    margin-left: auto;
+    margin-right: 40px;
+    border: 2px solid white;
+    width: 120px;
+    height: 40px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.fullPC {
+
+}
+
+@media(max-width: 1400px) {
+    .fullPC {
+        display: none;
+    }
+}
+
+.noRespondButton {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.header_pc_logoLoginText {
+    font-family: Noto Sans;
+    color: white;
+    font-size: 22px;
+    vertical-align: middle
+}
+
+.header_pc_dateText {
+    margin-left: 10px;
+    font-family: NanumSquareOTF_ac;
+    color: white;
+    font-size: 16px;
+    margin-top: 60px;
+    align-self: end;
+}
+
+.header_pc_separator {
+    border: 2px solid white;
+    width: 0px;
+    height: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.header_pc_weather {
+    font: Bold 22px/34px NanumSquareOTF_ac;
+}
+
+
+.header_pc_temperature {
+    margin-left: 15px;
+    font-size: 56px;
+    font-family: SeoqaHanSans;
+    color: #FFD939;
+}
+
+.header_mobile_container {
+
+    //justify-content: left;
+    width: 100vw;
+    height: auto;
+
+    margin-left: 30px;
+    margin-top: 34px;
+}
+
+.header_mobile_containerMargined {
+    display: flex;
+    flex-direction: column;
+}
+
+.header_mobile_containerFriends {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.header_mobile_containerWeather {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.header_mobile_containerTitle {
+    flex-direction: column;
+    display: flex;
+}
+
+.header_mobile_weatherTitle {
+    font: Bold 19px/21px NanumSquareOTF_ac;
+    color: #191919;
+}
+
+.header_mobile_weatherSubTitle {
+    margin-top: 7px;
+    font: Regular 11px/12px NanumSquareOTF_ac;
+    color: #767676;
+}
+
+.header_mobile_temperature {
+    margin-left: auto;
+    margin-right: 43px;
+    line-height: 59px;
+    font: 40px SpoqaHanSans;
+    color: #FFD939;
+}

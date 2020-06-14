@@ -30,6 +30,11 @@ body{
   color: #61dafb;
 }
 
+body {
+  /*overflow-y: hidden;*/
+  overflow-x: hidden;
+}
+
 @font-face {
   font-family: "NanumSquareOTF_ac";
   font-style: normal;
@@ -48,7 +53,7 @@ body{
   font-family: "SpoqaHanSans";
   font-style: normal;
   font-weight: 400;
-  src: url("") format("truetype");
+  src: url("assets/fonts/Spoqa Han Sans Regular.ttf") format("truetype");
 }
 
 /*@font-face {*/
