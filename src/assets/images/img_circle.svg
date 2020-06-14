@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="3.076" gradientTransform="translate(1.204 0.437) rotate(129.895)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#4393ff"/>
+    </radialGradient>
+  </defs>
+  <circle id="타원_150" data-name="타원 150" cx="100" cy="100" r="100" fill="url(#radial-gradient)"/>
+</svg>
