@@ -1,7 +1,7 @@
 import React, {CSSProperties, Component} from 'react';
 import CSS from 'csstype';
 import Logo from "./Logo";
-import './Header.css'
+import './Header.scss'
 
 // const styles:{[key:string]:CSSProperties}={
 //     base: {
@@ -44,7 +44,7 @@ function Header() {
             <div className="header_container">
                 <Logo/>
                 {isLogged() ? <Profile/> : <></>}
-                <div className="header_logoLogin"><span className="header_logoLoginText">LOGIN</span></div>
+                <button className="header_logoLogin"><span className="header_logoLoginText">{isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
             </div>
         </>
     );
@@ -53,25 +53,18 @@ function Header() {
 function Profile() {
     return (
         <>
-            <img src="" />
-
+            <img src={""} />
             <div className="header_profileIntroduce">
-                <span style={{marginBottom: "3.4px"}}>안녕하세요</span>
+                <span>안녕하세요</span>
                 <span>{"xxx"}님</span>
             </div>
-
             <span className="header_dateText">1970년 1월 1일 0:00AM</span>
-
             <div className="header_separator"/>
-
             <div className="header_profileIntroduce">
                 <span>오늘의 날씨는</span>
                 <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
             </div>
-
-
-            {/*<div style={{display: "block"}}>*/}
-            {/*</div>*/}
+            <span className="header_temperature">{20}℃</span>
         </>
     )
 }

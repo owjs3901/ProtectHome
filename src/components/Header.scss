@@ -1,0 +1,70 @@
+.header_container {
+    background-color: #73A2FC;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.header_profileIntroduce {
+    font: Bold 22px/34px NanumSquareOTF_ac;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    letter-spacing: 0.66px;
+}
+
+.header_logoLogin {
+    @extend .noRespondButton;
+    border-radius: 40px;
+    margin-left: auto;
+    margin-right: 40px;
+    border: 2px solid white;
+    width: 120px;
+    height: 40px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.noRespondButton {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.header_logoLoginText {
+    font-family: Noto Sans;
+    color: white;
+    font-size: 22px;
+    vertical-align: middle
+}
+
+.header_dateText {
+    margin-left: 10px;
+    font-family: NanumSquareOTF_ac;
+    color: white;
+    font-size: 16px;
+    margin-top: 60px;
+    align-self: end;
+}
+
+.header_separator {
+    border: 2px solid white;
+    width: 0px;
+    height: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.header_weather {
+    font: Bold 22px/34px NanumSquareOTF_ac;
+}
+
+.header_temperature {
+    margin-left: 15px;
+    font-size: 56px;
+    font-family: SeoqaHanSans;
+    color: #FFD939;
+}
