@@ -2,14 +2,14 @@ import React from 'react';
 import './App.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Main from './pages/Main'
+import Login from "./pages/Login";
 
 function App() {
   return (
       <BrowserRouter>
-
         <Switch>
           <Route exact path='/' component={Main}/>
-          {/*<Route path='/login' component={Login}/>*/}
+          <Route path='/login' component={Login}/>
           {/*<Route path='/info/:title' component={Info}/>*/}
           {/*<Route component={Error404}/>*/}
         </Switch>
