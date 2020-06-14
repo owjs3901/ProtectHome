@@ -1,5 +1,4 @@
 .main_container {
-
 }
 
 @media(max-width: 1000px) {
@@ -7,6 +6,7 @@
         background: #F7F9FF 0% 0% no-repeat padding-box;
         width: 100vw;
         height: 100vh;
+        overflow-x: hidden;
     }
 }
 @media(min-width: 999px) {
@@ -14,6 +14,7 @@
         display: none;
     }
 }
+
 
 .header_mobile_effectCircleTop {
     z-index: -1;
