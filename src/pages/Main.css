@@ -1,4 +1,12 @@
 .main_container {
+    width: 100vw;
+}
+
+.main_header {
+    z-index: 0;
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 
 @media(max-width: 1000px) {
@@ -13,17 +21,47 @@
     .header_mobile_effectCircleTop {
         display: none;
     }
+
+    .header_mobile_effectCircleCenter {
+        display: none;
+    }
+
+    .header_mobile_effectCircleBottom {
+        display: none;
+    }
 }
 
 
 .header_mobile_effectCircleTop {
-    z-index: -1;
+    position: absolute;
     float: right;
-    width: 200px;
-    height: 200px;
-    margin-right: -76px;
-    margin-top: -83px;
+    width: 55.5vw;
+    height: 55.5vw;
+    right: -27.8vw;
+    top: -27.8vw;
     border-radius: 100px;
     border: 0px;
-    background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;
+    /*background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;*/
+}
+
+.header_mobile_effectCircleCenter {
+    position: absolute;
+    width: 55.5vw;
+    height: 55.5vw;
+    left: -27.8vw;
+    top: 25.6vh;
+    border-radius: 100px;
+    border: 0px;
+    /*background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;*/
+}
+
+.header_mobile_effectCircleBottom {
+    position: absolute;
+    width: 55.5vw;
+    height: 55.5vw;
+    right: -27.8vw;
+    top: 71.4vh;
+    border-radius: 100px;
+    border: 0px;
+    /*background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;*/
 }

@@ -1,5 +1,6 @@
 .header_pc_container {
     background-color: #73A2FC;
+    width: 100vw;
     height: 100px;
     display: flex;
     align-items: center;
@@ -9,9 +10,14 @@
 .header_pc_profileIntroduce {
     font: Bold 22px/34px NanumSquareOTF_ac;
     display: flex;
+    margin-left: 20px;
     flex-direction: column;
     color: white;
     letter-spacing: 0.66px;
+}
+
+.header_pc_profileImg {
+    margin-left: 34.6px;
 }
 
 .header_pc_logoLogin {
@@ -72,6 +78,7 @@
     font: Bold 22px/34px NanumSquareOTF_ac;
 }
 
+
 .header_pc_temperature {
     margin-left: 15px;
     font-size: 56px;
@@ -79,3 +86,53 @@
     color: #FFD939;
 }
 
+.header_mobile_container {
+
+    //justify-content: left;
+    width: 100vw;
+    height: auto;
+
+    margin-left: 30px;
+    margin-top: 34px;
+}
+
+.header_mobile_containerMargined {
+    display: flex;
+    flex-direction: column;
+}
+
+.header_mobile_containerFriends {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.header_mobile_containerWeather {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.header_mobile_containerTitle {
+    flex-direction: column;
+    display: flex;
+}
+
+.header_mobile_weatherTitle {
+    font: Bold 19px/21px NanumSquareOTF_ac;
+    color: #191919;
+}
+
+.header_mobile_weatherSubTitle {
+    margin-top: 7px;
+    font: Regular 11px/12px NanumSquareOTF_ac;
+    color: #767676;
+}
+
+.header_mobile_temperature {
+    margin-left: auto;
+    margin-right: 43px;
+    line-height: 59px;
+    font: 40px SpoqaHanSans;
+    color: #FFD939;
+}

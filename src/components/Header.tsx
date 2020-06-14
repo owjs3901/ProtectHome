@@ -2,6 +2,8 @@ import React, {CSSProperties, Component} from 'react';
 import CSS from 'csstype';
 import Logo from "./Logo";
 import './Header.scss'
+import exampleImg from "../assets/images/img_exampleProfile.svg"
+import plusImg from "../assets/images/img_plus.svg"
 import {maxHeaderSize} from "http";
 
 // const styles:{[key:string]:CSSProperties}={
@@ -40,7 +42,7 @@ import {maxHeaderSize} from "http";
 // }
 
 interface State {
-    width:number;
+    width: number;
 }
 
 interface Props {
@@ -54,36 +56,49 @@ class Header extends Component<Props, State> {
             width: window.innerWidth,
         };
     }
+
     render() {
         const isPC = window.innerWidth >= 1000;
-        if(isPC) {
+        if (isPC) {
             return (
                 <>
                     <div className="header_pc_container">
                         <Logo/>
                         {this.isLogged() ? <>
-                                <img src={""} />
-                                <div className="header_pc_profileIntroduce">
-                                    <span>안녕하세요</span>
-                                    <span>{"xxx"}님</span>
-                                </div>
-                                <span className="fullPC header_pc_dateText">1970년 1월 1일 0:00AM</span>
-                                <div className="fullPC header_pc_separator"/>
-                                <div className="fullPC header_pc_profileIntroduce">
-                                    <span>오늘의 날씨는</span>
-                                    <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
-                                </div>
-                                <span className="header_pc_temperature">{20}℃</span>
-                            </> : <></>}
-                        <button className="header_pc_logoLogin"><span className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
+                            <img src="asd"/>
+                            <div className="header_pc_profileIntroduce">
+                                <span>안녕하세요</span>
+                                <span>{"xxx"}님</span>
+                            </div>
+                            <span className="fullPC header_pc_dateText">1970년 1월 1일 0:00AM</span>
+                            <div className="fullPC header_pc_separator"/>
+                            <div className="fullPC header_pc_profileIntroduce">
+                                <span>오늘의 날씨는</span>
+                                <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
+                            </div>
+                            <span className="header_pc_temperature">{20}℃</span>
+                        </> : <></>}
+                        <button className="header_pc_logoLogin"><span
+                            className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
                     </div>
                 </>
             );
         } else {
             return (
-                <>
+                <div className="header_mobile_container">
+                    <div className="header_mobile_containerFriends">
+                        <img className="header_mobile_profileImg" src={exampleImg}/>
+                        <img className="header_mobile_profileImg" src={plusImg} width="36px" height="36px"/>
+                    </div>
 
-                </>
+                    <div className="header_mobile_containerWeather">
+                        <div className="header_mobile_containerTitle">
+                            <span className="header_mobile_weatherTitle">오늘의 날씨는</span>
+                            <span className="header_mobile_weatherSubTitle">{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
+                        </div>
+                        <span className="header_mobile_temperature">{20}℃</span>
+                    </div>
+                </div>
             );
         }
     }
@@ -99,13 +114,14 @@ class Header extends Component<Props, State> {
     }
 
     handleWindowSizeChange = () => {
-        this.setState({ width: window.innerWidth });
+        this.setState({width: window.innerWidth});
     };
 
     isLogged() {
         return true
     }
 }
+
 //
 // function Header() {
 //     const isPC = window.innerWidth >= 1000;
