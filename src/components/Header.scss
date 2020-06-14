@@ -1,12 +1,12 @@
-.header_container {
+.header_pc_container {
     background-color: #73A2FC;
-    height: 104px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: left;
 }
 
-.header_profileIntroduce {
+.header_pc_profileIntroduce {
     font: Bold 22px/34px NanumSquareOTF_ac;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     letter-spacing: 0.66px;
 }
 
-.header_logoLogin {
+.header_pc_logoLogin {
     @extend .noRespondButton;
     border-radius: 40px;
     margin-left: auto;
@@ -26,6 +26,16 @@
     text-align: center;
 }
 
+.fullPC {
+
+}
+
+@media(max-width: 1400px) {
+    .fullPC {
+        display: none;
+    }
+}
+
 .noRespondButton {
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -34,14 +44,14 @@
     outline:none;
 }
 
-.header_logoLoginText {
+.header_pc_logoLoginText {
     font-family: Noto Sans;
     color: white;
     font-size: 22px;
     vertical-align: middle
 }
 
-.header_dateText {
+.header_pc_dateText {
     margin-left: 10px;
     font-family: NanumSquareOTF_ac;
     color: white;
@@ -50,7 +60,7 @@
     align-self: end;
 }
 
-.header_separator {
+.header_pc_separator {
     border: 2px solid white;
     width: 0px;
     height: 60px;
@@ -58,13 +68,14 @@
     margin-right: 40px;
 }
 
-.header_weather {
+.header_pc_weather {
     font: Bold 22px/34px NanumSquareOTF_ac;
 }
 
-.header_temperature {
+.header_pc_temperature {
     margin-left: 15px;
     font-size: 56px;
     font-family: SeoqaHanSans;
     color: #FFD939;
 }
+

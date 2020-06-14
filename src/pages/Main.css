@@ -1,0 +1,28 @@
+.main_container {
+
+}
+
+@media(max-width: 1000px) {
+    .main_container {
+        background: #F7F9FF 0% 0% no-repeat padding-box;
+        width: 100vw;
+        height: 100vh;
+    }
+}
+@media(min-width: 999px) {
+    .header_mobile_effectCircleTop {
+        display: none;
+    }
+}
+
+.header_mobile_effectCircleTop {
+    z-index: -1;
+    float: right;
+    width: 200px;
+    height: 200px;
+    margin-right: -76px;
+    margin-top: -83px;
+    border-radius: 100px;
+    border: 0px;
+    background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;
+}

@@ -1,5 +1,5 @@
 import React, {CSSProperties} from 'react';
-import logoKey from '../assets/images/logo_key.svg';
+import logoKey from '../assets/images/img_logo_key.svg';
 import txtHomeAt from '../assets/images/txt_homeat.svg';
 import './Logo.css'
 

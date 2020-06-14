@@ -2,6 +2,7 @@ import React, {CSSProperties, Component} from 'react';
 import CSS from 'csstype';
 import Logo from "./Logo";
 import './Header.scss'
+import {maxHeaderSize} from "http";
 
 // const styles:{[key:string]:CSSProperties}={
 //     base: {
@@ -38,40 +39,113 @@ import './Header.scss'
 //     }
 // }
 
-function Header() {
-    return (
-        <>
-            <div className="header_container">
-                <Logo/>
-                {isLogged() ? <Profile/> : <></>}
-                <button className="header_logoLogin"><span className="header_logoLoginText">{isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
-            </div>
-        </>
-    );
+interface State {
+    width:number;
 }
 
-function Profile() {
-    return (
-        <>
-            <img src={""} />
-            <div className="header_profileIntroduce">
-                <span>안녕하세요</span>
-                <span>{"xxx"}님</span>
-            </div>
-            <span className="header_dateText">1970년 1월 1일 0:00AM</span>
-            <div className="header_separator"/>
-            <div className="header_profileIntroduce">
-                <span>오늘의 날씨는</span>
-                <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
-            </div>
-            <span className="header_temperature">{20}℃</span>
-        </>
-    )
+interface Props {
+
 }
 
-function isLogged() {
-    return true
+class Header extends Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            width: window.innerWidth,
+        };
+    }
+    render() {
+        const isPC = window.innerWidth >= 1000;
+        if(isPC) {
+            return (
+                <>
+                    <div className="header_pc_container">
+                        <Logo/>
+                        {this.isLogged() ? <>
+                                <img src={""} />
+                                <div className="header_pc_profileIntroduce">
+                                    <span>안녕하세요</span>
+                                    <span>{"xxx"}님</span>
+                                </div>
+                                <span className="fullPC header_pc_dateText">1970년 1월 1일 0:00AM</span>
+                                <div className="fullPC header_pc_separator"/>
+                                <div className="fullPC header_pc_profileIntroduce">
+                                    <span>오늘의 날씨는</span>
+                                    <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
+                                </div>
+                                <span className="header_pc_temperature">{20}℃</span>
+                            </> : <></>}
+                        <button className="header_pc_logoLogin"><span className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <>
+
+                </>
+            );
+        }
+    }
+
+    componentWillMount() {
+        window.addEventListener('resize', this.handleWindowSizeChange);
+    }
+
+// make sure to remove the listener
+// when the component is not mounted anymore
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowSizeChange);
+    }
+
+    handleWindowSizeChange = () => {
+        this.setState({ width: window.innerWidth });
+    };
+
+    isLogged() {
+        return true
+    }
 }
+//
+// function Header() {
+//     const isPC = window.innerWidth >= 1000;
+//     if(isPC) {
+//         return (
+//             <>
+//                 <div className="header_pc_container">
+//                     <Logo/>
+//                     {isLogged() ? <Profile/> : <></>}
+//                     <button className="header_pc_logoLogin"><span className="header_pc_logoLoginText">{isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
+//                 </div>
+//             </>
+//         );
+//     } else {
+//         return (
+//             <>
+//
+//             </>
+//         )
+//     }
+// }
+//
+// function Profile() {
+//     return (
+//         <>
+//             <img src={""} />
+//             <div className="header_pc_profileIntroduce">
+//                 <span>안녕하세요</span>
+//                 <span>{"xxx"}님</span>
+//             </div>
+//             <span className="header_pc_dateText">1970년 1월 1일 0:00AM</span>
+//             <div className="header_pc_separator"/>
+//             <div className="header_pc_profileIntroduce">
+//                 <span>오늘의 날씨는</span>
+//                 <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
+//             </div>
+//             <span className="header_pc_temperature">{20}℃</span>
+//         </>
+//     )
+// }
 
 export default Header;
 
