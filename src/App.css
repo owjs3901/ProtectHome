@@ -28,6 +28,34 @@
   color: #61dafb;
 }
 
+@font-face {
+  font-family: "NanumSquareOTF_ac";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/NanumSquare_acR.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/NotoSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SpoqaHanSans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("") format("truetype");
+}
+
+/*@font-face {*/
+/*  font-family: "NanumSquareOTF_acB";*/
+/*  font-style: normal;*/
+/*  font-weight: 400;*/
+/*  src: url("/fonts/NanumSquare_acR.ttf") format("truetype");*/
+/*}*/
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

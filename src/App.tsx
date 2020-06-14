@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import Main from './pages/Main'
 
 function App() {
   return (
       <BrowserRouter>
+
         <Switch>
-          {/*<Route exact path='/' component={Home}/>*/}
+          <Route exact path='/' component={Main}/>
           {/*<Route path='/login' component={Login}/>*/}
           {/*<Route path='/info/:title' component={Info}/>*/}
           {/*<Route component={Error404}/>*/}
