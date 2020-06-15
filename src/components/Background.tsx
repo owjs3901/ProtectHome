@@ -1,6 +1,6 @@
 //메인
 import React from 'react';
-import Header from '../components/Header';
+import Header from './Header';
 import './Background.css'
 import circle from '../assets/images/img_circle.svg'
 

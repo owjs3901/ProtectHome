@@ -31,8 +31,14 @@ body{
 }
 
 body {
-  overflow-y: hidden;
-  overflow-x: hidden;
+
+}
+
+@media(max-width: 1000px) {
+  body {
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
 }
 
 @font-face {

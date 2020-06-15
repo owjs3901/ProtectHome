@@ -1,0 +1,41 @@
+
+.mainTap_pc_tap_element_selected {
+    @extend .noRespondButton;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 3px 0px 6px #D0D0D029;
+    border-radius: 20px 20px 0px 0px;
+    border: 0px solid;
+    text-align: center;
+    width: 192px;
+    height: 86px;
+    opacity: 1;
+    margin-right: 10px;
+    font: Bold 36px/40px Noto Sans;
+    color: #383838;
+    float: bottom;
+}
+
+.mainTap_pc_tap_element {
+    @extend .noRespondButton;
+    background: #73A2FC 0% 0% no-repeat padding-box;
+    border-radius: 20px 20px 0px 0px;
+    text-align: center;
+    border: 0px solid;
+    opacity: 1;
+    width: 192px;
+    height: 76px;
+    margin-right: 10px;
+    font: Bold 36px/40px Noto Sans;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    float: bottom;
+
+}
+
+.noRespondButton {
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+

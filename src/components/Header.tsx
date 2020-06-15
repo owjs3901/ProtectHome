@@ -66,17 +66,17 @@ class Header extends Component<Props, State> {
                         <Logo/>
                         {this.isLogged() ? <>
                             <img src="asd"/>
-                            <div className="header_pc_profileIntroduce">
+                            <div className="header_pc_profileIntroduce" style={{marginLeft: "20px"}}>
                                 <span>안녕하세요</span>
                                 <span>{"xxx"}님</span>
                             </div>
-                            <span className="fullPC header_pc_dateText">1970년 1월 1일 0:00AM</span>
-                            <div className="fullPC header_pc_separator"/>
-                            <div className="fullPC header_pc_profileIntroduce">
+                            <span className="fullPC header_pc_dateText" >1970년 1월 1일 0:00AM</span>
+                            <div className="header_pc_separator"/>
+                            <div className="header_pc_profileIntroduce">
                                 <span>오늘의 날씨는</span>
                                 <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
                             </div>
-                            <span className="header_pc_temperature">{20}℃</span>
+                            <span className="fullPC header_pc_temperature">{20}℃</span>
                         </> : <></>}
                         <button className="header_pc_logoLogin"><span
                             className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
