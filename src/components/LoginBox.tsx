@@ -1,5 +1,6 @@
 import React from 'react';
 import logoHome from '../assets/images/logo_home.svg';
+import { Link } from 'react-router-dom';
 
 function LoginBox() {
     return (
@@ -14,11 +15,13 @@ function LoginBox() {
             <div style={{width:"100%",textAlign:"left",margin:"60px 46px 15px 60px",fontSize:"18px"}}>
                 처음이신가요?
             </div>
-            <button style={{height:"79px", width:"100%", backgroundColor:"white",
-                borderRadius:"10px",color:"#73A2FC",fontSize:"23px",borderColor:"#73A2FC",
-            borderStyle:"solid",borderWidth:"2px"}}>
-                회원가입
-            </button>
+            <Link to={"/register"}>
+                <button style={{height:"79px", width:"100%", backgroundColor:"white",
+                    borderRadius:"10px",color:"#73A2FC",fontSize:"23px",borderColor:"#73A2FC",
+                borderStyle:"solid",borderWidth:"2px"}}>
+                    회원가입
+                </button>
+            </Link>
         </div>
     );
 }
