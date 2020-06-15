@@ -4,18 +4,22 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Main from './pages/Main'
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import {Provider} from "react-redux";
+import store from "./store/"
 
 function App() {
   return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/' component={Main}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/register' component={Register}/>
-          {/*<Route path='/info/:title' component={Info}/>*/}
-          {/*<Route component={Error404}/>*/}
-        </Switch>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/' component={Main}/>
+            <Route path='/login' component={Login}/>
+            <Route path='/register' component={Register}/>
+            {/*<Route path='/info/:title' component={Info}/>*/}
+            {/*<Route component={Error404}/>*/}
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
