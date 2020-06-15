@@ -5,6 +5,8 @@ import './Header.scss'
 import exampleImg from "../assets/images/img_exampleProfile.svg"
 import plusImg from "../assets/images/img_plus.svg"
 import {maxHeaderSize} from "http";
+import {connect} from "react-redux";
+import {storeState} from "../store";
 
 // const styles:{[key:string]:CSSProperties}={
 //     base: {
@@ -46,7 +48,7 @@ interface State {
 }
 
 interface Props {
-
+    isLogin:boolean
 }
 
 class Header extends Component<Props, State> {
@@ -118,7 +120,7 @@ class Header extends Component<Props, State> {
     };
 
     isLogged() {
-        return true
+        return this.props.isLogin;
     }
 }
 
@@ -163,5 +165,5 @@ class Header extends Component<Props, State> {
 //     )
 // }
 
-export default Header;
+export default connect((state:storeState)=>({isLogin:state.login}))(Header);
 
