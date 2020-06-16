@@ -1,0 +1,14 @@
+.blurBackground_blur {
+    position: absolute;
+    background: #73A2FC 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 0.4;
+    filter: blur(4px);
+}
+
+.blurBackground_background {
+    position: absolute;
+    background: #FFFFFF;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+}

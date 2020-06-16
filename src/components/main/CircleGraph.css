@@ -1,0 +1,27 @@
+.circleGraph_canvasBase {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.circleGraph_canvas {
+
+}
+
+.circleGraph_textContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.circleGraph_textContainer_title {
+    font: Bold 15px/22px SpoqaHanSans;
+    color: #767676;
+}
+
+.circleGraph_textContainer_value {
+    font: Bold 30px/45px SpoqaHanSans;
+    color: #FFD939;
+}

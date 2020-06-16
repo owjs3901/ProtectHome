@@ -3,8 +3,8 @@ import './MainTap.scss'
 
 interface Props {
     selected: boolean,
-    type: String,
-    onChanged: (type: String, clicked: boolean) => void
+    type: string,
+    onChanged: (type: string, clicked: boolean) => void
     content: JSX.Element
 }
 
