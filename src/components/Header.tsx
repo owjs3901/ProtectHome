@@ -6,7 +6,7 @@ import exampleImg from "../assets/images/img_exampleProfile.svg"
 import plusImg from "../assets/images/img_plus.svg"
 import {maxHeaderSize} from "http";
 import {connect} from "react-redux";
-import {storeState} from "../store";
+import store, {storeState} from "../store";
 
 // const styles:{[key:string]:CSSProperties}={
 //     base: {
@@ -80,7 +80,17 @@ class Header extends Component<Props, State> {
                             </div>
                             <span className="fullPC header_pc_temperature">{20}℃</span>
                         </> : <></>}
-                        <button className="header_pc_logoLogin"><span
+                        <button className="header_pc_logoLogin"
+                        onClick={e=>{
+                            store.dispatch({
+                                type:this.isLogged()?"LOGOUT":"LOGIN",
+                                payload:{
+                                    name:"test"
+                                }
+                            })
+                        }}
+
+                        ><span
                             className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
                     </div>
                 </>
