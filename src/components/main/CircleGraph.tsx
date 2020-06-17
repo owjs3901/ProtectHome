@@ -10,6 +10,8 @@ interface Props {
     maxValue: number;
     radiusCenter: number;
     radiusOuter: number;
+    fontTitle: string;
+    fontValue: string;
 }
 
 interface State {
@@ -73,8 +75,8 @@ class CircleGraph extends Component<Props, State> {
           <>
               <div className="circleGraph_canvasBase" style={{width: this.props.width + "px", height: this.props.height + "px"}}>
                   <div className="circleGraph_textContainer">
-                      <div className="circleGraph_textContainer_title">{this.props.title}</div>
-                      <div className="circleGraph_textContainer_value">{this.props.value}{this.props.unit}</div>
+                      <div className="circleGraph_textContainer_title" style={{font: this.props.fontTitle}}>{this.props.title}</div>
+                      <div className="circleGraph_textContainer_value" style={{font: this.props.fontValue}}>{this.props.value}{this.props.unit}</div>
                   </div>
                   <canvas ref={this.canvasRef} className="circleGraph_canvas" width={this.props.width} height={this.props.height}/>
               </div>

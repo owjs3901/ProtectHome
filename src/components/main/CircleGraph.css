@@ -19,9 +19,11 @@
 .circleGraph_textContainer_title {
     font: Bold 15px/22px SpoqaHanSans;
     color: #767676;
+    text-align: center;
 }
 
 .circleGraph_textContainer_value {
     font: Bold 30px/45px SpoqaHanSans;
     color: #FFD939;
+    text-align: center;
 }

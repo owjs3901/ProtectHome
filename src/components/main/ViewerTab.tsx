@@ -7,6 +7,7 @@ interface Props {
     text: string;
     width: number;
     height: number;
+    isPC: boolean;
 }
 
 interface State {
@@ -15,6 +16,20 @@ interface State {
 
 const DEFAULT_VALUE = {
 
+}
+
+const textPC = {
+    marginTop: "7px",
+    fontFamily: "SpoqaHanSans",
+    fontSize: "15px",
+    lineHeight: "22px",
+}
+
+const textMobile = {
+    marginTop: "6px",
+    fontFamily: "SpoqaHanSans",
+    fontSize: "12px",
+    lineHeight: "18px",
 }
 
 class ViewerTab extends Component<Props, State> {
@@ -31,10 +46,10 @@ class ViewerTab extends Component<Props, State> {
     }
     render() {
         return (
-            <BlurBackground width={this.props.width} height={this.props.height} content={
+            <BlurBackground noShadow={false} width={this.props.width} height={this.props.height} content={
                 <div style={{width: this.props.width, height: this.props.height, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-                        <img src={this.props.imgSrc}/>
-                        <div className="viewertab_text">{this.props.text}</div>
+                        <img src={this.props.imgSrc} width={this.props.width * 0.8} height={this.props.height * 0.8}/>
+                        <div className="viewertab_text" style={this.props.isPC ? textPC : textMobile}>{this.props.text}</div>
                 </div>
             }/>
         );

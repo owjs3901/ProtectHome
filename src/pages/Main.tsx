@@ -4,12 +4,15 @@ import Header from '../components/Header';
 import './Main.scss'
 import circle from '../assets/images/img_circle.svg'
 import Background from "../components/Background";
-import MainTap from "../components/main/MainTap";
+import MainTab from "../components/main/MainTab";
 import Adapter from "../components/main/Adapter";
 import BlurBackground from "../components/BlurBackground";
 import CircleGraph from "../components/main/CircleGraph";
 import ViewerTab from "../components/main/ViewerTab";
+import Friend from "../components/main/Friend";
 import imgCamera from '../assets/images/img_camera.svg'
+import exampleImg from "../assets/images/img_exampleProfile.svg"
+import friendPlusImg from "../assets/images/img_friendPlus.svg"
 
 interface Props {
 
@@ -24,12 +27,12 @@ interface State {
 
 const DEFAULT_STATE = {
     type: "Home",
-    temperature: 15,
-    humidity: 95,
+    temperature: 21,
+    humidity: 35,
 }
 
 class Main extends Component<Props, State> {
-     constructor(props: Props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -50,14 +53,18 @@ class Main extends Component<Props, State> {
         this.setState({width: window.innerWidth});
     };
 
-    onMainTabChanged = (type: string, clicked: Boolean) => {
+    handleMainTabClicked = (type: string, clicked: Boolean) => {
         console.log(type)
         this.setState({
             type: type
         })
     }
 
-    onAdapterChanged = (type: string, currentValue: number) => {
+    handleAdapterChanged = (type: string, currentValue: number) => {
+        console.log(type + ", " + currentValue)
+    }
+
+    onDeleteButtonClicked = (name: string, checked: boolean) => {
 
     }
 
@@ -75,70 +82,197 @@ class Main extends Component<Props, State> {
                     <div className="main_header"><Header/></div>
                     {isPC ?
                         <span className="main_pc_container">
-                        <div className="main_pc_tap">
-                            <MainTap type={"Home"} selected={type == "Home"} onChanged={this.onMainTabChanged}
+                        <div className="main_pc_tab">
+                            <MainTab type={"Home"} selected={type == "Home"} onChanged={this.handleMainTabClicked}
                                      content={<>Home</>}/>
-                            <MainTap type={"Friends"} selected={type == "Friends"} onChanged={this.onMainTabChanged}
+                            <MainTab type={"Friends"} selected={type == "Friends"} onChanged={this.handleMainTabClicked}
                                      content={<>Friends</>}/>
                         </div>
-                        <div className="main_pc_content">
+
+                            {type == "Home" ?
+                                <div className="main_pc_content">
+                                    <table>
+                                        <tr>
+                                            <td> {/* 온도 */}
+                                                <div className="main_pc_circleGraph">
+                                                    <BlurBackground noShadow={false} width={256} height={256}
+                                                                    content={<CircleGraph width={256} height={256}
+                                                                                          title={"온도"} unit={"℃"}
+                                                                                          value={this.state.temperature}
+                                                                                          maxValue={40}
+                                                                                          radiusCenter={75}
+                                                                                          radiusOuter={22}
+                                                                                          fontTitle={"Bold 15px/22px SpoqaHanSans"}
+                                                                                          fontValue={"Bold 30px/45px SpoqaHanSans"}/>}/>
+                                                </div>
+                                            </td>
+
+                                            <td> {/* 습도 */}
+                                                <div className="main_pc_circleGraph" style={{marginLeft: "40px"}}>
+                                                    <BlurBackground noShadow={false} width={256} height={256}
+                                                                    content={<CircleGraph width={256} height={256}
+                                                                                          title={"습도"} unit={"%"}
+                                                                                          value={this.state.humidity}
+                                                                                          maxValue={100}
+                                                                                          radiusCenter={75}
+                                                                                          radiusOuter={22}
+                                                                                          fontTitle={"Bold 15px/22px SpoqaHanSans"}
+                                                                                          fontValue={"Bold 30px/45px SpoqaHanSans"}/>}/>
+                                                </div>
+                                            </td>
+
+                                            <td rowSpan={2}> {/* 정보 */}
+                                                <div className="main_pc_viewer" style={{marginLeft: "40px"}}>
+                                                    <BlurBackground noShadow={false} width={737} height={646} content={
+                                                        <div style={{margin: "45px 45px 39px"}}>
+                                                            <div className="main_pc_viewer_animation"/>
+                                                            <div className="main_pc_viewer_animation_sub"/>
+                                                            <div className="main_pc_viewer_tab">
+                                                                <ViewerTab isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}
+                                                                           width={115} height={115}/>
+                                                            </div>
+                                                        </div>
+                                                    }/>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colSpan={2}>{/* 조절     width: 556px; height: 360px;*/}
+                                                <div className="main_pc_adapter" style={{marginTop: "30px"}}>
+                                                    <BlurBackground noShadow={false} width={556} height={360} content={
+                                                        <div>
+                                                            <div className="main_pc_adapter_header">
+                                                                <span className="main_pc_adapter_header_title">집 안의 전등을 조절해봐요</span>
+                                                                <button className="main_pc_adapter_header_editButton">
+                                                                    <span
+                                                                        className="main_pc_adapter_header_editButton_text">편집</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="main_pc_adapter_content">
+                                                                <Adapter isPC={true} type={"a"} width={24} height={200}
+                                                                         minValue={0} maxValue={100} firstValue={20}
+                                                                         onChanged={this.handleAdapterChanged}/>
+                                                                <Adapter isPC={true} type={"b"} width={24} height={200}
+                                                                         minValue={0} maxValue={100} firstValue={50}
+                                                                         onChanged={this.handleAdapterChanged}/>
+                                                                <Adapter isPC={true} type={"c"} width={24} height={200}
+                                                                         minValue={0} maxValue={100} firstValue={60}
+                                                                         onChanged={this.handleAdapterChanged}/>
+                                                                <Adapter isPC={true} type={"d"} width={24} height={200}
+                                                                         minValue={0} maxValue={100} firstValue={50}
+                                                                         onChanged={this.handleAdapterChanged}/>
+                                                                <Adapter isPC={true} type={"f"} width={24} height={200}
+                                                                         minValue={0} maxValue={100} firstValue={80}
+                                                                         onChanged={this.handleAdapterChanged}/>
+                                                            </div>
+                                                        </div>
+                                                    }/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                : <div className="main_pc_friends_content" style={{position: "relative"}}>
+                                    <div className="main_pc_friends_title" style={{textAlign: "left"}}>친구 목록</div>
+
+                                    <div style={{marginTop: "50px"}}/>
+
+                                    {/* friends */}
+                                    <Friend img={exampleImg} name={"이지금"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
+                                            onDeleteButtonClicked={this.onDeleteButtonClicked}/>
+                                    <div className="main_pc_friends_separator"/>
+                                    <Friend img={exampleImg} name={"이지금"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
+                                            onDeleteButtonClicked={this.onDeleteButtonClicked}/>
+                                    <div className="main_pc_friends_separator"/>
+                                    <Friend img={exampleImg} name={"이지금"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
+                                            onDeleteButtonClicked={this.onDeleteButtonClicked}/>
+
+                                    <img src={friendPlusImg} style={{
+                                        textAlign: "right",
+                                        position: "absolute",
+                                        bottom: "50px",
+                                        right: "60px"
+                                    }}/>
+
+                                </div>}
+                        </span>
+                        : <div style={{
+                            width: "100%",
+                            marginTop: "17px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}> {/* mobile */}
                             <table>
                                 <tr>
-                                    <td> {/* 온도 */}
-                                        <div className="main_pc_circleGraph">
-                                            <BlurBackground width={256} height={256} content={<CircleGraph width={256} height={256} title={"온도"} unit={"℃"} value={20} maxValue={40} radiusCenter={75} radiusOuter={22} />}/>
-                                        </div>
+                                    <td>
+                                        <BlurBackground noShadow={false} width={140} height={140} content={<>
+                                            <CircleGraph width={140} height={140} title={"온도"} unit={"℃"}
+                                                         value={this.state.temperature} maxValue={40} radiusCenter={39}
+                                                         radiusOuter={11} fontTitle={"Bold 9px/10px NanumSquareOTF_ac"}
+                                                         fontValue={"Bold 18px/27px SpoqaHanSans"}/>
+                                        </>}/>
                                     </td>
-
-                                    <td > {/* 습도 */}
-                                        <div className="main_pc_circleGraph" style={{marginLeft: "40px"}}>
-                                            <BlurBackground width={256} height={256} content={<CircleGraph width={256} height={256} title={"습도"} unit={"%"} value={95} maxValue={100} radiusCenter={75} radiusOuter={22} />}/>
-                                        </div>
-                                    </td>
-
-                                    <td rowSpan={2}> {/* 정보 */}
-                                        <div className="main_pc_viewer" style={{marginLeft: "40px"}}>
-                                             <BlurBackground width={737} height={646} content={
-                                                 <div style={{margin: "45px 45px 39px"}}>
-                                                     <div className="main_pc_viewer_animation"/>
-                                                     <div className="main_pc_viewer_animation_sub"/>
-                                                     <div className="main_pc_viewer_tab">
-                                                           <ViewerTab imgSrc={imgCamera} text={"방범용 카메라"} width={115} height={115}/>
-                                                      </div>
-                                                  </div>
-                                             }/>
+                                    <td>
+                                        <div style={{marginLeft: "12px"}}>
+                                            <BlurBackground noShadow={false} width={140} height={140} content={<>
+                                                <CircleGraph width={140} height={140} title={"습도"} unit={"%"}
+                                                             value={this.state.humidity} maxValue={100}
+                                                             radiusCenter={39} radiusOuter={11}
+                                                             fontTitle={"Bold 9px/10px NanumSquareOTF_ac"}
+                                                             fontValue={"Bold 18px/27px SpoqaHanSans"}/>
+                                            </>}/>
                                         </div>
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <td colSpan={2}>{/* 조절     width: 556px; height: 360px;*/}
-                                        <div className="main_pc_adapter" style={{marginTop: "30px"}}>
-                                            <BlurBackground width={556} height={360} content={
-                                                <div>
-                                                    <div className="main_pc_adapter_header">
-                                                        <span className="main_pc_adapter_header_title">집 안의 전등을 조절해봐요</span>
-                                                        <button className="main_pc_adapter_header_editButton">
-                                                            <span className="main_pc_adapter_header_editButton_text">편집</span>
-                                                        </button>
-                                                    </div>
-                                                    <div className="main_pc_adapter_content">
-                                                        <Adapter type={"a"} height={200} minValue={0} maxValue={100} firstValue={50} onChanged={this.onAdapterChanged} />
-                                                        <Adapter type={"b"} height={200} minValue={0} maxValue={100} firstValue={50} onChanged={this.onAdapterChanged} />
-                                                        <Adapter type={"c"} height={200} minValue={0} maxValue={100} firstValue={50} onChanged={this.onAdapterChanged} />
-                                                        <Adapter type={"d"} height={200} minValue={0} maxValue={100} firstValue={50} onChanged={this.onAdapterChanged} />
-                                                        <Adapter type={"d"} height={200} minValue={0} maxValue={100} firstValue={50} onChanged={this.onAdapterChanged} />
-                                                    </div>
+                                    <td colSpan={2}>
+                                        <div style={{
+                                            marginTop: "24px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center"
+                                        }}>
+                                            <BlurBackground noShadow={true} width={292} height={166} content={<>
+                                                <div className="main_mobile_adapter_header">
+                                                    <span
+                                                        className="main_mobile_adapter_header_title">집 안의 전등을 조절해봐요</span>
+                                                    <button className="main_mobile_adapter_header_editButton">
+                                                        <span
+                                                            className="main_mobile_adapter_header_editButton_text">편집</span>
+                                                    </button>
                                                 </div>
-                                            }/>
+                                                <div className="main_mobile_adapter_content">
+                                                    <Adapter isPC={false} type={"a"} width={12} height={100}
+                                                             minValue={0} maxValue={100} firstValue={20}
+                                                             onChanged={this.handleAdapterChanged}/>
+                                                    <Adapter isPC={false} type={"b"} width={12} height={100}
+                                                             minValue={0} maxValue={100} firstValue={50}
+                                                             onChanged={this.handleAdapterChanged}/>
+                                                    <Adapter isPC={false} type={"c"} width={12} height={100}
+                                                             minValue={0} maxValue={100} firstValue={60}
+                                                             onChanged={this.handleAdapterChanged}/>
+                                                    <Adapter isPC={false} type={"d"} width={12} height={100}
+                                                             minValue={0} maxValue={100} firstValue={50}
+                                                             onChanged={this.handleAdapterChanged}/>
+                                                    <Adapter isPC={false} type={"f"} width={12} height={100}
+                                                             minValue={0} maxValue={100} firstValue={80}
+                                                             onChanged={this.handleAdapterChanged}/>
+                                                </div>
+                                            </>}/>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
-                        </div>
-                    </span>
-                        : <div>
-                            asdfasdf
+                            <div style={{width: "292px"}}>
+                                <div className="main_mobile_other_text">그 외 관리</div>
+                                <div className="main_mobile_other_components">
+                                    <ViewerTab isPC={false} imgSrc={imgCamera} text={"방범용 카메라"} width={84} height={84} />
+                                </div>
+                            </div>
+
                         </div>}
                 </div>
             </div>

@@ -2,13 +2,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 100px;
 }
 
 .adapter_graph_container {
     /*height: 185px;*/
     text-align: left;
-    width: 24px;
     position:relative;
 }
 
@@ -25,7 +23,6 @@
 }
 .adapter_graph_endPoint {
     position: absolute;
-    bottom: 59px;
     left: 0;
     background: #FFD939 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #FF808029;
@@ -37,5 +34,4 @@
 .adapter_graph_text {
     font: Regular 22px/25px NanumSquareOTF_ac;
     color: #767676;
-    margin-top: 18px;
 }
