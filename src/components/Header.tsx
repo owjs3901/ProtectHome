@@ -3,7 +3,7 @@ import CSS from 'csstype';
 import Logo from "./Logo";
 import './Header.scss'
 import exampleImg from "../assets/images/img_exampleProfile.svg"
-import plusImg from "../assets/images/img_plus.svg"
+import plusImg from "../assets/images/img_mobile_friendPlus.svg"
 import {maxHeaderSize} from "http";
 
 // const styles:{[key:string]:CSSProperties}={
@@ -65,7 +65,7 @@ class Header extends Component<Props, State> {
                     <div className="header_pc_container">
                         <Logo/>
                         {this.isLogged() ? <>
-                            <img src="asd"/>
+                            <img className="header_pc_profileImg" src={exampleImg}/>
                             <div className="header_pc_profileIntroduce" style={{marginLeft: "20px"}}>
                                 <span>안녕하세요</span>
                                 <span>{"xxx"}님</span>
@@ -96,7 +96,7 @@ class Header extends Component<Props, State> {
                             <span className="header_mobile_weatherTitle">오늘의 날씨는</span>
                             <span className="header_mobile_weatherSubTitle">{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
                         </div>
-                        <span className="header_mobile_temperature">{20}℃</span>
+                        <div className="header_mobile_temperature">{20}℃</div>
                     </div>
                 </div>
             );

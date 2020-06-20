@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import './MainTap.scss'
+import './MainTab.scss'
 
 interface Props {
     selected: boolean,
-    type: String,
-    onChanged: (type: String, clicked: boolean) => void
+    type: string,
+    onChanged: (type: string, clicked: boolean) => void
     content: JSX.Element
 }
 
 interface State {
 }
 
-class MainTap extends Component<Props, State> {
+class MainTab extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         console.log(this.props.type + ", " + this.props.selected)
@@ -48,4 +48,4 @@ class MainTap extends Component<Props, State> {
     }
 }
 
-export default MainTap
+export default MainTab
