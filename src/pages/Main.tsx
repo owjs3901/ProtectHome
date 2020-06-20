@@ -13,6 +13,15 @@ import Friend from "../components/main/Friend";
 import imgCamera from '../assets/images/img_camera.svg'
 import exampleImg from "../assets/images/img_exampleProfile.svg"
 import friendPlusImg from "../assets/images/img_friendPlus.svg"
+import friendDeleteImg from "../assets/images/img_friendDelete.svg"
+
+/*
+1. 웹&모바일-방범용카메라 글자 살짝만 올려주세요
+2. 웹&모바일방법용카메라 아이콘 0.9배 해주세요
+— 그리고 온도표시 유니코드 실적용하는거 다시보니깐 너무 이상해서 그대로 가는게 맞을것같아요!
+
+
+ */
 
 interface Props {
 
@@ -23,12 +32,14 @@ interface State {
     temperature: number;
     humidity: number;
     width: number;
+    selected: {[name: string]: boolean}
 }
 
 const DEFAULT_STATE = {
     type: "Home",
     temperature: 21,
     humidity: 35,
+    selected: {}
 }
 
 class Main extends Component<Props, State> {
@@ -64,8 +75,26 @@ class Main extends Component<Props, State> {
         console.log(type + ", " + currentValue)
     }
 
-    onDeleteButtonClicked = (name: string, checked: boolean) => {
+    onFriendSelect = (name: string, checked: boolean) => {
+        if(checked) {
+            this.state.selected[name] = true
+        } else {
+            delete this.state.selected[name]
+        }
+        console.log(this.state.selected)
+        this.setState({
 
+        })
+    }
+
+    onFriendAddOrDelete = () => {
+        if(Object.keys(this.state.selected).length > 0) {
+            // TODO delete friends
+
+        } else {
+            // TODO add a friend
+
+        }
     }
 
     componentDidMount() {
@@ -128,7 +157,7 @@ class Main extends Component<Props, State> {
                                                             <div className="main_pc_viewer_animation"/>
                                                             <div className="main_pc_viewer_animation_sub"/>
                                                             <div className="main_pc_viewer_tab">
-                                                                <ViewerTab isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}
+                                                                <ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}
                                                                            width={115} height={115}/>
                                                             </div>
                                                         </div>
@@ -179,16 +208,16 @@ class Main extends Component<Props, State> {
                                     <div style={{marginTop: "50px"}}/>
 
                                     {/* friends */}
-                                    <Friend img={exampleImg} name={"이지금"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
-                                            onDeleteButtonClicked={this.onDeleteButtonClicked}/>
+                                    <Friend img={exampleImg} name={"a"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
+                                            onDeleteButtonClicked={this.onFriendSelect}/>
                                     <div className="main_pc_friends_separator"/>
-                                    <Friend img={exampleImg} name={"이지금"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
-                                            onDeleteButtonClicked={this.onDeleteButtonClicked}/>
+                                    <Friend img={exampleImg} name={"b"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
+                                            onDeleteButtonClicked={this.onFriendSelect}/>
                                     <div className="main_pc_friends_separator"/>
-                                    <Friend img={exampleImg} name={"이지금"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
-                                            onDeleteButtonClicked={this.onDeleteButtonClicked}/>
+                                    <Friend img={exampleImg} name={"c"} lastJoined={"접속일시 : 1월 20일 9:40AM"}
+                                            onDeleteButtonClicked={this.onFriendSelect}/>
 
-                                    <img src={friendPlusImg} style={{
+                                    <img src={Object.keys(this.state.selected).length > 0 ? friendDeleteImg : friendPlusImg} style={{
                                         textAlign: "right",
                                         position: "absolute",
                                         bottom: "50px",
@@ -269,7 +298,7 @@ class Main extends Component<Props, State> {
                             <div style={{width: "292px"}}>
                                 <div className="main_mobile_other_text">그 외 관리</div>
                                 <div className="main_mobile_other_components">
-                                    <ViewerTab isPC={false} imgSrc={imgCamera} text={"방범용 카메라"} width={84} height={84} />
+                                    <ViewerTab noShadow={true} isPC={false} imgSrc={imgCamera} text={"방범용 카메라"} width={84} height={84} />
                                 </div>
                             </div>
 

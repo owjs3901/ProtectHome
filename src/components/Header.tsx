@@ -3,7 +3,7 @@ import CSS from 'csstype';
 import Logo from "./Logo";
 import './Header.scss'
 import exampleImg from "../assets/images/img_exampleProfile.svg"
-import plusImg from "../assets/images/img_plus.svg"
+import plusImg from "../assets/images/img_mobile_friendPlus.svg"
 import {maxHeaderSize} from "http";
 
 // const styles:{[key:string]:CSSProperties}={

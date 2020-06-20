@@ -7,6 +7,7 @@ interface Props {
     text: string;
     width: number;
     height: number;
+    noShadow: boolean;
     isPC: boolean;
 }
 
@@ -46,7 +47,7 @@ class ViewerTab extends Component<Props, State> {
     }
     render() {
         return (
-            <BlurBackground noShadow={false} width={this.props.width} height={this.props.height} content={
+            <BlurBackground noShadow={this.props.noShadow} width={this.props.width} height={this.props.height} content={
                 <div style={{width: this.props.width, height: this.props.height, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
                         <img src={this.props.imgSrc} width={this.props.width * 0.8} height={this.props.height * 0.8}/>
                         <div className="viewertab_text" style={this.props.isPC ? textPC : textMobile}>{this.props.text}</div>
