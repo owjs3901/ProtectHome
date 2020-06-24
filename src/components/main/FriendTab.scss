@@ -1,0 +1,101 @@
+.friend_container {
+    display: flex;
+    align-items: center;
+    width: 1305px;
+}
+
+.friend_profileImg {
+
+}
+
+.friend_info {
+    display: flex;
+}
+
+.friend_name {
+    font: Bold 24px/26px NanumSquareOTF_ac;
+    color: #191919;
+    margin-left: 24px;
+}
+
+.friend_lastJoined {
+    font: Regular 22px/25px NanumSquareOTF_ac;
+    color: #6F6F6F;
+    margin-left: 37px;
+}
+
+.friend_deleteImg {
+    width: 40px;
+    height: 40px;
+}
+
+.friend_deleteButton {
+    @extend .noRespondButton;
+    background: transparent;
+    border: 0px;
+    margin-left: auto;
+    margin-right: 27px;
+}
+
+.friend_deleteButton_mobile {
+    display: none;
+    @extend .noRespondButton;
+    background: transparent;
+    border: 0px;
+    margin-left: auto;
+    margin-right: 26px;
+}
+
+.noRespondButton {
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+@media (max-width: 1000px) {
+    .friend_container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .friend_profileImg {
+        margin-left: 39px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .friend_info {
+        margin-left: 17px;
+    }
+
+    .friend_name {
+        font: Bold 16px/18px NanumSquareOTF_ac;
+        margin-left: 0px;
+    }
+
+    .friend_lastJoined {
+        font-family: NanumSquareOTF_ac;
+        font-size: 12px;
+        line-height: 13px;
+        margin-left: 0px;
+        margin-top: 6px;
+    }
+
+    .friend_deleteButton {
+        display: none;
+    }
+
+    .friend_deleteButton_mobile {
+        display: inline;
+    }
+
+    .friend_info {
+        flex-direction: column;
+    }
+
+    .friend_deleteImg {
+        width: 30px;
+        height: 30px;
+    }
+}

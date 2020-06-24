@@ -1,0 +1,247 @@
+.registerBox_container {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 6px 20px #89898929;
+    border-radius: 30px;
+    width: 560px;
+    height: 864px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 52px auto;
+}
+
+.registerBox_title {
+    font-family: NanumSquare_ac;
+    font-size: 29px;
+    line-height: 35px;
+    color: #191919;
+    margin-top: 75px;
+}
+
+.registerBox_logo {
+    height: auto;
+    margin-top: 39px;
+
+    width: 390px;
+}
+
+.registerBox_checkLogo {
+    height: auto;
+    margin-top: 48px;
+    width: 76px;
+}
+
+.registerBox_question {
+    font-family: NanumSquare_ac;
+    font-size: 21px;
+    line-height: 25px;
+    margin-top: 37px;
+    color: #676767;
+}
+
+.registerBox_registerLink {
+    @extend .noRespondButton;
+    font-family: NanumSquare_ac;
+    font-size: 16px;
+    line-height: 19px;
+    margin-top: 21px;
+    text-decoration: underline;
+    color: #73A2FC;
+    border: 0px;
+}
+
+.registerBox_register_title {
+    font-family: NanumSquare_ac;
+    font-size: 29px;
+    line-height: 35px;
+    margin-top: 119px;
+}
+
+.registerBox_register_pin_container {
+    margin-top: 39px;
+    display: flex;
+    align-items: baseline;
+}
+
+.registerBox_register_pin_input {
+    border: 0px;
+    background: transparent;
+    font: Bold 89px/107px Lato;
+    letter-spacing: 17.8px;
+    color: #417FF8;
+    width: 70px;
+    height: 114px;
+    border-bottom: 2px solid #73A2FC;
+    text-align: center;
+    outline: none;
+    padding: 0px;
+}
+
+.registerBox_register_pin_gap {
+    width: 30px;
+}
+
+.registerBox_register_nickname {
+    font-family: NanumSquare_ac;
+    font-size: 29px;
+    line-height: 35px;
+    margin-top: 112px;
+}
+
+.registerBox_register_button {
+    @extend .noRespondButton;
+    width: 468px;
+    height: 79px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 2px solid #73A2FC;
+    border-radius: 10px;
+    font-family: NanumSquare_ac;
+    margin-top: 67px;
+    font-size: 22px;
+    line-height: 26px;
+    color: #73A2FC;
+}
+
+.registerBox_register_nickname_input {
+
+}
+
+.registerBox_register_is_corrected_container_corrected {
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    justify-content: flex-end;
+    font-family: NanumSquare_ac;
+    font-size: 24px;
+    line-height: 29px;
+    color: #417FF8;
+    margin-top: 16px;
+    margin-right: 90px;
+}
+
+.registerBox_register_is_corrected_container {
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    justify-content: flex-end;
+    font-family: NanumSquare_ac;
+    font-size: 24px;
+    line-height: 29px;
+    color: #F84141;
+    margin-top: 16px;
+    margin-right: 90px;
+}
+
+.registerBox_register_is_corrected_img {
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+}
+
+.registerBox_register_header {
+    display: none;
+}
+
+.registerBox_register_nickname {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registerBox_register_pin_pc {
+
+}
+
+.registerBox_register_pin_mobile {
+    display: none;
+}
+
+.noRespondButton {
+    background: transparent;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+@media (max-width: 1000px) {
+    .registerBox_register_header {
+        display: flex;
+        align-items: center;
+        height: 80px;
+        width: 100%;
+    }
+
+    .registerBox_logo {
+        margin-top: 31px;
+        width: 240px;
+    }
+
+    .registerBox_container {
+        width: 100vw;
+        height: 100vh;
+        margin: 0px;
+        padding: 0px;
+        box-shadow: 0px 0px 0px;
+        border-radius: 0px;
+    }
+
+    .registerBox_checkLogo {
+        width: 48px;
+        height: auto;
+    }
+
+    .registerBox_question {
+        font: Regular 15px/18px NanumSquare_ac;
+    }
+
+    .registerBox_registerLink {
+        font: Regular 12px/14px NanumSquare_ac;
+    }
+
+    .registerBox_title {
+        margin-top: 0px;
+        font: Regular 20px/24px NanumSquare_ac;
+    }
+
+    .registerBox_register_title {
+        //font: Regular 15px/18px NanumSquare_ac;
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .registerBox_register_pin_input {
+        width: 36px;
+        height: 60px;
+        font-size: 46px;
+        line-height: 55px;
+    }
+
+    .registerBox_register_is_corrected_container {
+        //font: Regular 12px/14px NanumSquare_ac;
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .registerBox_register_is_corrected_container_corrected {
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .registerBox_register_is_corrected_img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .registerBox_register_pin_pc {
+        display: none;
+    }
+
+    .registerBox_register_pin_mobile {
+        display: block;
+    }
+
+    .registerBox_register_button {
+        display: none;
+    }
+}

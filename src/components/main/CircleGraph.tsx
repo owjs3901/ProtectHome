@@ -2,16 +2,10 @@ import React, {Component, createRef} from 'react';
 import './CircleGraph.css'
 
 interface Props {
-    width: number;
-    height: number;
     title: string;
     unit: string;
     value: number;
     maxValue: number;
-    radiusCenter: number;
-    radiusOuter: number;
-    fontTitle: string;
-    fontValue: string;
 }
 
 interface State {
@@ -20,6 +14,7 @@ interface State {
 
 class CircleGraph extends Component<Props, State> {
     canvasRef = createRef<HTMLCanvasElement>()
+    canvasRefMobile = createRef<HTMLCanvasElement>()
 
     drawArc(element: HTMLCanvasElement, x: number, y: number, radiusCenter: number, radiusOuter: number, percent: number) {
         if(element) {
@@ -67,18 +62,20 @@ class CircleGraph extends Component<Props, State> {
     }
 
     componentDidMount() {
-        this.drawArc(this.canvasRef.current!, this.props.width / 2, this.props.height / 2, this.props.radiusCenter, this.props.radiusOuter, this.props.value / this.props.maxValue * 100)
+        this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, this.props.value / this.props.maxValue * 100)
+        this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, this.props.value / this.props.maxValue * 100)
     }
 
     render() {
         return (
           <>
-              <div className="circleGraph_canvasBase" style={{width: this.props.width + "px", height: this.props.height + "px"}}>
+              <div className="circleGraph_canvasBase">
                   <div className="circleGraph_textContainer">
-                      <div className="circleGraph_textContainer_title" style={{font: this.props.fontTitle}}>{this.props.title}</div>
-                      <div className="circleGraph_textContainer_value" style={{font: this.props.fontValue}}>{this.props.value}{this.props.unit}</div>
+                      <div className="circleGraph_textContainer_title">{this.props.title}</div>
+                      <div className="circleGraph_textContainer_value">{this.props.value}{this.props.unit}</div>
                   </div>
-                  <canvas ref={this.canvasRef} className="circleGraph_canvas" width={this.props.width} height={this.props.height}/>
+                  <canvas ref={this.canvasRef} className="circleGraph_canvas_pc" width={256} height={256}/>
+                  <canvas ref={this.canvasRefMobile} className="circleGraph_canvas_mobile" width={140} height={140}/>
               </div>
           </>
         );

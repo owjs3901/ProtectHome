@@ -1,0 +1,52 @@
+.main_x_background {
+
+}
+
+.main_x_container {
+    width: 100vw;
+    z-index: 0;
+    position: absolute;
+    left: 0px;
+}
+
+.main_x_header {
+
+}
+
+@media(max-width: 1000px) {
+    .main_x_background {
+        background: #F7F9FF 0% 0% no-repeat padding-box;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+    }
+    .main_x_pc {
+        display: none;
+    }
+}
+
+@media (min-width: 999px) {
+    .main_x_mobile {
+        display: none;
+    }
+}
+
+
+.main_x_deletePopup {
+    position:absolute;
+    z-index:999;
+    display:none;
+    width: 474px;
+    height: 236px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #0000004D;
+    border-radius: 4px;
+}
+
+.main_pc {
+
+}
+
+.main_mobile {
+
+}

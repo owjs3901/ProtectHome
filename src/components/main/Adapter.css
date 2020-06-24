@@ -2,12 +2,16 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    width: 100px;
+    height: 250px;
 }
 
 .adapter_graph_container {
     /*height: 185px;*/
     text-align: left;
     position:relative;
+    width: 24px;
+    height: 250px;
 }
 
 .adapter_graph_bar {
@@ -19,7 +23,7 @@
     box-shadow: 0px 3px 6px #496EA01A;
     border-radius: 10px;
     width:24px;
-    height:80px;
+    height:50px;
 }
 .adapter_graph_endPoint {
     position: absolute;
@@ -32,6 +36,38 @@
 }
 
 .adapter_graph_text {
-    font: Regular 22px/25px NanumSquareOTF_ac;
+    font-family: NanumSquareOTF_ac;
+    font-size: 22px;
+    line-height: 25px;
     color: #767676;
+    margin-top: 18px;
+}
+
+@media (max-width: 1000px) {
+    .adapter_graph_bar {
+        width: 12px;
+    }
+
+    .adapter_graph_endPoint {
+        width: 12px;
+        height: 12px;
+        bottom: 38px;
+    }
+
+    .adapter_container {
+        width: 50px;
+        height: 100px;
+    }
+
+    .adapter_graph_container {
+        width: 12px;
+        height: 100px;
+    }
+
+    .adapter_graph_text {
+        font-family: SpoqaHanSans;
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 5px;
+    }
 }

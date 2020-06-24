@@ -42,7 +42,7 @@ import {maxHeaderSize} from "http";
 // }
 
 interface State {
-    width: number;
+
 }
 
 interface Props {
@@ -52,55 +52,36 @@ interface Props {
 class Header extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = {
-            width: window.innerWidth,
-        };
+    }
+
+    gotoFriend() {
+
     }
 
     render() {
-        const isPC = window.innerWidth >= 1000;
-        if (isPC) {
-            return (
-                <>
-                    <div className="header_pc_container">
-                        <Logo/>
-                        {this.isLogged() ? <>
-                            <img className="header_pc_profileImg" src={exampleImg}/>
-                            <div className="header_pc_profileIntroduce" style={{marginLeft: "20px"}}>
-                                <span>안녕하세요</span>
-                                <span>{"xxx"}님</span>
-                            </div>
-                            <span className="fullPC header_pc_dateText" >1970년 1월 1일 0:00AM</span>
-                            <div className="header_pc_separator"/>
-                            <div className="header_pc_profileIntroduce">
-                                <span>오늘의 날씨는</span>
-                                <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
-                            </div>
-                            <span className="fullPC header_pc_temperature">{20}℃</span>
-                        </> : <></>}
-                        <button className="header_pc_logoLogin"><span
-                            className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
-                    </div>
-                </>
-            );
-        } else {
-            return (
-                <div className="header_mobile_container">
-                    <div className="header_mobile_containerFriends">
-                        <img className="header_mobile_profileImg" src={exampleImg}/>
-                        <img className="header_mobile_profileImg" src={plusImg} width="36px" height="36px"/>
-                    </div>
-
-                    <div className="header_mobile_containerWeather">
-                        <div className="header_mobile_containerTitle">
-                            <span className="header_mobile_weatherTitle">오늘의 날씨는</span>
-                            <span className="header_mobile_weatherSubTitle">{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
+        return (
+            <>
+                <div className="header_pc_container">
+                    <Logo/>
+                    {this.isLogged() ? <>
+                        <img className="header_pc_profileImg" src={exampleImg}/>
+                        <div className="header_pc_profileIntroduce" style={{marginLeft: "20px"}}>
+                            <span>안녕하세요</span>
+                            <span>{"xxx"}님</span>
                         </div>
-                        <div className="header_mobile_temperature">{20}℃</div>
-                    </div>
+                        <span className="fullPC header_pc_dateText">1970년 1월 1일 0:00AM</span>
+                        <div className="header_pc_separator"/>
+                        <div className="header_pc_profileIntroduce">
+                            <span>오늘의 날씨는</span>
+                            <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
+                        </div>
+                        <span className="fullPC header_pc_temperature">{20}℃</span>
+                    </> : <></>}
+                    <button className="header_pc_logoLogin"><span
+                        className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
                 </div>
-            );
-        }
+            </>
+        );
     }
 
     componentWillMount() {

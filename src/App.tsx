@@ -1,17 +1,44 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+// import Main from '../past/Main'
 import Main from './pages/Main'
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import TestPage from "./pages/TestPage";
+// import FriendListMobile from "../past/FriendListMobile";
+
+/*
+남은 것
+PC 페이지
+-1. 웹_회원가입2 (OTP 입력창)
+2. 웹_친구추가_번호 (번호 보여주는 창)
+
+a. 친구목록_삭제팝업
+
+모바일 페이지
+-1. 초대받은자_otp입력
+-1-1. 닉네임설정
+-2. 로그인_회원가입
+
+-a. 친구목록_삭제
+b. 친구목록_삭제팝업
+c. 친구목록_추가번호
+
+(+api 호출창)
+
+ */
 
 function App() {
   return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Main}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/register' component={Register}/>
+            {/*<Route exact path='/' component={Main}/>*/}
+            <Route path='/main' component={Main}/>
+            <Route path='/login' component={Login}/>
+            <Route path='/register' component={Register}/>
+            <Route path='/test' component={TestPage}/>
+            {/*<Route path='/friend' component={FriendListMobile}/>*/}
           {/*<Route path='/info/:title' component={Info}/>*/}
           {/*<Route component={Error404}/>*/}
         </Switch>

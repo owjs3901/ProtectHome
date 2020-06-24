@@ -21,6 +21,7 @@
     top: -27.8vw;
     border-radius: 100px;
     border: 0px;
+    z-index: -1;
     /*background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;*/
 }
 
@@ -32,6 +33,7 @@
     top: 25.6vh;
     border-radius: 100px;
     border: 0px;
+    z-index: -1;
     /*background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;*/
 }
 
@@ -43,5 +45,6 @@
     top: 71.4vh;
     border-radius: 100px;
     border: 0px;
+    z-index: -1;
     /*background: transparent radial-gradient(closest-side at 50% 50%, #FFFFFF 0%, #4393FF 500%) 0% 0% no-repeat padding-box;*/
 }

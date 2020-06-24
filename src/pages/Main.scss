@@ -1,42 +1,19 @@
-.main_background {
-
-}
-
 .main_container {
-    width: 100vw;
-    z-index: 0;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-}
-
-.main_header {
-
-}
-
-@media(max-width: 1000px) {
-    .main_background {
-        background: #F7F9FF 0% 0% no-repeat padding-box;
-        width: 100vw;
-        height: 100vh;
-        overflow-x: hidden;
-    }
-}
-
-.main_pc_container {
     display: table;
     margin: 0 auto;
 }
 
-.main_pc_tab {
+.main_tab {
     text-align: left;
     margin-left: 24px;
     margin-top: 50px;
     display: flex;
 }
 
-.main_pc_content {
+.main_content {
+    display: flex;
     text-align: center;
+    align-items: center;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 6px 20px #89898929;
     border-radius: 20px;
@@ -44,52 +21,89 @@
     margin-bottom: 44px;
 }
 
+.main_weather {
+    display: flex;
+    align-items: center;
+}
+
 /* blocks */
 
 /* blocks-circleGraph */
-.main_pc_circleGraph {
+.main_circleGraph_temperature {
+    width: 256px;
+    height: 256px;
+}
+
+.main_circleGraph_temperature .blur {
+    width: 256px;
+    height: 256px;
+}
+
+.main_circleGraph_humidity {
+    width: 256px;
+    height: 256px;
+    margin-left: 40px;
+}
+
+.main_circleGraph_humidity .blur {
     width: 256px;
     height: 256px;
 }
 
 /* blocks-adapter */
-.main_pc_adapter {
+.main_adapter {
+    width: 556px;
+    height: 360px;
+    margin-top: 30px;
+}
+
+.main_adapter .blur {
     width: 556px;
     height: 360px;
 }
 
 /* blocks-viewer */
-.main_pc_viewer {
+.main_viewer {
     width: 737px;
     height: 646px;
 }
 
-.main_pc_viewer_animation {
+.main_viewer .blur {
+    width: 737px;
+    height: 646px;
+}
+
+.main_viewer_animation {
     width: 646px;
     height: 363px;
     border: 1px solid #707070;
 }
 
-.main_pc_viewer_animation_sub {
+.main_viewer_animation_sub {
     width: 646px;
     height: 47px;
     border: 1px solid #707070;
 }
 
-.main_pc_viewer_tab {
+.main_viewer_tab {
     display: flex;
     align-items: center;
     height: 190px;
 }
 
+.main_viewer_tab .blur {
+    width: 115px;
+    height: 115px;
+}
+
 /* blocks-adapter */
-.main_pc_adapter_header {
+.main_adapter_header {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.main_pc_adapter_content {
+.main_adapter_content {
     position: absolute;
     margin-left: 30px;
     margin-right: 30px;
@@ -99,7 +113,7 @@
     vertical-align: bottom;
 }
 
-.main_pc_adapter_header_title {
+.main_adapter_header_title {
     font: Bold 22px/25px NanumSquareOTF_ac;
     margin-left: 20px;
     margin-top: 20px;
@@ -107,9 +121,8 @@
     color: #191919;
 }
 
-.main_pc_adapter_header_editButton {
+.main_adapter_header_editButton {
     @extend .noRespondButton;
-    background: transparent;
     width: 72px;
     height: 32px;
     border: 1px solid #D8D8D8;
@@ -119,13 +132,14 @@
     margin-left: auto;
 }
 
-.main_pc_adapter_header_editButton_text {
+.main_adapter_header_editButton_text {
     font: Regular 19px/21px NanumSquareOTF_ac;
     letter-spacing: 0px;
     color: #D8D8D8;
 }
 
 .noRespondButton {
+    background: transparent;
     background-repeat:no-repeat;
     cursor:pointer;
     overflow: hidden;
@@ -134,8 +148,8 @@
 
 /* friends */
 
-.main_pc_friends_content {
-    min-height: 800px;
+.main_friends_content {
+    min-height: 742px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 6px 20px #89898929;
     border-radius: 20px;
@@ -143,25 +157,29 @@
     margin-bottom: 44px;
 }
 
+.main_friends_header {
 
-.main_pc_friends_title {
+}
+
+
+.main_friends_title {
     font: Bold 34px/38px NanumSquareOTF_ac;
     color: #191919;
 }
 
-.main_pc_friends_list {
+.main_friends_list {
     display: flex;
 
 }
 
-.main_pc_friends_add {
-    @extend .noRespondButton;
+.main_friends_add {
+@extend .noRespondButton;
     width: 89px;
     height: 89px;
 }
 
-.main_pc_friends_separator {
-    width: 1294px;
+.main_friends_separator {
+    width: 1305px;
     height: 0px;
     border: 1px solid #EAEAEA;
     opacity: 1;
@@ -169,60 +187,267 @@
     margin-bottom: 20px;
 }
 
-.main_mobile_adapter_content {
+.main_friends_deleteImage {
+    width: 90px;
+    height: 90px;
     position: absolute;
-    margin-left: 25px;
-    margin-right: 25px;
-    bottom: 12px;
-    display: flex;
-    height: 116px;
-    vertical-align: bottom;
+    bottom: 50px;
+    right: 60px;
 }
 
-.main_mobile_adapter_header {
-    display: flex;
-    align-items: center;
-    width: 100%;
+.main_friends_deleteImage_mobile {
+    display: none;
+    width: 20px;
+    height: 24px;
 }
 
-.main_mobile_adapter_header_title {
-    margin-left: 11px;
-    margin-top: 12px;
-    font-family: NanumSquareOTF_ac;
-    font-size: 12px;
-    line-height: 13px;
-    font-weight: bold;
-    color: #191919;
+.main_viewer_mobile {
+    display: none;
+    text-align: left;
+    align-self: flex-start;
+    margin-top: 25px;
 }
 
-.main_mobile_adapter_header_editButton {
-    @extend .noRespondButton;
-    width: 40px;
-    height: 18px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 0.800000011920929px solid #C4C4C4;
-    border-radius: 10px;
-    margin-left: auto;
-    margin-top: 9px;
-    margin-right: 17px;
-}
-
-.main_mobile_adapter_header_editButton_text {
-    font-family: SpoqaHanSans;
-    font-size: 10px;
-    line-height: 15px;
-    color: #C4C4C4;
-}
-
-.main_mobile_other_text {
+.main_viewer_mobile_text {
     font: Bold 12px/13px NanumSquareOTF_ac;
     color: #191919;
-    margin-top: 25px;
-    //margin-left: 32px;
 }
 
-.main_mobile_other_components {
+.main_friends_mobile_back {
+    display: none;
+    width: 22px;
+    height: 18px;
+    margin-left: 24px;
+}
+
+.main_header_mobile_button {
+    @extend .noRespondButton;
+    border: 0px;
+}
+
+.main_header_mobile_container {
+    display: none;
+    //justify-content: left;
+    height: auto;
+    width: 100%;
+    margin-top: 34px;
+}
+
+.main_header_mobile_containerFriends {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border: 0px;
+}
+
+.main_header_mobile_containerWeather {
+    margin-top: 15px;
     display: flex;
     align-items: center;
-    margin-top: 11px;
 }
+
+.main_header_mobile_containerTitle {
+    flex-direction: column;
+    display: flex;
+}
+
+.main_header_mobile_weatherTitle {
+    font: Bold 19px/21px NanumSquareOTF_ac;
+    color: #191919;
+}
+
+.main_header_mobile_weatherSubTitle {
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 12px;
+    font-family: NanumSquareOTF_ac;
+    color: #767676;
+}
+
+.main_header_mobile_temperature {
+    margin-left: auto;
+    margin-right: 7px;
+    font-size: 40px;
+    line-height: 59px;
+    font-family: SpoqaHanSans;
+    color: #FFD939;
+}
+
+
+.main_friends_mobile_addOrDeleteButton {
+    @extend .noRespondButton;
+    border: 0px;
+    width: 292px;
+    height: 50px;
+    background: #73A2FC 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 50px;
+    color: white;
+    font: Bold 16px/18px NanumSquareOTF_ac;
+}
+
+.main_friends_header_separator {
+    margin-top: 50px;
+}
+
+@media (max-width: 1000px) {
+    .main_tab {
+        display: none;
+    }
+
+    .main_content {
+        background: transparent;
+        box-shadow: 0px 0px 0px;
+        border-radius: 0px;
+        padding: 0px;
+        margin-top: 17px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main_viewer_tab .blur {
+        width: 84px;
+        height: 84px;
+    }
+
+    .main_circleGraph_temperature {
+        width: 140px;
+        height: 140px;
+    }
+
+    .main_circleGraph_temperature .blur {
+        width: 140px;
+        height: 140px;
+    }
+
+    .main_circleGraph_humidity {
+        width: 140px;
+        height: 140px;
+        margin-left: 10px;
+    }
+
+    .main_circleGraph_humidity .blur {
+        width: 140px;
+        height: 140px;
+    }
+
+    .main_adapter {
+        width: 293px;
+        height: 166px;
+        margin-top: 24px;
+    }
+
+    .main_adapter .blur {
+        width: 293px;
+        height: 166px;
+    }
+
+    .main_adapter_content {
+        bottom: 12px;
+        height: 100px;
+        margin-left: 20px;
+    }
+
+    .main_viewer {
+        display: none;
+    }
+
+    .main_adapter_header_editButton {
+        width: 40px;
+        height: 18px;
+        margin-top: 9px;
+        margin-right: 17px;
+    }
+
+    .main_adapter_header_editButton_text {
+        font-family: SeoqaHanSans;
+        font-size: 10px;
+        line-height: 15px;
+    }
+
+    .main_adapter_header_title {
+        margin-left: 11px;
+        margin-top: 12px;
+        font: Bold 12px/13px NanumSquareOTF_ac;
+    }
+
+    .main_viewer_mobile {
+        display: block;
+    }
+
+    .main_viewer_tab {
+        height: 106px;
+    }
+
+    .main_friends_content {
+        width: 100vw;
+        height: 100vh;
+        padding: 0px;
+        min-height: 0px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 0px;
+        border-radius: 0px;
+        overflow-y: hidden;
+        margin: 0px;
+    }
+
+    .main_friends_mobile_back {
+        display: inline;
+    }
+
+    .main_friends_title {
+        font: Bold 19px/21px NanumSquareOTF_ac;
+        margin-left: 15px;
+    }
+
+    .main_friends_header {
+        display: flex;
+        align-items: center;
+        height: 80px;
+        border-bottom: 1px solid #E9E6E1;
+    }
+
+    .main_friends_separator {
+        display: none;
+    }
+
+    .main_friends_deleteImage {
+        display: none;
+    }
+
+    .main_friends_deleteImage_mobile {
+        display: inline;
+        margin-left: auto;
+        margin-right: 31px;
+    }
+
+    .main_header {
+        display: none;
+    }
+
+    .main_header_mobile_container {
+        display: block;
+    }
+
+    .main_friends_mobile_addOrDeleteButton {
+        display: inline-block;
+    }
+
+    .main_friends_header_separator {
+        margin-top: 30px;
+    }
+}
+
+@media (min-width: 999px) {
+}
+
+//@media (max-width: 1000px) {
+//  .main_pc_container {
+    //    display: none;
+    //  }
+//}

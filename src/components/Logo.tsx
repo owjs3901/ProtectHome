@@ -3,16 +3,6 @@ import logoKey from '../assets/images/img_logo_key.svg';
 import txtHomeAt from '../assets/images/txt_homeat.svg';
 import './Logo.css'
 
-const styles:{[key:string]:CSSProperties}={
-    keyImage: {
-        marginLeft: "3px",
-        marginRight: "21.1px",
-    },
-    homeAtImage: {
-        marginRight: "34.7px"
-    }
-}
-
 function Logo() {
     return (
         <>

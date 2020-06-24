@@ -5,8 +5,6 @@ import BlurBackground from "../BlurBackground";
 interface Props {
     imgSrc: string;
     text: string;
-    width: number;
-    height: number;
     noShadow: boolean;
     isPC: boolean;
 }
@@ -45,12 +43,18 @@ class ViewerTab extends Component<Props, State> {
     componentDidMount() {
 
     }
+
+    getWidth() {
+        const width = window.innerWidth
+
+    }
+
     render() {
         return (
-            <BlurBackground noShadow={this.props.noShadow} width={this.props.width} height={this.props.height} content={
-                <div style={{width: this.props.width, height: this.props.height, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-                        <img src={this.props.imgSrc} width={this.props.width * 0.8} height={this.props.height * 0.8}/>
-                        <div className="viewertab_text" style={this.props.isPC ? textPC : textMobile}>{this.props.text}</div>
+            <BlurBackground noShadow={this.props.noShadow} content={
+                <div className="viewerTab_content">
+                        <img className="viewerTab_image" src={this.props.imgSrc}/>
+                        <div className="viewerTab_text">{this.props.text}</div>
                 </div>
             }/>
         );

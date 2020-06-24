@@ -3,10 +3,18 @@
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
+    width: 256px;
+    height: 256px;
 }
 
-.circleGraph_canvas {
+.circleGraph_canvas_pc {
+    width: 256px;
+    height: 256px;
+}
 
+.circleGraph_canvas_mobile {
+    width: 140px;
+    height: 140px;
 }
 
 .circleGraph_textContainer {
@@ -14,6 +22,7 @@
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
+    width: 256px;
 }
 
 .circleGraph_textContainer_title {
@@ -26,4 +35,34 @@
     font: Bold 30px/45px SpoqaHanSans;
     color: #FFD939;
     text-align: center;
+}
+
+@media (max-width: 1000px) {
+    .circleGraph_textContainer_title {
+        font: Bold 9px/10px NanumSquareOTF_ac;
+    }
+
+    .circleGraph_textContainer_value {
+        font: Bold 18px/27px SpoqaHanSans;
+    }
+
+    .circleGraph_canvasBase {
+        width: 140px;
+        height: 140px;
+    }
+
+    .circleGraph_textContainer {
+        width: 140px;
+    }
+
+    /* 256 140 */
+    .circleGraph_canvas_pc {
+        display: none;
+    }
+}
+
+@media (min-width: 999px) {
+    .circleGraph_canvas_mobile {
+        display: none;
+    }
 }

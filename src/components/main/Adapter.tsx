@@ -6,56 +6,12 @@ interface Props {
     minValue: number;
     maxValue: number;
     firstValue: number;
-    isPC: boolean;
-    width: number;
-    height: number;
     onChanged: (type:string, currentValue: number) => void;
 }
 
 interface State {
-    dragging : boolean
-    currentNumber: number
+    height: number;
 }
-
-const barSizePC: CSSProperties = {
-    width: "24px",
-    height: "50px",
-}
-
-const barSizeMobile: CSSProperties = {
-    width: "12px",
-    height: "50px",
-}
-
-const endPointSizePC: CSSProperties = {
-    width: "24px",
-    height: "24px",
-    bottom: "59px",
-}
-
-const endPointSizeMobile: CSSProperties = {
-    width: "12px",
-    height: "12px",
-    bottom: "35px",
-}
-
-const textPC: CSSProperties = {
-    font: "Regular 22px/25px NanumSquareOTF_ac",
-    marginTop: "18px"
-}
-
-const textMobile: CSSProperties = {
-    font: "Regular 12px/18px SpoqaHanSans",
-    marginTop: "5px"
-}
-
-const containerPC: CSSProperties = {
-    width: "100px"
-}
-const containerMobile: CSSProperties = {
-    width: "50px"
-}
-
 
 class Adapter extends Component<Props, State> {
     resultRef = createRef<HTMLDivElement>()
@@ -64,22 +20,58 @@ class Adapter extends Component<Props, State> {
     containerRef = createRef<HTMLDivElement>()
 
     dragging: boolean = false
-
-    circleSize: number
+    currentNumber: number = 0
+    circleSize: number = 0
+    lastPercent: number = 0
 
     constructor(props: Props) {
         super(props);
 
-        this.circleSize = this.props.isPC ? 12 : 6
+    }
+
+    updateData(mode: number, pageY: number) {
+        const isPC = window.innerWidth >= 1000
+        const defaultHeight = isPC ? 200 : 95
+        this.currentNumber = 0
+        this.circleSize = isPC ? 12 : 6
+
+        let height: number
+        let percent: number
+        if(mode == 0) {
+            percent = ((this.props.firstValue - this.props.minValue) / (this.props.maxValue - this.props.minValue))
+            height = defaultHeight * percent
+        } else if(mode == 1) {
+            const rawHeight = pageY - getOffset(this.containerRef.current!).top
+            height = (defaultHeight - rawHeight + (isPC ? this.circleSize : -6))
+            percent = (height - this.circleSize) / (defaultHeight - this.circleSize)
+        } else {
+            height = defaultHeight * this.lastPercent
+            percent = this.lastPercent
+        }
+
+        if(mode == 3) {
+            //console.log(defaultHeight + ", " + height + ", " + percent)
+            this.props.onChanged(this.props.type, percent * 100)
+        }
+
+        if (height >= this.circleSize && height <= defaultHeight) {
+            if(mode != 3) {
+                this.setState({
+                    height: height
+                }, () => {
+                    this.barRef.current!.style.height = (this.state.height) + "px"
+                    this.endPointRef.current!.style.bottom = ((this.state.height) - (isPC ? 21 : 12)) + "px"
+                })
+            }
+            this.lastPercent = percent
+        }
+
     }
 
     componentDidMount() {
-        // setInterval(() => {
-        //     this.resultRef.current!.textContent = this.state.currentNumber + " " + this.containerRef.current!.getBoundingClientRect().y
-        // }, 1000)
         window.addEventListener('mouseup',  this.dragFinish)
-        this.barRef.current!.style.width = this.props.width + "px"
-        this.setHeight(this.props.height * ((this.props.firstValue - this.props.minValue) / (this.props.maxValue - this.props.minValue)))
+        window.addEventListener('resize', e=>{this.updateData(2, 0)})
+        this.updateData(0, 0)
     }
 
     dragStart = (e :React.MouseEvent) => {
@@ -89,42 +81,25 @@ class Adapter extends Component<Props, State> {
 
     drag = (e: React.MouseEvent) => {
         if(this.dragging && e.pageY) {
-            const rawHeight = e.pageY - getOffset(this.containerRef.current!).top
-            const height = (this.props.height - rawHeight + (this.props.isPC ? this.circleSize : -3))
-            console.log(e.pageY + ", " + rawHeight + ", " + height + ", " + getOffset(this.containerRef.current!).top)
-
-            this.setHeight(height)
+            this.updateData(1, e.pageY)
         }
     }
 
     dragFinish = () => {
         if(this.dragging) {
             this.dragging = false
-            this.props.onChanged(this.props.type, (this.state.currentNumber - this.circleSize) / (this.props.height - this.circleSize) * 100)
-        }
-    }
-
-
-    setHeight(height: number) {
-
-        if(height >= this.circleSize && height <= this.props.height) {
-            this.setState({
-                currentNumber: height
-            }, () => {
-                this.barRef.current!.style.height = height + "px"
-                this.endPointRef.current!.style.bottom = (height - (this.props.isPC ? 21 : 12)) + "px"
-            })
+            this.updateData(3, 0)
         }
     }
 
     render() {
         return (
-            <div className="adapter_container" ref={this.containerRef} style={this.props.isPC ? containerPC : containerMobile}>
-                <div className="adapter_graph_container" style={{width: this.props.width, height: this.props.height}} onMouseDown={this.dragStart} onMouseMove={this.drag}>
-                    <div className="adapter_graph_bar" ref={this.barRef} style={this.props.isPC ? barSizePC : barSizeMobile}/>
-                    <div className="adapter_graph_endPoint" ref={this.endPointRef} style={this.props.isPC ? endPointSizePC : endPointSizeMobile}/>
+            <div className="adapter_container" ref={this.containerRef}>
+                <div className="adapter_graph_container" onMouseDown={this.dragStart} onMouseMove={this.drag}>
+                    <div className="adapter_graph_bar" ref={this.barRef}/>
+                    <div className="adapter_graph_endPoint" ref={this.endPointRef}/>
                 </div>
-                <div className="adapter_graph_text" ref={this.resultRef} style={this.props.isPC ? textPC : textMobile}>{this.props.type}</div>
+                <div className="adapter_graph_text" ref={this.resultRef}>{this.props.type}</div>
             </div>
         );
     }

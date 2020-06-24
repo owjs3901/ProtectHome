@@ -39,7 +39,7 @@ class MainTab extends Component<Props, State> {
         } else {
             return (
                 <div>
-                    <div style={{height: "10px"}}/>
+                    <div style={{width: "1px", height: "10px"}}/>
                     <button className="mainTap_pc_tap_element" onClick={this.onClicked}>
                         {this.props.content}</button>
                 </div>

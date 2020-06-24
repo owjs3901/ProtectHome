@@ -1,0 +1,151 @@
+.main_pc_container {
+  display: table;
+  margin: 0 auto;
+}
+
+.main_pc_tab {
+  text-align: left;
+  margin-left: 24px;
+  margin-top: 50px;
+  display: flex;
+}
+
+.main_pc_content {
+  text-align: center;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 20px #89898929;
+  border-radius: 20px;
+  padding: 69px 54px 85px;
+  margin-bottom: 44px;
+}
+
+/* blocks */
+
+/* blocks-circleGraph */
+.main_pc_circleGraph {
+  width: 256px;
+  height: 256px;
+}
+
+/* blocks-adapter */
+.main_pc_adapter {
+  width: 556px;
+  height: 360px;
+}
+
+/* blocks-viewer */
+.main_pc_viewer {
+  width: 737px;
+  height: 646px;
+}
+
+.main_pc_viewer_animation {
+  width: 646px;
+  height: 363px;
+  border: 1px solid #707070;
+}
+
+.main_pc_viewer_animation_sub {
+  width: 646px;
+  height: 47px;
+  border: 1px solid #707070;
+}
+
+.main_pc_viewer_tab {
+  display: flex;
+  align-items: center;
+  height: 190px;
+}
+
+/* blocks-adapter */
+.main_pc_adapter_header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.main_pc_adapter_content {
+  position: absolute;
+  margin-left: 30px;
+  margin-right: 30px;
+  bottom: 30px;
+  display: flex;
+  height: 250px;
+  vertical-align: bottom;
+}
+
+.main_pc_adapter_header_title {
+  font: Bold 22px/25px NanumSquareOTF_ac;
+  margin-left: 20px;
+  margin-top: 20px;
+  letter-spacing: 0px;
+  color: #191919;
+}
+
+.main_pc_adapter_header_editButton {
+  @extend .noRespondButton;
+  background: transparent;
+  width: 72px;
+  height: 32px;
+  border: 1px solid #D8D8D8;
+  border-radius: 20px;
+  margin-top: 15px;
+  margin-right: 39px;
+  margin-left: auto;
+}
+
+.main_pc_adapter_header_editButton_text {
+  font: Regular 19px/21px NanumSquareOTF_ac;
+  letter-spacing: 0px;
+  color: #D8D8D8;
+}
+
+.noRespondButton {
+  background-repeat:no-repeat;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+/* friends */
+
+.main_pc_friends_content {
+  min-height: 800px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 20px #89898929;
+  border-radius: 20px;
+  padding: 34px 70px;
+  margin-bottom: 44px;
+}
+
+
+.main_pc_friends_title {
+  font: Bold 34px/38px NanumSquareOTF_ac;
+  color: #191919;
+}
+
+.main_pc_friends_list {
+  display: flex;
+
+}
+
+.main_pc_friends_add {
+  @extend .noRespondButton;
+  width: 89px;
+  height: 89px;
+}
+
+.main_pc_friends_separator {
+  width: 1294px;
+  height: 0px;
+  border: 1px solid #EAEAEA;
+  opacity: 1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+//@media (max-width: 1000px) {
+//  .main_pc_container {
+//    display: none;
+//  }
+//}

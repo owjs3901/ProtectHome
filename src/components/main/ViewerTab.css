@@ -1,4 +1,60 @@
 /* blocks */
-.viewertab_text {
+.viewerTab_text {
     color: #767676;
+    font-family: SpoqaHanSans;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.viewerTab {
+    width: 115px;
+    height: 115px;
+}
+
+.viewerTab_image {
+    width: calc(115 * 0.7px);
+    height: calc(115 * 0.7px);
+}
+
+.viewerTab_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 115px;
+    height: 115px;
+}
+
+.viewerTab .blur {
+    width: 115px;
+    height: 115px;
+}
+
+@media (max-width: 1000px) {
+    .viewerTab {
+        width: 84px;
+        height: 84px;
+    }
+
+    .viewerTab .blur {
+        width: 84px;
+        height: 84px;
+    }
+
+    .viewerTab_content {
+        width: 84px;
+        height: 84px;
+    }
+
+    .viewerTab_image {
+        width: calc(84 * 0.7px);
+        height: calc(84 * 0.7px);
+    }
+
+    .viewerTab_text {
+        font-family: SpoqaHanSans;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
 }

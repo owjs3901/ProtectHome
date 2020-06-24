@@ -1,9 +1,7 @@
 .App {
   text-align: center;
 }
-body{
-  background-color: #F7F9FF;
-}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -31,12 +29,12 @@ body{
 }
 
 body {
-
+  background-color: #F7F9FF;
+  overflow-x: hidden;
 }
 
 @media(max-width: 1000px) {
   body {
-    overflow-y: hidden;
     overflow-x: hidden;
   }
 }
@@ -49,10 +47,24 @@ body {
 }
 
 @font-face {
+  font-family: "NanumSquare_ac";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/NanumSquare_acR.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 400;
   src: url("assets/fonts/NotoSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/Lato-Regular.ttf") format("truetype");
 }
 
 @font-face {
