@@ -295,6 +295,10 @@
 }
 
 @media (max-width: 1000px) {
+    body {
+        overflow-y: hidden;
+    }
+
     .main_tab {
         display: none;
     }
@@ -349,7 +353,7 @@
 
     .main_adapter_content {
         bottom: 12px;
-        height: 100px;
+        height: 120px;
         margin-left: 20px;
     }
 

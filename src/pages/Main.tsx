@@ -16,6 +16,9 @@ import backImg from "../assets/images/img_mobile_back.svg"
 import deleteImg from "../assets/images/img_mobile_friendDelete.svg"
 import deleteEnabledImg from "../assets/images/img_mobile_friendDelete_enabled.svg"
 import plusImg from "../assets/images/img_mobile_friendPlus.svg";
+import Invite from "../components/invite/Invite";
+import Dialog from "../components/Dialog";
+
 interface Props {
 
 }
@@ -26,6 +29,10 @@ interface State {
     type: string;
     selected: { [id: number]: boolean }
     mobileDeleteButtonClicked: boolean
+    receivedOTPNum: string;
+    inviteButtonClicked: boolean;
+    width: number;
+    deleteButtonClicked: boolean;
 }
 
 const DEFAULT_STATE = {
@@ -34,6 +41,9 @@ const DEFAULT_STATE = {
     temperature: 21,
     humidity: 83,
     mobileDeleteButtonClicked: false,
+    receivedOTPNum: "1234",
+    inviteButtonClicked: false,
+    deleteButtonClicked: false,
 }
 
 class Main extends Component<Props, State> {
@@ -45,7 +55,8 @@ class Main extends Component<Props, State> {
         super(props);
 
         this.state = {
-            ...DEFAULT_STATE
+            ...DEFAULT_STATE,
+            width: window.innerWidth
         }
     }
 
@@ -58,7 +69,7 @@ class Main extends Component<Props, State> {
     }
 
     handleWindowSizeChange = () => {
-        this.setState({ });
+        this.setState({width: window.innerWidth});
     }
 
     handleMainTabClicked = (type: string, clicked: Boolean) => {
@@ -69,20 +80,18 @@ class Main extends Component<Props, State> {
     }
 
     handleAdapterChanged = (type: string, currentValue: number) => {
-        console.log(type + ", " + currentValue)
+        console.log("type: " + type + ", percent: " + currentValue)
     }
 
     handleFriendSelected = (id: number, checked: boolean) => {
-        if(checked) {
+        if (checked) {
             this.state.selected[id] = true
         } else {
             delete this.state.selected[id]
         }
 
         this.friendDeletePCRef.current!.src = Object.keys(this.state.selected).length > 0 ? friendDeleteImg : friendPlusImg
-        this.setState({
-
-        })
+        this.setState({})
     }
 
     handleMobileFriendClicked = () => {
@@ -101,12 +110,40 @@ class Main extends Component<Props, State> {
         })
     }
 
-    render() {
-        const {type} = this.state
-        // if(this.headerRef.current)
-        //     this.headerRef.current.style.display = type == "Friends" ? "none" : "block"
+    handleAddFriendButtonClicked = () => {
+        if(Object.keys(this.state.selected).length == 0) {
+            this.setState({
+                inviteButtonClicked: true
+            }, () => {
 
-        const visibleDeleteButton = this.state.mobileDeleteButtonClicked
+            })
+        } else {
+            this.setState({
+                deleteButtonClicked: true
+            }, () => {
+
+            })
+        }
+    }
+
+    handleInviteCancelButtonClicked = () => {
+        this.setState({
+            inviteButtonClicked: false
+        }, () => {
+
+        })
+    };
+
+    handleAnswerSelected = (accepted: boolean) => {
+        this.setState({
+            deleteButtonClicked: false
+        }, () => {
+            console.log(accepted)
+        })
+    }
+
+    render() {
+        const {type, width, mobileDeleteButtonClicked, receivedOTPNum, inviteButtonClicked, deleteButtonClicked} = this.state
 
         return (
             <div className="main_background">
@@ -115,11 +152,16 @@ class Main extends Component<Props, State> {
 
                 {/*Container*/}
                 <span className="main_container">
-                    <div className="main_tab">
-                        <MainTab type={"Home"} selected={type == "Home"} onChanged={this.handleMainTabClicked} content={<>Home</>}/>
-                        <MainTab type={"Friends"} selected={type == "Friends"} onChanged={this.handleMainTabClicked} content={<>Friends</>}/>
-                    </div>
-                    {type == "Home" ? <div>
+                    {deleteButtonClicked ? <Dialog question={"님을 삭제하시겠습니까?"} onAnswerSelected={this.handleAnswerSelected} /> : <></>}
+
+                    {!inviteButtonClicked ?
+                        <div className="main_tab">
+                            <MainTab type={"Home"} selected={type == "Home"} onChanged={this.handleMainTabClicked} content={<>Home</>}/>
+                            <MainTab type={"Friends"} selected={type == "Friends"} onChanged={this.handleMainTabClicked} content={<>Friends</>}/>
+                        </div>
+                    : <></>}
+
+                    {!inviteButtonClicked && type == "Home" ? <div>
                         <Background/>
                         <div className="main_header_mobile_container">
                             <button className="main_header_mobile_button" onClick={this.handleMobileFriendClicked}>
@@ -141,9 +183,11 @@ class Main extends Component<Props, State> {
                             <table>
                                 <tr>
                                     {/* 온도 */}
-                                    <td><div className="main_circleGraph_temperature"><BlurBackground noShadow={false} content={<CircleGraph title={"온도"} unit={"℃"} value={this.state.temperature} maxValue={40} />} /></div></td>
+                                    <td><div className="main_circleGraph_temperature"><BlurBackground noShadow={false} content={
+                                        <CircleGraph title={"온도"} unit={"℃"} value={this.state.temperature} maxValue={40}/>}/></div></td>
                                     {/* 습도 */}
-                                    <td><div className="main_circleGraph_humidity"><BlurBackground noShadow={false} content={<CircleGraph title={"습도"} unit={"%"} value={this.state.humidity} maxValue={100}/>}/></div></td>
+                                    <td><div className="main_circleGraph_humidity"><BlurBackground noShadow={false} content={
+                                        <CircleGraph title={"습도"} unit={"%"} value={this.state.humidity} maxValue={100}/>}/></div></td>
                                 </tr>
                                 <tr>
                                     <td colSpan={2}>{/* 조절     width: 556px; height: 360px;*/}
@@ -152,7 +196,9 @@ class Main extends Component<Props, State> {
                                                 <div>
                                                     <div className="main_adapter_header">
                                                         <span className="main_adapter_header_title">집 안의 전등을 조절해봐요</span>
-                                                        <button className="main_adapter_header_editButton"><span className="main_adapter_header_editButton_text">편집</span></button>
+                                                        <button className="main_adapter_header_editButton">
+                                                            <span className="main_adapter_header_editButton_text">편집</span>
+                                                        </button>
                                                     </div>
                                                     <div className="main_adapter_content">
                                                         <Adapter type={"a"} minValue={0} maxValue={100} firstValue={20} onChanged={this.handleAdapterChanged}/>
@@ -172,32 +218,34 @@ class Main extends Component<Props, State> {
                                     <div style={{margin: "45px 45px 39px"}}>
                                         <div className="main_viewer_animation"/>
                                         <div className="main_viewer_animation_sub"/>
-                                        <this.ViewerTabs />
+                                        <this.ViewerTabs/>
                                     </div>}/>
                             </div>
                             <div className="main_viewer_mobile">
                                 <div className="main_viewer_mobile_text">그 외 관리</div>
-                                <this.ViewerTabs />
+                                <this.ViewerTabs/>
                             </div>
                         </span>
-                        </div> : <div className="main_friends_content" style={{position: "relative"}}>
-                            <div className="main_friends_header">
-                                <img src={backImg} className="main_friends_mobile_back" onClick={this.handleMobileBackButtonClicked}/>
-                                <div className="main_friends_title" style={{textAlign: "left"}}>친구 목록</div>
-                                <img ref={this.friendDeleteMobileRef} src={deleteImg} onClick={this.handleMobileFriendDeleteButtonClicked} className="main_friends_deleteImage_mobile"/>
-                                <button className="main_friends_mobile_addOrDeleteButton">친구 {Object.keys(this.state.selected).length > 0 ? "삭제" : "추가"}하기</button>
-                            </div>
-                            <div className="main_friends_header_separator"/>
+                    </div> : <></>}
 
-                            {/* friends */}
-                            <FriendTab img={exampleImg} id={1} name={"a"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={visibleDeleteButton} onDeleteButtonClicked={this.handleFriendSelected}/>
-                            <div className="main_friends_separator"/>
-                            <FriendTab img={exampleImg} id={2} name={"b"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={visibleDeleteButton} onDeleteButtonClicked={this.handleFriendSelected}/>
-                            <div className="main_friends_separator"/>
-                            <FriendTab img={exampleImg} id={3} name={"c"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={visibleDeleteButton} onDeleteButtonClicked={this.handleFriendSelected}/>
-                            <img ref={this.friendDeletePCRef} src={friendPlusImg} className="main_friends_deleteImage"/>
+                    {(!inviteButtonClicked || width < 1000) && type == "Friends" ? <div className="main_friends_content" style={{position: "relative"}}>
+                        <div className="main_friends_header">
+                            <img src={backImg} className="main_friends_mobile_back" onClick={this.handleMobileBackButtonClicked}/>
+                            <div className="main_friends_title" style={{textAlign: "left"}}>친구 목록</div>
+                            <img ref={this.friendDeleteMobileRef} src={deleteImg} onClick={this.handleMobileFriendDeleteButtonClicked} className="main_friends_deleteImage_mobile"/>
+                            <button className="main_friends_mobile_addOrDeleteButton" onClick={this.handleAddFriendButtonClicked}>친구 {Object.keys(this.state.selected).length > 0 ? "삭제" : "초대"}하기</button>
                         </div>
-                    }
+                        <div className="main_friends_header_separator"/>
+
+                        {/* friends */}
+                        <FriendTab img={exampleImg} id={1} name={"a"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
+                        <div className="main_friends_separator"/>
+                        <FriendTab img={exampleImg} id={2} name={"b"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
+                        <div className="main_friends_separator"/>
+                        <FriendTab img={exampleImg} id={3} name={"c"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
+                        <img ref={this.friendDeletePCRef} src={friendPlusImg} className="main_friends_deleteImage" onClick={this.handleAddFriendButtonClicked}/>
+                    </div> : <></>}
+                    {inviteButtonClicked ? <Invite number={this.state.receivedOTPNum} cancelButtonClicked={this.handleInviteCancelButtonClicked}/> : <></>}
             </span>
             </div>
         );
@@ -206,7 +254,8 @@ class Main extends Component<Props, State> {
     ViewerTabs() {
         return (
             <>
-                <div className="main_viewer_tab"><ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/></div>
+                <div className="main_viewer_tab">
+                    <ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/></div>
             </>
         );
     }

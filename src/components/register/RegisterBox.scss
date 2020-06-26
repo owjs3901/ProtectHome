@@ -67,7 +67,7 @@
     border: 0px;
     background: transparent;
     font: Bold 89px/107px Lato;
-    letter-spacing: 17.8px;
+    //letter-spacing: 17.8px;
     color: #417FF8;
     width: 70px;
     height: 114px;
@@ -103,7 +103,15 @@
 }
 
 .registerBox_register_nickname_input {
-
+    width: 378px;
+    margin-top: 31px;
+    font: Bold 40px/53px NanumSquareOTF_ac;
+    padding-bottom: 10px;
+    border: 0px;
+    text-align: center;
+    border-bottom: 2px solid #73A2FC;
+    outline: none;
+    letter-spacing: 3.2px;
 }
 
 .registerBox_register_is_corrected_container_corrected {
@@ -168,7 +176,7 @@
     .registerBox_register_header {
         display: flex;
         align-items: center;
-        height: 80px;
+        height: 52px;
         width: 100%;
     }
 
@@ -243,5 +251,18 @@
 
     .registerBox_register_button {
         display: none;
+    }
+
+    .registerBox_register_nickname {
+        margin-top: 40px;
+        font: 15px NanumSquareOTF_ac;
+    }
+
+    .registerBox_register_nickname_input {
+        width: 192px;
+        margin-top: 29px;
+        padding-bottom: 9px;
+        font: Bold 30px/40px NanumSquareOTF_ac;
+        letter-spacing: 1.8px;
     }
 }

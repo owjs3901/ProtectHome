@@ -11,6 +11,7 @@ interface Props {
 
 interface State {
     height: number;
+    lastPercent: number;
 }
 
 class Adapter extends Component<Props, State> {
@@ -20,20 +21,27 @@ class Adapter extends Component<Props, State> {
     containerRef = createRef<HTMLDivElement>()
 
     dragging: boolean = false
-    currentNumber: number = 0
-    circleSize: number = 0
-    lastPercent: number = 0
 
     constructor(props: Props) {
         super(props);
 
+        this.state = {
+            height: 0,
+            lastPercent: 0
+        }
     }
 
     updateData(mode: number, pageY: number) {
-        const isPC = window.innerWidth >= 1000
-        const defaultHeight = isPC ? 200 : 95
-        this.currentNumber = 0
-        this.circleSize = isPC ? 12 : 6
+        /*
+        mode 0: 첫 설정
+        mode 1: 드래그시
+        mode 2: resize시 만약 resize가 된다면 높이 재설정
+        mode 3: 드래그 끝나고 콜백함수 호출 전용
+         */
+        const isPC = window.innerWidth > 1000
+        const circleSize = isPC ? 12 : 6
+        const defaultHeight = isPC ? 180 : 90 - circleSize * 2
+        const lastPercent = this.state.lastPercent
 
         let height: number
         let percent: number
@@ -42,28 +50,29 @@ class Adapter extends Component<Props, State> {
             height = defaultHeight * percent
         } else if(mode == 1) {
             const rawHeight = pageY - getOffset(this.containerRef.current!).top
-            height = (defaultHeight - rawHeight + (isPC ? this.circleSize : -6))
-            percent = (height - this.circleSize) / (defaultHeight - this.circleSize)
+            height = (defaultHeight - rawHeight + circleSize * 2 /* 마우스 위치 보정 코드 */)
+            percent = height / defaultHeight
         } else {
-            height = defaultHeight * this.lastPercent
-            percent = this.lastPercent
+            height = defaultHeight * lastPercent
+            percent = lastPercent
         }
 
+        //console.log(defaultHeight + ", " + height + ", " + percent + ", " + lastPercent)
         if(mode == 3) {
-            //console.log(defaultHeight + ", " + height + ", " + percent)
             this.props.onChanged(this.props.type, percent * 100)
         }
 
-        if (height >= this.circleSize && height <= defaultHeight) {
+        if (height >= 0 && height <= defaultHeight) {
             if(mode != 3) {
                 this.setState({
-                    height: height
+                    height: height,
+                    lastPercent: percent
                 }, () => {
-                    this.barRef.current!.style.height = (this.state.height) + "px"
-                    this.endPointRef.current!.style.bottom = ((this.state.height) - (isPC ? 21 : 12)) + "px"
+                    //console.log(this.state.height)
+                    this.barRef.current!.style.height = (this.state.height) + circleSize * 1.5 + "px"
+                    this.endPointRef.current!.style.bottom = (this.state.height) + "px"
                 })
             }
-            this.lastPercent = percent
         }
 
     }

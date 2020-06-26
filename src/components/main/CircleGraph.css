@@ -61,7 +61,7 @@
     }
 }
 
-@media (min-width: 999px) {
+@media (min-width: 1001px) {
     .circleGraph_canvas_mobile {
         display: none;
     }
