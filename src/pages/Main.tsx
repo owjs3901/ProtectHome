@@ -257,7 +257,7 @@ class Main extends Component<Props, State> {
                         </div>
                         <div className="main_friends_header_separator"/>
 
-                        {/* friends */}
+                        {/* friends TODO 친구목록 갖고와야 함. */}
                         <FriendTab img={exampleImg} id={1} name={"a"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
                         <div className="main_friends_separator"/>
                         <FriendTab img={exampleImg} id={2} name={"b"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
