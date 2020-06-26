@@ -6,6 +6,7 @@ import RegisterBox from '../components/register/RegisterBox';
 import Background from "../components/Background";
 import './Main.scss'
 
+// ㅎㅇ
 function Register() {
     return (
         <div className="main_container">

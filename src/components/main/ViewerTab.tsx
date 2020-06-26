@@ -17,20 +17,6 @@ const DEFAULT_VALUE = {
 
 }
 
-const textPC = {
-    marginTop: "7px",
-    fontFamily: "SpoqaHanSans",
-    fontSize: "15px",
-    lineHeight: "22px",
-}
-
-const textMobile = {
-    marginTop: "6px",
-    fontFamily: "SpoqaHanSans",
-    fontSize: "12px",
-    lineHeight: "18px",
-}
-
 class ViewerTab extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
@@ -40,15 +26,7 @@ class ViewerTab extends Component<Props, State> {
         }
     }
 
-    componentDidMount() {
-
-    }
-
-    getWidth() {
-        const width = window.innerWidth
-
-    }
-
+    // 방범용 카메라같은 작은 버튼을 만들 때 쓰는 컴포넌트
     render() {
         return (
             <BlurBackground noShadow={this.props.noShadow} content={

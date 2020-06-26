@@ -14,6 +14,7 @@ const DEFAULT_VALUE = {
 
 }
 
+// 존나 의미없는 본인의 테스트 화면. ^^;;
 class TestPage extends Component<Props, State> {
     resultRef = createRef<HTMLDivElement>()
     barRef = createRef<HTMLDivElement>()

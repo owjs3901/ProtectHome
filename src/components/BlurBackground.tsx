@@ -10,6 +10,7 @@ interface State {
 
 }
 
+// 뒤에 파랗게 빛 내주는 컴포넌트.
 class BlurBackground extends Component<Props, State> {
 
 

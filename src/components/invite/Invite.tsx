@@ -12,6 +12,7 @@ interface State {
 }
 
 class Invite extends Component<Props, State> {
+    // OTP 코드 보여주는 창
     render() {
         return (
             <>

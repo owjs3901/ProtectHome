@@ -18,6 +18,9 @@ interface State {
 }
 
 enum Routine {
+    //OTPTitle = 마스터키 있냐? OTP 받았냐? 물어보는 창 보여줌
+    //OTPInput = OTP 입력 물어보는 창 (PC의 경우는 NicknameInput이여도 OTP 입력창이 보임) 보여줌
+    //NicknameInput = 닉네임 입력하는 창 보여줌
     OTPTitle, OTPInput, NicknameInput,
 }
 
@@ -34,22 +37,25 @@ class RegisterBox extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+        // 첫 시작은 설명창을 보여주는 걸로
         this.state = {
             state: Routine.OTPTitle,
             width: window.innerWidth
         }
     }
 
+    // OTP키 입력하는 링크 누르면 state를 OTPInput으로 변경
     handleRegisterClicked = () => {
         this.setState({
             state: Routine.OTPInput
         })
     }
 
+    // OTP 한글자 입력할 떄 마다 호출되는 함수
     handleOTPInput = () => {
         const otp = (this.inputRef1.current!.value + this.inputRef2.current!.value + this.inputRef3.current!.value + this.inputRef4.current!.value)
 
-        console.log("[" + otp)
+        console.log("[" + otp + "]")
 
         if (otp.length == 4 && this.checkOTPCorrect(otp)) {
             this.refError.current!.style.display = "none"
@@ -60,16 +66,16 @@ class RegisterBox extends Component<Props, State> {
         }
     }
 
+    // TODO 리덕스로 가야할 함수, OTP를 서버에서 받아오고 파라미터의 OTP와 일치하면 true, 아니면 false
     checkOTPCorrect = (otp: string) => {
         return true
     }
 
+    // 역겨운 그 코드
     componentWillMount() {
         window.addEventListener('resize', this.handleWindowSizeChange);
     }
 
-// make sure to remove the listener
-// when the component is not mounted anymore
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowSizeChange);
     }
@@ -83,11 +89,14 @@ class RegisterBox extends Component<Props, State> {
         const {width} = this.state
         return (
             <div className="registerBox_container">
+
+                {/* 모바일인 경우 뒤로가기 버튼 같은거 보여줌 */}
                 <div className="registerBox_register_header">
                     <img src={backImg} style={{width: "22px", height: "auto", marginLeft: "24px"}}/>
                     {state == Routine.NicknameInput ? <img src={confirmImg} style={{width: "22px", height: "auto", marginLeft: "auto", marginRight: "24px"}}/> : <></>}
                 </div>
 
+                {/* 마스터키같은거 있냐 물어보는 창 */}
                 {state == Routine.OTPTitle ?
                     <>
                         <div className="registerBox_title">마스터키가 있으신가요?</div>
@@ -99,6 +108,12 @@ class RegisterBox extends Component<Props, State> {
                 }
 
 
+
+                {/*
+                OTP입력을 받을 때 보여줄 창. 모바일 페이지라면 Nickname입력시 숨겨줌.
+                width장난 안치고 싶긴 했는데 사실 모바일 PC 따로 만드는게 존나 역겨워서 그냥 깔끔하게 이렇게 짰음.
+
+                */}
                 {state == Routine.OTPInput || (state == Routine.NicknameInput && width >= 1000) ?
                     <>
                         <div className="registerBox_register_title">친구에게 받은 번호를 입력해주세요</div>
@@ -122,6 +137,9 @@ class RegisterBox extends Component<Props, State> {
                     </>
                     : <></>}
 
+                {/*
+                   닉네임 입력 받는 창.
+                */}
                 {state == Routine.NicknameInput ?
                     <>
                         <div className="registerBox_register_nickname">닉네임 설정</div>

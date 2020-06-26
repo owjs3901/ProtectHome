@@ -6,9 +6,11 @@ import nicknameIcon from '../../assets/images/img_nickname_icon.svg'
 
 class LoginBox extends Component {
     componentDidMount() {
-        document.body.style.backgroundColor = "#F7F9FF"
+        //document.body.style.backgroundColor = "#F7F9FF"
     }
 
+    // 로그인하는 창
+    // 님이 짰으니깐 잘 알겠네
     render() {
         return (
             <div className="login_container">

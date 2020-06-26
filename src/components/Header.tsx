@@ -49,6 +49,9 @@ interface Props {
 
 }
 
+
+// 헤더임
+// TODO 리덕스에서 현재 온도 값을 받아서 갱신해야함
 class Header extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
@@ -75,7 +78,7 @@ class Header extends Component<Props, State> {
                             <span>오늘의 날씨는</span>
                             <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
                         </div>
-                        <span className="fullPC header_pc_temperature">{20}℃</span>
+                        <span className="fullPC header_pc_temperature">{20}℃</span> {/* REDUX */}
                     </> : <></>}
                     <button className="header_pc_logoLogin"><span
                         className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>

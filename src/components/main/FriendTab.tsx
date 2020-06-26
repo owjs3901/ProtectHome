@@ -21,6 +21,8 @@ const DEFAULT_VALUES = {
     clicked: false
 }
 
+// Friends 탭에서 친구 한 명을 보여줄 때 쓰는 컴포넌트.
+// mobileVisibleDeleteButton의 경우 모바일 전용으로 삭제 버튼 클릭시 나타난다.
 class FriendTab extends Component<Props, State> {
     imgRef = createRef<HTMLImageElement>()
     imgRefMobile = createRef<HTMLImageElement>()
@@ -33,11 +35,6 @@ class FriendTab extends Component<Props, State> {
         }
     }
 
-
-    componentDidMount() {
-
-    }
-
     handleToggleClick = () => {
         this.setState({
             clicked: !this.state.clicked
@@ -47,6 +44,7 @@ class FriendTab extends Component<Props, State> {
             this.props.onDeleteButtonClicked(this.props.id, this.state.clicked)
         })
     }
+
 
     render() {
         return (<div className="friend_container">

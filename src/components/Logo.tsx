@@ -3,6 +3,7 @@ import logoKey from '../assets/images/img_logo_key.svg';
 import txtHomeAt from '../assets/images/txt_homeat.svg';
 import './Logo.css'
 
+// 로고임
 function Logo() {
     return (
         <>

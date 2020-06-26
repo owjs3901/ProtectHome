@@ -24,12 +24,13 @@ interface Props {
 }
 
 interface State {
-    temperature: number;
-    humidity: number;
+    temperature: number; // TODO REDUX
+    humidity: number; // TODO REDUX
     type: string;
     selected: { [id: number]: boolean }
     mobileDeleteButtonClicked: boolean
-    receivedOTPNum: string;
+    receivedOTPNum: string; //TODO REDUX
+    receivedName: string; // TODO REDUX
     inviteButtonClicked: boolean;
     width: number;
     deleteButtonClicked: boolean;
@@ -42,6 +43,7 @@ const DEFAULT_STATE = {
     humidity: 83,
     mobileDeleteButtonClicked: false,
     receivedOTPNum: "1234",
+    receivedName: "테스트",
     inviteButtonClicked: false,
     deleteButtonClicked: false,
 }
@@ -79,9 +81,12 @@ class Main extends Component<Props, State> {
         })
     }
 
+    // TODO REDUX
+    // 전등 밝기 조절 바를 옮겼을 때 해당하는 바의 이름과 퍼센트(0~100 사이)를 반환함.
     handleAdapterChanged = (type: string, currentValue: number) => {
         console.log("type: " + type + ", percent: " + currentValue)
     }
+
 
     handleFriendSelected = (id: number, checked: boolean) => {
         if (checked) {
@@ -103,6 +108,9 @@ class Main extends Component<Props, State> {
     }
 
     handleMobileFriendDeleteButtonClicked = () => {
+        // TODO REDUX
+        // selected에 있는 값에 따라 receivedName을 초기화 후 setState
+        // +로 REDUX엔 현재 친구 목록 DB도 있어야 함.
         this.setState({
             mobileDeleteButtonClicked: !this.state.mobileDeleteButtonClicked
         }, () => {
@@ -112,12 +120,17 @@ class Main extends Component<Props, State> {
 
     handleAddFriendButtonClicked = () => {
         if(Object.keys(this.state.selected).length == 0) {
+            //TODO REDUX
+            // OTP 받아서 setState에 추가로 receivedOTPNum을 초기화해줄것
             this.setState({
                 inviteButtonClicked: true
             }, () => {
 
             })
         } else {
+            // TODO REDUX
+            // 아래 Dialog에서 id에 따른 name 값을 불러와 삭제할 친구 목록을 얻어야 함.
+
             this.setState({
                 deleteButtonClicked: true
             }, () => {
@@ -135,6 +148,8 @@ class Main extends Component<Props, State> {
     };
 
     handleAnswerSelected = (accepted: boolean) => {
+        // TODO REDUX
+        // this.state.selected에 있는 id의 값을 친구 목록에서 삭제하여야 함.
         this.setState({
             deleteButtonClicked: false
         }, () => {
@@ -143,7 +158,7 @@ class Main extends Component<Props, State> {
     }
 
     render() {
-        const {type, width, mobileDeleteButtonClicked, receivedOTPNum, inviteButtonClicked, deleteButtonClicked} = this.state
+        const {type, width, mobileDeleteButtonClicked, receivedOTPNum, receivedName, inviteButtonClicked, deleteButtonClicked} = this.state
 
         return (
             <div className="main_background">
@@ -152,8 +167,9 @@ class Main extends Component<Props, State> {
 
                 {/*Container*/}
                 <span className="main_container">
-                    {deleteButtonClicked ? <Dialog question={"님을 삭제하시겠습니까?"} onAnswerSelected={this.handleAnswerSelected} /> : <></>}
+                    {deleteButtonClicked ? <Dialog question={receivedName + "님을 삭제하시겠습니까?"} onAnswerSelected={this.handleAnswerSelected} /> : <></>}
 
+                    {/* Main, Friends 탭 보여주는 창 */}
                     {!inviteButtonClicked ?
                         <div className="main_tab">
                             <MainTab type={"Home"} selected={type == "Home"} onChanged={this.handleMainTabClicked} content={<>Home</>}/>
@@ -161,6 +177,7 @@ class Main extends Component<Props, State> {
                         </div>
                     : <></>}
 
+                    {/*홈 화면 보여주는 창 (온도같은)*/}
                     {!inviteButtonClicked && type == "Home" ? <div>
                         <Background/>
                         <div className="main_header_mobile_container">
@@ -200,7 +217,7 @@ class Main extends Component<Props, State> {
                                                             <span className="main_adapter_header_editButton_text">편집</span>
                                                         </button>
                                                     </div>
-                                                    <div className="main_adapter_content">
+                                                    <div className="main_adapter_content"> {/*TODO REDUX 전등 값 받아와서 firstValue에 넣어야 됨. */}
                                                         <Adapter type={"a"} minValue={0} maxValue={100} firstValue={20} onChanged={this.handleAdapterChanged}/>
                                                         <Adapter type={"b"} minValue={0} maxValue={100} firstValue={50} onChanged={this.handleAdapterChanged}/>
                                                         <Adapter type={"c"} minValue={0} maxValue={100} firstValue={60} onChanged={this.handleAdapterChanged}/>
@@ -213,6 +230,7 @@ class Main extends Component<Props, State> {
                                     </td>
                                 </tr>
                             </table>
+                            {/*PC전용 뷰어탭*/}
                             <div className="main_viewer" style={{marginLeft: "40px"}}>
                                 <BlurBackground noShadow={false} content={
                                     <div style={{margin: "45px 45px 39px"}}>
@@ -221,6 +239,7 @@ class Main extends Component<Props, State> {
                                         <this.ViewerTabs/>
                                     </div>}/>
                             </div>
+                            {/*모바일전용 뷰어탭*/}
                             <div className="main_viewer_mobile">
                                 <div className="main_viewer_mobile_text">그 외 관리</div>
                                 <this.ViewerTabs/>
@@ -228,6 +247,7 @@ class Main extends Component<Props, State> {
                         </span>
                     </div> : <></>}
 
+                    {/*친구창 보여주는 창*/}
                     {(!inviteButtonClicked || width < 1000) && type == "Friends" ? <div className="main_friends_content" style={{position: "relative"}}>
                         <div className="main_friends_header">
                             <img src={backImg} className="main_friends_mobile_back" onClick={this.handleMobileBackButtonClicked}/>
@@ -245,6 +265,7 @@ class Main extends Component<Props, State> {
                         <FriendTab img={exampleImg} id={3} name={"c"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
                         <img ref={this.friendDeletePCRef} src={friendPlusImg} className="main_friends_deleteImage" onClick={this.handleAddFriendButtonClicked}/>
                     </div> : <></>}
+                    {/*초대시 OTP 보여주는 창*/}
                     {inviteButtonClicked ? <Invite number={this.state.receivedOTPNum} cancelButtonClicked={this.handleInviteCancelButtonClicked}/> : <></>}
             </span>
             </div>

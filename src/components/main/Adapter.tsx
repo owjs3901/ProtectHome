@@ -30,14 +30,18 @@ class Adapter extends Component<Props, State> {
             lastPercent: 0
         }
     }
+    /*
+    mode 0: 첫 설정(초기화)
+    mode 1: 드래그시 업데이트
+    mode 2: resize시 만약 resize가 된다면 높이 재설정
+    mode 3: 드래그 끝나고 콜백함수 호출 전용
 
+    로직은 귀찮아서 설명 안함
+
+    클래스로 구현하고 싶었는데 대체 독립클래스는 어케 선언하는거임 isolatedModules ㅅ ㅂ 쉑키
+     */
     updateData(mode: number, pageY: number) {
-        /*
-        mode 0: 첫 설정
-        mode 1: 드래그시
-        mode 2: resize시 만약 resize가 된다면 높이 재설정
-        mode 3: 드래그 끝나고 콜백함수 호출 전용
-         */
+
         const isPC = window.innerWidth > 1000
         const circleSize = isPC ? 12 : 6
         const defaultHeight = isPC ? 180 : 90 - circleSize * 2
@@ -101,6 +105,7 @@ class Adapter extends Component<Props, State> {
         }
     }
 
+    // 마우스로 쭉 움직여서 (전등 밝기 조절할 때) 세로 슬라이더 구현한것임.
     render() {
         return (
             <div className="adapter_container" ref={this.containerRef}>
@@ -114,6 +119,7 @@ class Adapter extends Component<Props, State> {
     }
 }
 
+// 현재 overflow(드래그)가 적용된 화면에서 상대적인 위치 대신 절대적인 위치를 반환하는 코드
 function getOffset(child: HTMLElement) {
     let el: HTMLElement | null = child
     let _x = 0;

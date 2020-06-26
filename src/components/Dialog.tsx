@@ -10,6 +10,7 @@ interface State {
 
 }
 
+// 네니요 선택할 수 있는 Dialog. 네/니요 선택시 위의 콜백함수를 실행한다. false시 아니오 true시 네
 class Dialog extends Component<Props, State> {
     render() {
         return (

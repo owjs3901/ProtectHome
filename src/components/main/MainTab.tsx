@@ -11,22 +11,18 @@ interface Props {
 interface State {
 }
 
+// Main, Friends같은 탭을 만들 때 쓰는 컴포넌트. 클릭시 콜백 함수를 실행한다.
 class MainTab extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         console.log(this.props.type + ", " + this.props.selected)
     }
 
-    // onUnClicked() {
-    //     this.props.onChanged(this.props.type, false)
-    //     this.setState( {
-    //         selected: false
-    //     })
-    // }
 
     onClicked = (event: React.MouseEvent<HTMLButtonElement>) => {
         this.props.onChanged(this.props.type, true)
     }
+
 
     render() {
         if(this.props.selected) {
