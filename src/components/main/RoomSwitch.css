@@ -1,0 +1,116 @@
+.roomSwitch_container {
+    position: relative;
+    width: 267px;
+    height: 133px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #C4C4C429;
+    border-radius: 10px;
+    z-index: 1;
+}
+.roomSwitch_container_blur {
+    position: absolute;
+    width: 267px;
+    height: 133px;
+    top: 6px;
+    background: transparent linear-gradient(180deg, #9FBFFD 0%, #4D89FC 100%) 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 0.6;
+    filter: blur(4px);
+}
+
+.roomSwitch_switch_container {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    width: 48px;
+    height: 24px;
+    background: #B5B5B5 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.roomSwitch_switch_point {
+    width: 20px;
+    height: 20px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    margin-top: 2px;
+    margin-left: auto; /*right align*/
+}
+
+.roomSwitch_img {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 56px;
+    height: 56px;
+}
+
+.roomSwitch_content {
+    position: absolute;
+    left: 27px;
+    bottom: 12px;
+    text-align: left;
+}
+
+.roomSwitch_title {
+    color: #767676;
+    font: /*ExtraBold*/ 800 27px/30px NanumSquareOTF_ac;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.roomSwitch_state {
+    font: 20px/29px SpoqaHanSans;
+    color: #767676;
+    margin-top: 4px;
+    text-align: left;
+}
+
+/* 6px, 3px */
+
+@media (max-width: 1000px) {
+    .roomSwitch_container {
+        width: 140px;
+        height: 70px;
+    }
+
+    .roomSwitch_container_blur {
+        width: 140px;
+        height: 70px;
+        top: 3px;
+    }
+
+    .roomSwitch_content {
+        left: 14px;
+        bottom: 12px;
+    }
+
+    .roomSwitch_state {
+        font: 10px/15px SpoqaHanSans;
+    }
+
+    .roomSwitch_switch_point {
+        width: 10px;
+        height: 10px;
+        margin-top: 1px;
+    }
+
+    .roomSwitch_switch_container {
+        width: 24px;
+        height: 12px;
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .roomSwitch_title {
+        font: Bold 14px/16px NanumSquareOTF_ac;
+    }
+
+    .roomSwitch_img {
+        width: 30px;
+        height: 30px;
+        right: 8px;
+    }
+}

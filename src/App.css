@@ -33,6 +33,21 @@ body {
   overflow-x: hidden;
 }
 
+td {
+  border: none;
+  padding: 0px;
+}
+
+table {
+  border: none;
+  padding: 0px;
+}
+
+tr {
+  border: none;
+  padding: 0px;
+}
+
 @media(max-width: 1000px) {
   body {
     overflow-x: hidden;

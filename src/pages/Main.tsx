@@ -18,6 +18,8 @@ import deleteEnabledImg from "../assets/images/img_mobile_friendDelete_enabled.s
 import plusImg from "../assets/images/img_mobile_friendPlus.svg";
 import Invite from "../components/invite/Invite";
 import Dialog from "../components/Dialog";
+import RoomSwitch from "../components/main/RoomSwitch";
+import RoomSwitchAdd from "../components/main/RoomSwichAdd";
 
 interface Props {
 
@@ -157,6 +159,11 @@ class Main extends Component<Props, State> {
         })
     }
 
+
+    handleRoomSwitchChanged = (title: string, isOn: boolean) => {
+        console.log(title + ", " + isOn)
+    }
+
     render() {
         const {type, width, mobileDeleteButtonClicked, receivedOTPNum, receivedName, inviteButtonClicked, deleteButtonClicked} = this.state
 
@@ -209,23 +216,31 @@ class Main extends Component<Props, State> {
                                 <tr>
                                     <td colSpan={2}>{/* 조절     width: 556px; height: 360px;*/}
                                         <div className="main_adapter">
-                                            <BlurBackground noShadow={false} content={
-                                                <div>
+                                            {/*<BlurBackground noShadow={false} content={*/}
                                                     <div className="main_adapter_header">
                                                         <span className="main_adapter_header_title">집 안의 전등을 조절해봐요</span>
-                                                        <button className="main_adapter_header_editButton">
-                                                            <span className="main_adapter_header_editButton_text">편집</span>
-                                                        </button>
+                                                        {/*<button className="main_adapter_header_editButton">*/}
+                                                        {/*    <span className="main_adapter_header_editButton_text">편집</span>*/}
+                                                        {/*</button>*/}
                                                     </div>
-                                                    <div className="main_adapter_content"> {/*TODO REDUX 전등 값 받아와서 firstValue에 넣어야 됨. */}
-                                                        <Adapter type={"a"} minValue={0} maxValue={100} firstValue={20} onChanged={this.handleAdapterChanged}/>
-                                                        <Adapter type={"b"} minValue={0} maxValue={100} firstValue={50} onChanged={this.handleAdapterChanged}/>
-                                                        <Adapter type={"c"} minValue={0} maxValue={100} firstValue={60} onChanged={this.handleAdapterChanged}/>
-                                                        <Adapter type={"d"} minValue={0} maxValue={100} firstValue={50} onChanged={this.handleAdapterChanged}/>
-                                                        <Adapter type={"f"} minValue={0} maxValue={100} firstValue={80} onChanged={this.handleAdapterChanged}/>
-                                                    </div>
-                                                </div>
-                                            }/>
+                                                    <table className="main_adapter_table" style={{border: "none", padding: "0px"}}>
+                                                        <tr>
+                                                            <td className="main_adapter_td"><RoomSwitch handleOnStateChanged={this.handleRoomSwitchChanged} title={"test"} /></td>
+                                                            <td className="main_adapter_td"><RoomSwitch handleOnStateChanged={this.handleRoomSwitchChanged} title={"test2"} /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="main_adapter_td"><RoomSwitch handleOnStateChanged={this.handleRoomSwitchChanged} title={"test3"} /></td>
+                                                            <td className="main_adapter_td"><RoomSwitchAdd /></td>
+                                                        </tr>
+                                                    </table>
+                                                    {/*<div className="main_adapter_content"> /!*TODO REDUX 전등 값 받아와서 firstValue에 넣어야 됨. *!/*/}
+                                                        {/*<Adapter type={"a"} minValue={0} maxValue={100} firstValue={20} onChanged={this.handleAdapterChanged}/>*/}
+                                                        {/*<Adapter type={"b"} minValue={0} maxValue={100} firstValue={50} onChanged={this.handleAdapterChanged}/>*/}
+                                                        {/*<Adapter type={"c"} minValue={0} maxValue={100} firstValue={60} onChanged={this.handleAdapterChanged}/>*/}
+                                                        {/*<Adapter type={"d"} minValue={0} maxValue={100} firstValue={50} onChanged={this.handleAdapterChanged}/>*/}
+                                                        {/*<Adapter type={"f"} minValue={0} maxValue={100} firstValue={80} onChanged={this.handleAdapterChanged}/>*/}
+                                                    {/*</div>*/}
+                                            {/*}/>*/}
                                         </div>
                                     </td>
                                 </tr>
