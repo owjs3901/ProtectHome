@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter,Redirect } from 'react-router-dom';
 // import Main from '../past/Main'
 import Main from './pages/Main'
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import TestPage from "./pages/TestPage";
+import {Provider} from "react-redux";
+
+import store from './store';
+
 // import FriendListMobile from "../past/FriendListMobile";
 
 /*
@@ -47,18 +51,21 @@ PC 페이지
 
 function App() {
   return (
-      <BrowserRouter>
-        <Switch>
-            {/*<Route exact path='/' component={Main}/>*/}
-            <Route path='/main' component={Main}/>
-            <Route path='/login' component={Login}/>
-            <Route path='/register' component={Register}/>
-            <Route path='/test' component={TestPage}/>
-            {/*<Route path='/friend' component={FriendListMobile}/>*/}
-          {/*<Route path='/info/:title' component={Info}/>*/}
-          {/*<Route component={Error404}/>*/}
-        </Switch>
-      </BrowserRouter>
+      <Provider store={store}>
+          <BrowserRouter>
+            <Switch>
+                {/*<Route exact path='/' component={Main}/>*/}
+                <Route path='/main' component={Main}/>
+                <Route path='/login' component={Login}/>
+                <Route path='/register' component={Register}/>
+                <Route path='/test' component={TestPage}/>
+                <Redirect path="*" to="/main" />
+                {/*<Route path='/friend' component={FriendListMobile}/>*/}
+              {/*<Route path='/info/:title' component={Info}/>*/}
+              {/*<Route component={Error404}/>*/}
+            </Switch>
+          </BrowserRouter>
+      </Provider>
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />

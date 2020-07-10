@@ -6,6 +6,8 @@ import './Main.scss';
 import Background from "../components/Background";
 
 function Login() {
+    console.log('login')
+
     return (
         <div className="main_container">
             <Background />

@@ -5,6 +5,10 @@ import './Header.scss'
 import exampleImg from "../assets/images/img_exampleProfile.svg"
 import plusImg from "../assets/images/img_mobile_friendPlus.svg"
 import {maxHeaderSize} from "http";
+import {connect} from "react-redux";
+import store, {storeState} from "../store";
+import {login, logout} from "../store/Actions";
+import {Link} from "react-router-dom";
 
 // const styles:{[key:string]:CSSProperties}={
 //     base: {
@@ -46,7 +50,8 @@ interface State {
 }
 
 interface Props {
-
+    name:string|undefined,
+    login:boolean
 }
 
 
@@ -70,7 +75,7 @@ class Header extends Component<Props, State> {
                         <img className="header_pc_profileImg" src={exampleImg}/>
                         <div className="header_pc_profileIntroduce" style={{marginLeft: "20px"}}>
                             <span>안녕하세요</span>
-                            <span>{"xxx"}님</span>
+                            <span>{this.props.name}님</span>
                         </div>
                         <span className="fullPC header_pc_dateText">1970년 1월 1일 0:00AM</span>
                         <div className="header_pc_separator"/>
@@ -80,8 +85,13 @@ class Header extends Component<Props, State> {
                         </div>
                         <span className="fullPC header_pc_temperature">{20}℃</span> {/* REDUX */}
                     </> : <></>}
-                    <button className="header_pc_logoLogin"><span
-                        className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
+                    <Link className="header_pc_logoLogin" to={this.isLogged()?"#":"/login"}>
+                        <button className="header_pc_logoLogin" onClick={event => {
+                            if(this.isLogged()) store.dispatch(logout())
+                            // else
+                        }}><span
+                            className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
+                    </Link>
                 </div>
             </>
         );
@@ -102,7 +112,7 @@ class Header extends Component<Props, State> {
     };
 
     isLogged() {
-        return true
+        return this.props.login
     }
 }
 
@@ -147,5 +157,5 @@ class Header extends Component<Props, State> {
 //     )
 // }
 
-export default Header;
+export default connect((state:storeState)=>({login:state.login,name:state.auth?.name}))(Header);
 

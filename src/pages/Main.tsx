@@ -20,9 +20,12 @@ import Invite from "../components/invite/Invite";
 import Dialog from "../components/Dialog";
 import RoomSwitch from "../components/main/RoomSwitch";
 import RoomSwitchAdd from "../components/main/RoomSwichAdd";
+import {connect} from "react-redux";
+import {storeState} from "../store";
+import { RouteComponentProps } from "react-router-dom";
 
-interface Props {
-
+interface Props extends RouteComponentProps{
+    login:boolean
 }
 
 interface State {
@@ -57,6 +60,11 @@ class Main extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+
+        if(!props.login){
+            //로그인 안하면 로그인 페이지로 이동
+            this.props.history.push("/login")
+        }
 
         this.state = {
             ...DEFAULT_STATE,
@@ -297,4 +305,4 @@ class Main extends Component<Props, State> {
     }
 }
 
-export default Main
+export default connect((stat:storeState)=>({login:stat.login}))(Main)
