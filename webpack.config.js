@@ -1,6 +1,6 @@
 module.exports = {
 	devServer: {
-		port:'3000',
+		port:'1000',
 		contentBase: './',
 		publicPath: '/dist',
 		historyApiFallback:true,
