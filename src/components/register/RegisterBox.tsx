@@ -82,12 +82,12 @@ class RegisterBox extends Component<Props, State> {
     }
 
     // OTP 한글자 입력할 떄 마다 호출되는 함수
-    handleOTPInput = () => {
+    handleOTPInput = async () => {
         const otp = (this.inputRef1.current!.value + this.inputRef2.current!.value + this.inputRef3.current!.value + this.inputRef4.current!.value)
 
         console.log("[" + otp + "]")
 
-        if (otp.length == 4 && this.checkOTPCorrect(otp)) {
+        if (otp.length === 4 && await this.checkOTPCorrect(otp)) {
             this.refError.current!.style.display = "none"
             this.refCorrect.current!.style.display = "flex"
             this.setState({
@@ -97,8 +97,9 @@ class RegisterBox extends Component<Props, State> {
     }
 
     // TODO 리덕스로 가야할 함수, OTP를 서버에서 받아오고 파라미터의 OTP와 일치하면 true, 아니면 false
-    checkOTPCorrect = (otp: string) => {
-        return true
+    checkOTPCorrect = async (otp: string) => {
+        const k:any=(await (await fetch("/api/isOTP?otp="+otp)).json());
+        return k.su;
     }
 
     // 역겨운 그 코드
@@ -197,7 +198,7 @@ class RegisterBox extends Component<Props, State> {
                 </div>
 
                 {/* 마스터키같은거 있냐 물어보는 창 */}
-                {state == Routine.OTPTitle ?
+                {state === Routine.OTPTitle ?
                     <>
                         <div className="registerBox_title">{
                             this.state.count==0?"마스터키를 등록해주세요!": "마스터키로 로그인해주세요!"

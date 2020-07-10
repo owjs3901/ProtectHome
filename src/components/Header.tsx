@@ -77,7 +77,18 @@ class Header extends Component<Props, State> {
                             <span>안녕하세요</span>
                             <span>{this.props.name}님</span>
                         </div>
-                        <span className="fullPC header_pc_dateText">1970년 1월 1일 0:00AM</span>
+                        <span className="fullPC header_pc_dateText">{
+                            function(){
+                                const date=new Date();
+                                var mm = date.getMonth() + 1; // getMonth() is zero-based
+                                var dd = date.getDate();
+
+                                return [date.getFullYear(),
+                                (mm>9 ? '' : '0') + mm,
+                                (dd>9 ? '' : '0') + dd
+                                ].join('-');
+                            }()
+                        }</span>
                         <div className="header_pc_separator"/>
                         <div className="header_pc_profileIntroduce">
                             <span>오늘의 날씨는</span>

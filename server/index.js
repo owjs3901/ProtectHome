@@ -10,6 +10,7 @@ const base64url = require('base64url');
 const utils = require('./utils')
 
 const db = {}
+const otp = ["3901"]
 
 app.use(bodyParser.json());
 /* ----- session ----- */
@@ -67,6 +68,11 @@ app.get('/api/', (req, res) => {
 app.get('/api/isLogin', (req, res) => {
 	console.log('is Login',req.query.name)
 	res.json({su:req.session.username===req.query.name});
+})
+
+app.get('/api/isOTP', (req, res) => {
+	console.log('is isOTP',req.query.otp);
+	res.json({su:otp.includes(req.query.otp)});
 })
 
 app.get('/api/personalInfo', (req, res) => {
