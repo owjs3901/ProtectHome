@@ -7,6 +7,7 @@ import correctedImg from '../../assets/images/img_corrected.svg'
 import notCorrectedImg from '../../assets/images/img_not_corrected.svg'
 import backImg from '../../assets/images/img_mobile_back.svg'
 import confirmImg from '../../assets/images/img_mobile_confirm.svg'
+import {preformatMakeCredReq, publicKeyCredentialToJSON, sendWebAuthnResponse} from "../../utils/helper";
 
 interface Props {
 
@@ -14,7 +15,8 @@ interface Props {
 
 interface State {
     state: Routine
-    width: number
+    width: number,
+    count:number
 }
 
 enum Routine {
@@ -40,7 +42,8 @@ class RegisterBox extends Component<Props, State> {
         // 첫 시작은 설명창을 보여주는 걸로
         this.state = {
             state: Routine.OTPTitle,
-            width: window.innerWidth
+            width: window.innerWidth,
+            count:0
         }
     }
 
@@ -74,6 +77,44 @@ class RegisterBox extends Component<Props, State> {
     // 역겨운 그 코드
     componentWillMount() {
         window.addEventListener('resize', this.handleWindowSizeChange);
+
+        fetch("api/userCount").then(res=>res.json())
+            .then(res=>{
+                this.setState({
+                    count:res.res
+                })
+                if(res.res===0){
+                    fetch('api/register', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name:"admin", username:"admin" })
+                    }).then(res => {
+                        return res.json()
+                    }).then(data => {
+                        if (data.stat == 0) {
+                            return data
+                        }
+                        else {
+                            alert(data.msg)
+                            throw new Error(data.msg)
+                        }
+                    }).then(res => {
+                        let publicKey = preformatMakeCredReq(res)
+                        return navigator.credentials.create({ publicKey })
+                    }).then(res => {
+                        let makeCredResponse = publicKeyCredentialToJSON(res!);
+                        return sendWebAuthnResponse(makeCredResponse)
+                    }).then(res=>{
+                        if(res.status==0) alert("마스터키가 등록되었습니다")
+                        else alert('알 수 없는 오류')
+                    })
+
+                }
+            })
+
     }
 
     componentWillUnmount() {
@@ -99,7 +140,9 @@ class RegisterBox extends Component<Props, State> {
                 {/* 마스터키같은거 있냐 물어보는 창 */}
                 {state == Routine.OTPTitle ?
                     <>
-                        <div className="registerBox_title">마스터키가 있으신가요?</div>
+                        <div className="registerBox_title">{
+                            this.state.count==0?"마스터키를 등록해주세요!": "마스터키로 로그인해주세요!"
+                        }</div>
                         <img src={logoKey} className="registerBox_logo"/>
                         <img src={imgOk} className="registerBox_checkLogo"/>
                         <div className="registerBox_question">친구에게 초대를 받으셨나요?</div>

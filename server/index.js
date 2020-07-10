@@ -44,6 +44,20 @@ app.get('/api/logout', (req, res) => {
 		'status': 'ok'
 	})
 })
+
+app.get('/api/userCount', (req, res) => {
+
+	let count=0;
+	console.log(db["admin"])
+	for(const k in db){
+		if(db[k].registered)
+			count++;
+	}
+	res.json({
+		res:count
+	})
+})
+
 app.get('/api/', (req, res) => {
 	if (req.session.username && req.session.challenge)
 		res.render('main.html')
@@ -76,8 +90,10 @@ app.get('/api/register', (req, res) => {
 })
 
 app.post('/api/register', (req, res) => {
+
 	if (req.body && req.body.username && req.body.name) {
-		if (!db[req.body.username]) {
+		if (!db[req.body.username]||(req.body.username==="admin"&&
+			!db[req.body.username].registered)) {
 			db[req.body.username] = {
 				name: req.body.name,
 				authenticators: [],

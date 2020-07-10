@@ -73,7 +73,7 @@ export const preformatGetAssertReq = (getAssert) => {
 }
 
 export const sendWebAuthnResponse = (body) => {
-	return fetch('/response', {
+	return fetch('/api/response', {
 		method: 'POST',
 		credentials: 'include',
 		headers: {
