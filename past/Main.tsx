@@ -16,6 +16,7 @@ import friendPlusImg from "../assets/images/img_friendPlus.svg"
 import friendDeleteImg from "../assets/images/img_friendDelete.svg"
 import MainPC from "./MainPC";
 import MainMobile from "./MainMobile";
+import {RouteComponentProps} from "react-router-dom";
 
 /*
 1. 웹&모바일-방범용카메라 글자 살짝만 올려주세요
@@ -25,7 +26,7 @@ import MainMobile from "./MainMobile";
 
  */
 
-interface Props {
+interface Props extends RouteComponentProps{
 
 }
 
@@ -92,7 +93,7 @@ class Main extends Component<Props, State> {
             <div className="main_x_background">
                 <Background/>
                 <div className="main_x_container">
-                    <div className="main_x_header"><Header/></div>
+                    <div className="main_x_header"><Header {...this.props} /></div>
                     <div className="main_x_pc"><MainPC temperature={this.state.temperature} humidity={this.state.humidity} handleAdapterChanged={this.handleAdapterChanged} handleFriendSelected={this.handleFriendSelected} handleFriendDelete={this.handleFriendDelete}/></div>
                     <div className="main_x_mobile"><MainMobile temperature={this.state.temperature} humidity={this.state.humidity} handleAdapterChanged={this.handleAdapterChanged}/></div>
                 </div>

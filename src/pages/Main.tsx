@@ -178,7 +178,7 @@ class Main extends Component<Props, State> {
         return (
             <div className="main_background">
                 {/* Header */}
-                <div className="main_header" ref={this.headerRef}><Header/></div>
+                <div className="main_header" ref={this.headerRef}><Header {...this.props}/></div>
 
                 {/*Container*/}
                 <span className="main_container">

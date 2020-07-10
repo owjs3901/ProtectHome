@@ -65,8 +65,8 @@ app.get('/api/', (req, res) => {
 		res.render('login.html')
 })
 app.get('/api/isLogin', (req, res) => {
-	console.log('is Login')
-	res.json({});
+	console.log('is Login',req.query.name)
+	res.json({su:req.session.username===req.query.name});
 })
 
 app.get('/api/personalInfo', (req, res) => {

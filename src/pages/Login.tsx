@@ -11,7 +11,7 @@ function Login(props:RouteComponentProps) {
         <div className="main_container">
             <Background />
             <div className="main_header">
-                <Header />
+                <Header {...props} />
             </div>
             <LoginBox {...props} />
         </div>

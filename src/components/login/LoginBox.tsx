@@ -5,8 +5,9 @@ import './LoginBox.css'
 import nicknameIcon from '../../assets/images/img_nickname_icon.svg'
 
 import {connect} from "react-redux";
-import {storeState} from "../../store";
+import store, {storeState} from "../../store";
 import {preformatGetAssertReq, publicKeyCredentialToJSON, sendWebAuthnResponse} from "../../utils/helper";
+import {login} from "../../store/Actions";
 
 interface Props extends RouteComponentProps{
     login:boolean
@@ -81,7 +82,11 @@ class LoginBox extends Component<Props,any> {
                             })
                             .then((response) => {
                                 if (response.status === 0) {
-                                    document.location.reload()
+                                    store.dispatch(login({
+                                        name:username
+                                    }))
+                                    this.props.history.push('/main')
+                                    // document.location.reload()
                                 } else {
                                     alert(`Server responed with error. The message is: ${response.message}`);
                                 }

@@ -8,7 +8,7 @@ import {maxHeaderSize} from "http";
 import {connect} from "react-redux";
 import store, {storeState} from "../store";
 import {login, logout} from "../store/Actions";
-import {Link} from "react-router-dom";
+import {Link, RouteComponentProps} from "react-router-dom";
 
 // const styles:{[key:string]:CSSProperties}={
 //     base: {
@@ -49,7 +49,7 @@ interface State {
 
 }
 
-interface Props {
+interface Props extends RouteComponentProps{
     name:string|undefined,
     login:boolean
 }
@@ -87,7 +87,10 @@ class Header extends Component<Props, State> {
                     </> : <></>}
                     <Link className="header_pc_logoLogin" to={this.isLogged()?"#":"/login"}>
                         <button className="header_pc_logoLogin" onClick={event => {
-                            if(this.isLogged()) store.dispatch(logout())
+                            if(this.isLogged()){
+                                store.dispatch(logout())
+                                this.props.history.push('/login')
+                            }
                             // else
                         }}><span
                             className="header_pc_logoLoginText">{this.isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
@@ -115,47 +118,6 @@ class Header extends Component<Props, State> {
         return this.props.login
     }
 }
-
-//
-// function Header() {
-//     const isPC = window.innerWidth >= 1000;
-//     if(isPC) {
-//         return (
-//             <>
-//                 <div className="header_pc_container">
-//                     <Logo/>
-//                     {isLogged() ? <Profile/> : <></>}
-//                     <button className="header_pc_logoLogin"><span className="header_pc_logoLoginText">{isLogged() ? "LOGOUT" : "LOGIN"}</span></button>
-//                 </div>
-//             </>
-//         );
-//     } else {
-//         return (
-//             <>
-//
-//             </>
-//         )
-//     }
-// }
-//
-// function Profile() {
-//     return (
-//         <>
-//             <img src={""} />
-//             <div className="header_pc_profileIntroduce">
-//                 <span>안녕하세요</span>
-//                 <span>{"xxx"}님</span>
-//             </div>
-//             <span className="header_pc_dateText">1970년 1월 1일 0:00AM</span>
-//             <div className="header_pc_separator"/>
-//             <div className="header_pc_profileIntroduce">
-//                 <span>오늘의 날씨는</span>
-//                 <span>{"맑고 화창하지만 늦은 밤엔 비가 올 예정이에요"}</span>
-//             </div>
-//             <span className="header_pc_temperature">{20}℃</span>
-//         </>
-//     )
-// }
 
 export default connect((state:storeState)=>({login:state.login,name:state.auth?.name}))(Header);
 

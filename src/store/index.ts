@@ -52,19 +52,21 @@ function reducer(state = initialState, action: actionType): storeState {
 const store=Redux.createStore(reducer);
 
 if(local){
-	fetch('/api/isLogin',{
-		headers:{
-			"accept":"application/json",
-			"content-type":"application/json",
-		}
-	})
-		.then(res=>res.json())
-		.then(res=>{
-			if(!res.su)
-				store.dispatch({
-					type: Action.LOGOUT
-				})
+	const j=JSON.parse(local);
+	if(j.login)
+		fetch('/api/isLogin?name='+j.auth.name,{
+			headers:{
+				"accept":"application/json",
+				"content-type":"application/json",
+			}
 		})
+			.then(res=>res.json())
+			.then(res=>{
+				if(!res.su)
+					store.dispatch({
+						type: Action.LOGOUT
+					})
+			})
 }
 
 export default store;
