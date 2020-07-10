@@ -15,7 +15,7 @@ function Register(props:RouteComponentProps) {
             <div className="main_header">
                 <Header {...props} />
             </div>
-            <RegisterBox/>
+            <RegisterBox {...props}/>
         </div>
     );
 }

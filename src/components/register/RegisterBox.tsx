@@ -1,15 +1,22 @@
 import React, {Component, createRef, RefObject, useState} from 'react';
 import logoKey from '../../assets/images/logo_fido_key.svg';
 import imgOk from '../../assets/images/img_ok.svg';
-import {Link} from 'react-router-dom';
+import {Link, RouteComponentProps} from 'react-router-dom';
 import './RegisterBox.scss'
 import correctedImg from '../../assets/images/img_corrected.svg'
 import notCorrectedImg from '../../assets/images/img_not_corrected.svg'
 import backImg from '../../assets/images/img_mobile_back.svg'
 import confirmImg from '../../assets/images/img_mobile_confirm.svg'
-import {preformatMakeCredReq, publicKeyCredentialToJSON, sendWebAuthnResponse} from "../../utils/helper";
+import {
+    preformatGetAssertReq,
+    preformatMakeCredReq,
+    publicKeyCredentialToJSON,
+    sendWebAuthnResponse
+} from "../../utils/helper";
+import store from "../../store";
+import {login} from "../../store/Actions";
 
-interface Props {
+interface Props extends RouteComponentProps{
 
 }
 
@@ -25,7 +32,27 @@ enum Routine {
     //NicknameInput = 닉네임 입력하는 창 보여줌
     OTPTitle, OTPInput, NicknameInput,
 }
+let getGetAssertionChallenge = (formBody:any) => {
+    return fetch('/api/dologin', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formBody)
+    })
+        .then((response) => response.json())
+        .then((response) => {
+            if (response.status !== 'ok')
+                throw new Error(`Server responed with error. The message is: ${response.message}`);
 
+            return response
+        })
+        .catch(e=>{
+            console.error(e)
+            alert(e)
+        })
+}
 class RegisterBox extends Component<Props, State> {
     //const [isOTP,setOTP]=useState(false);
 
@@ -111,7 +138,39 @@ class RegisterBox extends Component<Props, State> {
                         if(res.status==0) alert("마스터키가 등록되었습니다")
                         else alert('알 수 없는 오류')
                     })
+                }
+                else{
+                    const b=window.confirm("마스터키로 로그인 하시겠습니까?")
+                    if(b){
+                        const username = "admin";
 
+                        getGetAssertionChallenge({ username/*,name:username*/ })
+                            .then((response) => {
+                                if(response){
+                                    let publicKey = preformatGetAssertReq(response);
+                                    return navigator.credentials.get({ publicKey })
+                                }
+                                else throw new Error();
+                            })
+                            .then((response) => {
+                                let getAssertionResponse = publicKeyCredentialToJSON(response!);
+                                return sendWebAuthnResponse(getAssertionResponse)
+                            })
+                            .then((response) => {
+                                if (response.status === 0) {
+                                    store.dispatch(login({
+                                        name:username
+                                    }))
+                                    this.props.history.push('/main')
+                                    // document.location.reload()
+                                } else {
+                                    alert(`Server responed with error. The message is: ${response.message}`);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error)
+                            })
+                    }
                 }
             })
 
