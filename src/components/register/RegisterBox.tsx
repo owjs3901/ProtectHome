@@ -136,7 +136,15 @@ class RegisterBox extends Component<Props, State> {
                         let makeCredResponse = publicKeyCredentialToJSON(res!);
                         return sendWebAuthnResponse(makeCredResponse)
                     }).then(res=>{
-                        if(res.status==0) alert("마스터키가 등록되었습니다")
+                        if(res.status==0){
+                            alert("마스터키가 등록되었습니다")
+                            //등록과 동시에 로그인
+                            store.dispatch(login({
+                                name:"admin"
+
+                            }))
+                            this.props.history.push('/main')
+                        }
                         else alert('알 수 없는 오류')
                     })
                 }
@@ -243,11 +251,55 @@ class RegisterBox extends Component<Props, State> {
                 {/*
                    닉네임 입력 받는 창.
                 */}
-                {state == Routine.NicknameInput ?
+                {state === Routine.NicknameInput ?
                     <>
                         <div className="registerBox_register_nickname">닉네임 설정</div>
-                        <input className="registerBox_register_nickname_input"/>
-                        <button className="registerBox_register_button">회원가입</button>
+                        <input className="registerBox_register_nickname_input" id={"nickName"}/>
+                        <button className="registerBox_register_button" onClick={event => {
+                            const value=(document.getElementById("nickName") as HTMLInputElement).value
+
+                            if(!value) {
+                                alert("닉네임을 입력해주세요")
+                                return;
+                            }
+
+                            fetch('api/register', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ name:value, username:value })
+                            }).then(res => {
+                                return res.json()
+                            }).then(data => {
+                                if (data.stat === 0) {
+                                    return data
+                                }
+                                else {
+                                    alert(data.msg)
+                                    throw new Error(data.msg)
+                                }
+                            }).then(res => {
+                                let publicKey = preformatMakeCredReq(res)
+                                return navigator.credentials.create({ publicKey })
+                            }).then(res => {
+                                let makeCredResponse = publicKeyCredentialToJSON(res!);
+                                return sendWebAuthnResponse(makeCredResponse)
+                            }).then(res=>{
+                                if(res.status===0){
+                                    // alert("마스터키가 등록되었습니다")
+                                    //등록과 동시에 로그인
+                                    store.dispatch(login({
+                                        name:value
+
+                                    }))
+                                    this.props.history.push('/main')
+                                }
+                                else alert('알 수 없는 오류')
+                            })
+
+                        }}>회원가입</button>
                     </>
                     : <></>}
             </div>
