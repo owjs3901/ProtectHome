@@ -36,7 +36,7 @@ let randomBase64URLBuffer = (len) => {
 
 	return base64url(buff);
 }
-app.get('/logout', (req, res) => {
+app.get('/api/logout', (req, res) => {
 	req.session.loggedIn = false;
 	req.session.username = undefined;
 
@@ -44,14 +44,18 @@ app.get('/logout', (req, res) => {
 		'status': 'ok'
 	})
 })
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
 	if (req.session.username && req.session.challenge)
 		res.render('main.html')
 	else
 		res.render('login.html')
 })
+app.get('/api/isLogin', (req, res) => {
+	console.log('is Login')
+	res.json({});
+})
 
-app.get('/personalInfo', (req, res) => {
+app.get('/api/personalInfo', (req, res) => {
 	if (!req.session.loggedIn) {
 		res.json({
 			'status': 'failed',
@@ -64,14 +68,14 @@ app.get('/personalInfo', (req, res) => {
 		})
 	}
 })
-app.get('/register', (req, res) => {
+app.get('/api/register', (req, res) => {
 	if (req.session.username && req.session.challenge)
-		res.redirect('/')
+		res.redirect('/api/')
 	else
 		res.render('register.html')
 })
 
-app.post('/register', (req, res) => {
+app.post('/api/register', (req, res) => {
 	if (req.body && req.body.username && req.body.name) {
 		if (!db[req.body.username]) {
 			db[req.body.username] = {
@@ -119,7 +123,7 @@ app.post('/register', (req, res) => {
 	})
 
 })
-app.post('/dologin', (req, res) => {
+app.post('/api/dologin', (req, res) => {
 
 	if (!req.body || !req.body.username) {
 		res.json({
@@ -149,7 +153,7 @@ app.post('/dologin', (req, res) => {
 	res.json(getAssertion)
 
 })
-app.post('/response', (req, res) => {
+app.post('/api/response', (req, res) => {
 	if (!req.body || !req.body.id
 		|| !req.body.rawId || !req.body.response
 		|| !req.body.type || req.body.type !== 'public-key') {

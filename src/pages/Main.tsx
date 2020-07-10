@@ -129,7 +129,7 @@ class Main extends Component<Props, State> {
     }
 
     handleAddFriendButtonClicked = () => {
-        if(Object.keys(this.state.selected).length == 0) {
+        if(Object.keys(this.state.selected).length === 0) {
             //TODO REDUX
             // OTP 받아서 setState에 추가로 receivedOTPNum을 초기화해줄것
             this.setState({
@@ -187,13 +187,13 @@ class Main extends Component<Props, State> {
                     {/* Main, Friends 탭 보여주는 창 */}
                     {!inviteButtonClicked ?
                         <div className="main_tab">
-                            <MainTab type={"Home"} selected={type == "Home"} onChanged={this.handleMainTabClicked} content={<>Home</>}/>
-                            <MainTab type={"Friends"} selected={type == "Friends"} onChanged={this.handleMainTabClicked} content={<>Friends</>}/>
+                            <MainTab type={"Home"} selected={type === "Home"} onChanged={this.handleMainTabClicked} content={<>Home</>}/>
+                            <MainTab type={"Friends"} selected={type === "Friends"} onChanged={this.handleMainTabClicked} content={<>Friends</>}/>
                         </div>
                     : <></>}
 
                     {/*홈 화면 보여주는 창 (온도같은)*/}
-                    {!inviteButtonClicked && type == "Home" ? <div>
+                    {!inviteButtonClicked && type === "Home" ? <div>
                         <Background/>
                         <div className="main_header_mobile_container">
                             <button className="main_header_mobile_button" onClick={this.handleMobileFriendClicked}>
@@ -271,7 +271,7 @@ class Main extends Component<Props, State> {
                     </div> : <></>}
 
                     {/*친구창 보여주는 창*/}
-                    {(!inviteButtonClicked || width < 1000) && type == "Friends" ? <div className="main_friends_content" style={{position: "relative"}}>
+                    {(!inviteButtonClicked || width < 1000) && type === "Friends" ? <div className="main_friends_content" style={{position: "relative"}}>
                         <div className="main_friends_header">
                             <img src={backImg} className="main_friends_mobile_back" onClick={this.handleMobileBackButtonClicked}/>
                             <div className="main_friends_title" style={{textAlign: "left"}}>친구 목록</div>
