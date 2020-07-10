@@ -1,10 +1,27 @@
 import React, {Component} from 'react';
 import logoHome from '../../assets/images/logo_home.svg';
-import { Link } from 'react-router-dom';
+import {Link, RouteComponentProps} from 'react-router-dom';
 import './LoginBox.css'
 import nicknameIcon from '../../assets/images/img_nickname_icon.svg'
 
-class LoginBox extends Component {
+import {connect} from "react-redux";
+import {storeState} from "../../store";
+
+interface Props extends RouteComponentProps{
+    login:boolean
+}
+
+
+class LoginBox extends Component<Props,any> {
+
+
+    constructor(props: Props) {
+        super(props);
+        if(props.login){
+            props.history.push('/main')
+        }
+    }
+
     componentDidMount() {
         //document.body.style.backgroundColor = "#F7F9FF"
     }
@@ -20,7 +37,9 @@ class LoginBox extends Component {
                     <input className="login_input_nickname" placeholder="닉네임" />
                 </div>
                 <div className="login_footer">
-                    <button className="login_login_button">
+                    <button className="login_login_button" onClick={event => {
+
+                    }}>
                         로그인
                     </button>
                     <div className="login_register_question">
@@ -35,4 +54,4 @@ class LoginBox extends Component {
     }
 }
 
-export default LoginBox;
+export default connect((stat:storeState)=>({login:stat.login}))(LoginBox)
