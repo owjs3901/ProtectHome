@@ -29,10 +29,13 @@
     margin-left: 20px;
     width: 350px;
     font: Bold 23px/28px NanumSquare_ac;
-    color: #C2C2C2;
+    color: black;
     background: transparent;
     border: 0px;
     outline: none;
+}
+.login_input_nickname::placeholder {
+    color: #C2C2C2;
 }
 
 .login_input_nickname::placeholder {
