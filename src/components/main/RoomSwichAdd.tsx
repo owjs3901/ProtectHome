@@ -1,4 +1,4 @@
-import React, {Component, createRef} from 'react';
+import React, {Component} from 'react';
 import './RoomSwitch.css'
 import './RoomSwitchAdd.css'
 import imgPlus from '../../assets/images/img_roomswitch_add.svg'

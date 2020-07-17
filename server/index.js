@@ -74,6 +74,29 @@ app.get('/api/isOTP', (req, res) => {
 	console.log('is isOTP',req.query.otp);
 	res.json({su:otp.includes(req.query.otp)});
 })
+// door window led1, 2, 3, 온, 습도
+const data=[0,0,0,0,0,0,0]//size 7
+//온 습도
+app.get('/api/setData0', (req, res) => {
+	const d=JSON.parse(req.query.data)
+	data[5] = d[0];
+	data[6] = d[1];
+
+	res.json({data});
+})
+app.get('/api/setData1', (req, res) => {
+	const d=JSON.parse(req.query.data)
+	data[0] = d[0];
+	data[1] = d[1];
+	data[2] = d[2];
+	data[3] = d[3];
+	data[4] = d[4];
+	res.json({data});
+})
+
+app.get('/api/getData', (req, res) => {
+	res.json({data});
+})
 
 app.get('/api/personalInfo', (req, res) => {
 	if (!req.session.loggedIn) {

@@ -39,6 +39,7 @@ class ViewerTab extends Component<Props, State> {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getOffset(child: HTMLElement) {
     let el: HTMLElement | null = child
     let _x = 0;
