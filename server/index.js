@@ -102,8 +102,17 @@ app.get('/api/isOTP', (req, res) => {
 	console.log('is isOTP',req.query.otp);
 	res.json({su:otp.includes(req.query.otp)});
 })
+
+app.get('/api/addOTP', (req, res) => {
+	const d=req.query.data
+	console.log("OTP 추가됨"+d)
+	otp.push(d)
+	res.json(otp);
+})
+
 // door window led1, 2, 3, 온, 습도
 const data=[0,0,0,0,0,0,0]//size 7
+
 //온 습도
 app.get('/api/setData0', (req, res) => {
 	const d=JSON.parse(req.query.data)

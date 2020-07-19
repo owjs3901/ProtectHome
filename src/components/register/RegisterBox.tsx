@@ -278,7 +278,7 @@ class RegisterBox extends Component<Props, State> {
                                 }
                                 else {
                                     alert(data.msg)
-                                    throw new Error(data.msg)
+                                    // throw new Error(data.msg)
                                 }
                             }).then(res => {
                                 let publicKey = preformatMakeCredReq(res)

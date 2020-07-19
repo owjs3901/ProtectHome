@@ -174,6 +174,10 @@ class Main extends Component<Props, State> {
                 k+=String(Math.floor(Math.random() * 10));
                 k+=String(Math.floor(Math.random() * 10));
                 k+=String(Math.floor(Math.random() * 10));
+
+                //OTP 서버에 추가
+                fetch('/api/addOTP?data='+k)
+
                 this.setState({
                     receivedOTPNum:k
                 })
