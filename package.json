@@ -25,7 +25,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "start": "set PORT=1004 && react-scripts start",
+    "start": "set SSL_CRT_FILE=mbs-b.com-crt.pem SSL_KEY_FILE=mbs-b.com-key.pem HTTPS=true && set PORT=1004 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

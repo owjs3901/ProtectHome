@@ -33,7 +33,7 @@ class TestPage extends Component<Props, State> {
     render() {
         return (
             <>
-                <RoomSwitch title={"test"} handleOnStateChanged={this.handleEvent}/>
+                {/*<RoomSwitch title={"test"} handleOnStateChanged={this.handleEvent}/>*/}
                 asdf
             </>
         );

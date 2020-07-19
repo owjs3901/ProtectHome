@@ -5,35 +5,29 @@ import imgBulb from '../../assets/images/img_bulb.svg'
 interface Props {
     handleOnStateChanged: (title: string, isOn: boolean) => void;
     title: string;
-}
-
-interface State {
     isOn: boolean
 }
 
-const DEFAULT_VALUES = {
-    isOn: false
+interface State {
 }
+
 
 class RoomSwitch extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.state = {
-            ...DEFAULT_VALUES
-        }
     }
 
     handleOnStateChanged = () => {
             this.setState({
-                isOn: !this.state.isOn
+                isOn: !this.props.isOn
             }, () => {
-                this.props.handleOnStateChanged(this.props.title, this.state.isOn)
+                this.props.handleOnStateChanged(this.props.title, this.props.isOn)
             })
     }
 
     render() {
-        const {isOn} = this.state
+        const {isOn} = this.props
 
         let switchPointStyle = isOn ? {marginLeft: "0px"} : {marginLeft: "auto"}
         let displayStyle = isOn ? {display: "block"} : {display: "none"}

@@ -38,6 +38,7 @@ interface State {
     receivedName: string; // TODO REDUX
     inviteButtonClicked: boolean;
     width: number;
+    isOn:boolean[];
     deleteButtonClicked: boolean;
 }
 
@@ -49,6 +50,7 @@ const DEFAULT_STATE = {
     mobileDeleteButtonClicked: false,
     receivedOTPNum: "1234",
     receivedName: "테스트",
+    isOn:[false,false,false],
     inviteButtonClicked: false,
     deleteButtonClicked: false,
 }
@@ -65,6 +67,15 @@ class Main extends Component<Props, State> {
             //로그인 안하면 로그인 페이지로 이동
             this.props.history.push("/login")
         }
+        fetch('/api/getData')
+            .then(s=>s.json())
+            .then(s=>{
+                this.setState({
+                    isOn:[Boolean(s.data[2]), Boolean(s.data[3]), Boolean(s.data[4])],
+                    temperature:s.data[5],
+                    humidity:s.data[6],
+                })
+            })
 
         this.state = {
             ...DEFAULT_STATE,
@@ -170,6 +181,36 @@ class Main extends Component<Props, State> {
 
     handleRoomSwitchChanged = (title: string, isOn: boolean) => {
         console.log(title + ", " + isOn)
+        let idx=0;
+        switch (title) {
+            case "DOOR":
+                idx=0
+                break;
+            case "WINDOW":
+                idx=1
+                break;
+            case "ROOM":
+                idx=2
+                break;
+        }
+        const lis=this.state.isOn;
+        const k=lis[idx];
+        lis[idx]=!k
+
+        this.setState({isOn:lis})
+
+        fetch(`/api/setData2?data=[${Number(lis[0])},${Number(lis[1])},${Number(lis[2])}]`)
+            .then(s=>s.json())
+            .then(s=>{
+                // this.setState({
+                    // isOn:[s.data[2]?1:0,s.data[3]?1:0,s.data[4]],
+                // })
+            })
+
+        // this.state = {
+        //     ...DEFAULT_STATE,
+        //     width: window.innerWidth
+        // }
     }
 
     render() {
@@ -233,11 +274,11 @@ class Main extends Component<Props, State> {
                                                     </div>
                                                     <table className="main_adapter_table" style={{border: "none", padding: "0px"}}>
                                                         <tr>
-                                                            <td className="main_adapter_td"><RoomSwitch handleOnStateChanged={this.handleRoomSwitchChanged} title={"test"} /></td>
-                                                            <td className="main_adapter_td"><RoomSwitch handleOnStateChanged={this.handleRoomSwitchChanged} title={"test2"} /></td>
+                                                            <td className="main_adapter_td"><RoomSwitch isOn={this.state.isOn[0]} handleOnStateChanged={this.handleRoomSwitchChanged} title={"DOOR"} /></td>
+                                                            <td className="main_adapter_td"><RoomSwitch isOn={this.state.isOn[1]} handleOnStateChanged={this.handleRoomSwitchChanged} title={"WINDOW"} /></td>
                                                         </tr>
                                                         <tr>
-                                                            <td className="main_adapter_td"><RoomSwitch handleOnStateChanged={this.handleRoomSwitchChanged} title={"test3"} /></td>
+                                                            <td className="main_adapter_td"><RoomSwitch isOn={this.state.isOn[2]} handleOnStateChanged={this.handleRoomSwitchChanged} title={"ROOM"} /></td>
                                                             <td className="main_adapter_td"><RoomSwitchAdd /></td>
                                                         </tr>
                                                     </table>
@@ -299,7 +340,9 @@ class Main extends Component<Props, State> {
         return (
             <>
                 <div className="main_viewer_tab">
-                    <ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/></div>
+                    <ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/>
+                    <ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/>
+                </div>
             </>
         );
     }

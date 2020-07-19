@@ -3,6 +3,17 @@ const app = new express();
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
+
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+
+const credentials = {
+	key: fs.readFileSync(__dirname + '/mbs-b.com-key.pem'),
+	cert: fs.readFileSync(__dirname + '/mbs-b.com-crt.pem'),
+	ca: fs.readFileSync(__dirname + '/mbs-b.com-chain.pem')
+};
+
 const path = require('path');
 const crypto = require('crypto');
 const base64url = require('base64url');
@@ -24,7 +35,7 @@ app.use(cookieSession({
 app.use(cookieParser())
 
 /* ----- serve static ----- */
-// app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static("../build"));
 // app.set('view engine', 'ejs');
 // app.engine('html', require('ejs').renderFile);
 // app.set('views', path.join(__dirname, 'views'));
@@ -88,9 +99,14 @@ app.get('/api/setData1', (req, res) => {
 	const d=JSON.parse(req.query.data)
 	data[0] = d[0];
 	data[1] = d[1];
-	data[2] = d[2];
-	data[3] = d[3];
-	data[4] = d[4];
+	res.json({data});
+})
+//led
+app.get('/api/setData2', (req, res) => {
+	const d=JSON.parse(req.query.data)
+	data[2] = d[0];
+	data[3] = d[1];
+	data[4] = d[2];
 	res.json({data});
 })
 
@@ -253,4 +269,13 @@ app.post('/api/response', (req, res) => {
 	}
 })
 
-app.listen(3000)
+app.get('*',(req,res)=>{
+	res.redirect('/')
+})
+
+// app.listen(3000)
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(3000);
+httpsServer.listen(443);
