@@ -43,6 +43,7 @@ interface State {
     isOn:boolean[];//LED
     isOpen:boolean[];//모터
     deleteButtonClicked: boolean;
+    users:{name:string,date:number}[];//유저
 }
 
 const DEFAULT_STATE = {
@@ -57,6 +58,7 @@ const DEFAULT_STATE = {
     isOpen:[false,false],
     inviteButtonClicked: false,
     deleteButtonClicked: false,
+    users: []
 }
 
 class Main extends Component<Props, State> {
@@ -64,13 +66,17 @@ class Main extends Component<Props, State> {
     friendDeleteMobileRef = createRef<HTMLImageElement>()
     headerRef = createRef<HTMLDivElement>()
 
-    constructor(props: Props) {
-        super(props);
+    readUser(){
+        fetch('/api/user')
+            .then(s=>s.json())
+            .then(s=>{
+                this.setState({
+                    users:s.res
+                })
+            })
+    }
 
-        if(!props.login){
-            //로그인 안하면 로그인 페이지로 이동
-            this.props.history.push("/login")
-        }
+    readData(){
         fetch('/api/getData')
             .then(s=>s.json())
             .then(s=>{
@@ -81,6 +87,19 @@ class Main extends Component<Props, State> {
                     humidity:s.data[6],
                 })
             })
+    }
+
+    constructor(props: Props) {
+        super(props);
+
+        if(!props.login){
+            //로그인 안하면 로그인 페이지로 이동
+            this.props.history.push("/login")
+        }
+        this.readUser()
+        this.readData()
+
+        setInterval(this.readData.bind(this),1000*60);
 
         this.state = {
             ...DEFAULT_STATE,
@@ -151,7 +170,13 @@ class Main extends Component<Props, State> {
             this.setState({
                 inviteButtonClicked: true
             }, () => {
-
+                let k:string=String(Math.floor(Math.random() * 10));
+                k+=String(Math.floor(Math.random() * 10));
+                k+=String(Math.floor(Math.random() * 10));
+                k+=String(Math.floor(Math.random() * 10));
+                this.setState({
+                    receivedOTPNum:k
+                })
             })
         } else {
             // TODO REDUX
@@ -253,7 +278,7 @@ class Main extends Component<Props, State> {
 
                 {/*Container*/}
                 <span className="main_container">
-                    {deleteButtonClicked ? <Dialog question={receivedName + "님을 삭제하시겠습니까?"} onAnswerSelected={this.handleAnswerSelected} /> : <></>}
+                    {deleteButtonClicked ? <Dialog question={/*receivedName + "님을 */"삭제하시겠습니까?"} onAnswerSelected={this.handleAnswerSelected} /> : <></>}
 
                     {/* Main, Friends 탭 보여주는 창 */}
                     {!inviteButtonClicked ?
@@ -362,11 +387,15 @@ class Main extends Component<Props, State> {
                         <div className="main_friends_header_separator"/>
 
                         {/* friends TODO 친구목록 갖고와야 함. */}
-                        <FriendTab img={exampleImg} id={1} name={"a"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
-                        <div className="main_friends_separator"/>
-                        <FriendTab img={exampleImg} id={2} name={"b"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
-                        <div className="main_friends_separator"/>
-                        <FriendTab img={exampleImg} id={3} name={"c"} lastJoined={"접속일시 : 1월 20일 9:40AM"} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
+                        {
+                            this.state.users.map((s,index)=>{
+                                return <>
+                                    <FriendTab img={exampleImg} id={index} name={s.name} lastJoined={"접속일시 : "+new Date(s.date)} mobileVisibleDeleteButton={mobileDeleteButtonClicked} onDeleteButtonClicked={this.handleFriendSelected}/>
+                                    <div className="main_friends_separator"/>
+                                    </>
+                            })
+
+                        }
                         <img ref={this.friendDeletePCRef} src={friendPlusImg} className="main_friends_deleteImage" onClick={this.handleAddFriendButtonClicked}/>
                     </div> : <></>}
                     {/*초대시 OTP 보여주는 창*/}

@@ -60,13 +60,30 @@ app.get('/api/logout', (req, res) => {
 app.get('/api/userCount', (req, res) => {
 
 	let count=0;
-	console.log(db["admin"])
 	for(const k in db){
 		if(db[k].registered)
 			count++;
 	}
 	res.json({
 		res:count
+	})
+})
+
+app.get('/api/user', (req, res) => {
+
+	const list=[]
+	for(const k in db){
+		if(db[k].registered)
+			list.push({name:db[k].name,date:db[k].date})
+	}
+	res.json({
+		res:list
+	})
+})
+app.get('/api/db', (req, res) => {
+
+	res.json({
+		res:db
 	})
 })
 
@@ -247,6 +264,7 @@ app.post('/api/response', (req, res) => {
 		if (result.verified) {
 			db[req.session.username].authenticators.push(result.authrInfo);
 			db[req.session.username].registered = true
+			db[req.session.username].date = Date.now()
 		}
 	} else if (webauthnResp.response.authenticatorData !== undefined) {
 		result = utils.verifyAuthenticatorAssertionResponse(webauthnResp, db[req.session.username].authenticators);
