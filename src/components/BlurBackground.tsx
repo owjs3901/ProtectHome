@@ -28,7 +28,7 @@ class BlurBackground extends Component<Props, State> {
         }
 
         return (
-            <div className="blur">
+            <div className="blur" style={{marginRight:"15px"}}>
                 <div className="blurBackground_blur blur"/>
                 <div className="blurBackground_background blur" style={shadow}>
                     {this.props.content}

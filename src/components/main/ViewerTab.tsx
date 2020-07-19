@@ -7,6 +7,8 @@ interface Props {
     text: string;
     noShadow: boolean;
     isPC: boolean;
+    isOn:boolean;
+    handle:(title:string ,isOn:boolean)=>void
 }
 
 interface State {
@@ -18,6 +20,9 @@ const DEFAULT_VALUE = {
 }
 
 class ViewerTab extends Component<Props, State> {
+
+
+
     constructor(props: Props) {
         super(props);
 
@@ -30,9 +35,11 @@ class ViewerTab extends Component<Props, State> {
     render() {
         return (
             <BlurBackground noShadow={this.props.noShadow} content={
-                <div className="viewerTab_content">
-                        <img className="viewerTab_image" src={this.props.imgSrc}/>
-                        <div className="viewerTab_text">{this.props.text}</div>
+                <div className="viewerTab_content" onClick={event => {
+                    this.props.handle(this.props.text,this.props.isOn)
+                }}>
+                        <img className="viewerTab_image" style={{height:"50px",width:"auto",marginBottom:"12px"}} src={this.props.imgSrc}/>
+                        <div className="viewerTab_text" style={{color:this.props.isOn?"#73A2FC":"black"}}>{this.props.text}</div>
                 </div>
             }/>
         );

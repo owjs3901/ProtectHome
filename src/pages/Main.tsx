@@ -5,6 +5,8 @@ import BlurBackground from "../components/BlurBackground";
 import CircleGraph from "../components/main/CircleGraph";
 import ViewerTab from "../components/main/ViewerTab";
 import imgCamera from "../assets/images/img_camera.svg";
+import imgDoor from "../assets/images/img_door.png";
+import imgWindow from "../assets/images/img_window.svg";
 import Adapter from "../components/main/Adapter";
 import FriendTab from "../components/main/FriendTab";
 import exampleImg from "../assets/images/img_exampleProfile.svg";
@@ -38,7 +40,8 @@ interface State {
     receivedName: string; // TODO REDUX
     inviteButtonClicked: boolean;
     width: number;
-    isOn:boolean[];
+    isOn:boolean[];//LED
+    isOpen:boolean[];//모터
     deleteButtonClicked: boolean;
 }
 
@@ -51,6 +54,7 @@ const DEFAULT_STATE = {
     receivedOTPNum: "1234",
     receivedName: "테스트",
     isOn:[false,false,false],
+    isOpen:[false,false],
     inviteButtonClicked: false,
     deleteButtonClicked: false,
 }
@@ -72,6 +76,7 @@ class Main extends Component<Props, State> {
             .then(s=>{
                 this.setState({
                     isOn:[Boolean(s.data[2]), Boolean(s.data[3]), Boolean(s.data[4])],
+                    isOpen:[Boolean(s.data[0]), Boolean(s.data[1])],
                     temperature:s.data[5],
                     humidity:s.data[6],
                 })
@@ -201,16 +206,41 @@ class Main extends Component<Props, State> {
 
         fetch(`/api/setData2?data=[${Number(lis[0])},${Number(lis[1])},${Number(lis[2])}]`)
             .then(s=>s.json())
-            .then(s=>{
-                // this.setState({
-                    // isOn:[s.data[2]?1:0,s.data[3]?1:0,s.data[4]],
-                // })
-            })
+    }
 
-        // this.state = {
-        //     ...DEFAULT_STATE,
-        //     width: window.innerWidth
-        // }
+    handleButtonSwitchChanged = (title: string, isOn: boolean) => {
+        console.log(title + ", " + isOn)
+        let idx=0;
+        switch (title) {
+            case "방범용 카메라":
+                idx=0
+                return;
+            case "창문":
+                idx=0
+                break;
+            case "문":
+                idx=1
+                break;
+        }
+        const lis=this.state.isOpen;
+        const k=lis[idx];
+        lis[idx]=!k
+
+        this.setState({isOpen:lis})
+
+        fetch(`/api/setData1?data=[${Number(lis[0])},${Number(lis[1])}]`)
+            .then(s=>s.json())
+    }
+    ViewerTabs() {
+        return (
+            <>
+                <div className="main_viewer_tab">
+                    <ViewerTab handle={this.handleButtonSwitchChanged} isOn={true} noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/>
+                    <ViewerTab handle={this.handleButtonSwitchChanged} isOn={this.state.isOpen[0]} noShadow={true} isPC={true} imgSrc={imgWindow} text={"창문"}/>
+                    <ViewerTab handle={this.handleButtonSwitchChanged} isOn={this.state.isOpen[1]} noShadow={true} isPC={true} imgSrc={imgDoor} text={"문"}/>
+                </div>
+            </>
+        );
     }
 
     render() {
@@ -300,13 +330,23 @@ class Main extends Component<Props, State> {
                                     <div style={{margin: "45px 45px 39px"}}>
                                         <div className="main_viewer_animation"/>
                                         <div className="main_viewer_animation_sub"/>
-                                        <this.ViewerTabs/>
+                                        {
+                                            (()=>{
+                                                return this.ViewerTabs();
+                                            })()
+                                        }
+                                        {/*<this.ViewerTabs state={this.state}/>*/}
                                     </div>}/>
                             </div>
                             {/*모바일전용 뷰어탭*/}
                             <div className="main_viewer_mobile">
                                 <div className="main_viewer_mobile_text">그 외 관리</div>
-                                <this.ViewerTabs/>
+                                {
+                                    (()=>{
+                                        return this.ViewerTabs();
+                                    })()
+                                }
+                                {/*<this.ViewerTabs/>*/}
                             </div>
                         </span>
                     </div> : <></>}
@@ -336,16 +376,7 @@ class Main extends Component<Props, State> {
         );
     }
 
-    ViewerTabs() {
-        return (
-            <>
-                <div className="main_viewer_tab">
-                    <ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/>
-                    <ViewerTab noShadow={true} isPC={true} imgSrc={imgCamera} text={"방범용 카메라"}/>
-                </div>
-            </>
-        );
-    }
+
 }
 
 export default connect((stat:storeState)=>({login:stat.login}))(Main)
