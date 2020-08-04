@@ -9,7 +9,7 @@ interface Props {
 }
 
 interface State {
-
+    lastValue: number;
 }
 
 class CircleGraph extends Component<Props, State> {
@@ -25,6 +25,12 @@ class CircleGraph extends Component<Props, State> {
             buffer.height = element.height;
             //box-shadow: 0px 3px 6px #496EA04D;
             if (bufferContext) {
+                bufferContext.save()
+                bufferContext.fillStyle = "#FFFFFF"
+                bufferContext.fillRect(0, 0, buffer.width, buffer.height)
+                bufferContext.restore()
+
+                //bufferContext.fill()
                 const angle = percent / 100 * 360
                 const angleRadian = (angle - 90) / 180 * Math.PI
 
@@ -80,8 +86,8 @@ class CircleGraph extends Component<Props, State> {
 
     // 온도, 습도같은 원 그래프를 보여주는 컴포넌트.
     render() {
-        this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, this.props.value / this.props.maxValue * 100)
-        this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, this.props.value / this.props.maxValue * 100)
+        this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, Math.min(this.props.value / this.props.maxValue * 100, 100))
+        this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, Math.max(this.props.value / this.props.maxValue * 100))
 
         return (
           <>
