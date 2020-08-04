@@ -66,40 +66,43 @@ class LoginBox extends Component<Props,State> {
                 })
 
                 if(count === 0){
-                    fetch('api/register', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ name:"admin", username:"admin" })
-                    }).then(res => {
-                        return res.json()
-                    }).then(data => {
-                        if (data.stat == 0) {
-                            return data
-                        }
-                        else {
-                            alert(data.msg)
-                            throw new Error(data.msg)
-                        }
-                    }).then(res => {
-                        let publicKey = preformatMakeCredReq(res)
-                        return navigator.credentials.create({ publicKey })
-                    }).then(res => {
-                        let makeCredResponse = publicKeyCredentialToJSON(res!);
-                        return sendWebAuthnResponse(makeCredResponse)
-                    }).then(res=>{
-                        if(res.status==0){
-                            alert("마스터키가 등록되었습니다")
-                            //등록과 동시에 로그인
-                            store.dispatch(login({
-                                name:"admin"
-                            }))
-                            this.props.history.push('/main')
-                        }
-                        else alert('알 수 없는 오류')
-                    })
+                    let k: HTMLDivElement;
+                    k = document.getElementsByClassName('login_container')[0] as unknown as HTMLDivElement;                    console.log(k.style)
+                    k.style.height='600px';
+                    // fetch('api/register', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Accept': 'application/json',
+                    //         'Content-Type': 'application/json'
+                    //     },
+                    //     body: JSON.stringify({ name:"admin", username:"admin" })
+                    // }).then(res => {
+                    //     return res.json()
+                    // }).then(data => {
+                    //     if (data.stat == 0) {
+                    //         return data
+                    //     }
+                    //     else {
+                    //         alert(data.msg)
+                    //         throw new Error(data.msg)
+                    //     }
+                    // }).then(res => {
+                    //     let publicKey = preformatMakeCredReq(res)
+                    //     return navigator.credentials.create({ publicKey })
+                    // }).then(res => {
+                    //     let makeCredResponse = publicKeyCredentialToJSON(res!);
+                    //     return sendWebAuthnResponse(makeCredResponse)
+                    // }).then(res=>{
+                    //     if(res.status==0){
+                    //         alert("마스터키가 등록되었습니다")
+                    //         //등록과 동시에 로그인
+                    //         store.dispatch(login({
+                    //             name:"admin"
+                    //         }))
+                    //         this.props.history.push('/main')
+                    //     }
+                    //     else alert('알 수 없는 오류')
+                    // })
                 }
                 else{
                     const b=window.confirm("마스터키로 로그인 하시겠습니까?")
@@ -204,7 +207,7 @@ class LoginBox extends Component<Props,State> {
                         </button>
                     : <></>}
                     <div className="login_register_question">
-                        처음이신가요?
+                        처음이신가요? 회원가입을 진행해주세요.
                     </div>
                     <Link to={"/register"}>
                         <button className="login_register_button">회원가입</button>

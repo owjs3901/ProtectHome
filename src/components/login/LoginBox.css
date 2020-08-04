@@ -81,6 +81,11 @@
     margin-top: 15px;
     font: 22px/26px NanumSquare_ac;
     color: #73A2FC;
+    transition: 0.1s;
+}
+.login_register_button:hover {
+    color: white;
+    background-color: #73A2FC;
 }
 
 .login_box_img {
