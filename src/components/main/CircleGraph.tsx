@@ -19,57 +19,70 @@ class CircleGraph extends Component<Props, State> {
     // '그' 호 그려주는 코드.
     drawArc(element: HTMLCanvasElement, x: number, y: number, radiusCenter: number, radiusOuter: number, percent: number) {
         if(element) {
-            const context = element.getContext('2d')
+            const buffer = document.createElement('canvas')
+            const bufferContext = buffer.getContext('2d')
+            buffer.width = element.width;
+            buffer.height = element.height;
             //box-shadow: 0px 3px 6px #496EA04D;
-            if (context) {
+            if (bufferContext) {
                 const angle = percent / 100 * 360
                 const angleRadian = (angle - 90) / 180 * Math.PI
 
-                context.beginPath()
-                context.save()
-                context.strokeStyle = "#F0F0F0"
+                bufferContext.beginPath()
+                bufferContext.save()
+                bufferContext.strokeStyle = "#F0F0F0"
                 // context.shadowOffsetX = 0
                 // context.shadowOffsetY = 3
                 // context.shadowBlur = 6
                 // context.shadowColor = "#496EA04D"
-                context.arc(x, y, radiusCenter - radiusOuter, 0, 2 * Math.PI)
-                context.stroke()
-                context.closePath()
+                bufferContext.arc(x, y, radiusCenter - radiusOuter, 0, 2 * Math.PI)
+                bufferContext.stroke()
+                bufferContext.closePath()
 
-                context.beginPath()
-                context.arc(x, y, radiusCenter + radiusOuter, 0, 2 * Math.PI)
-                context.stroke()
-                context.restore()
-                context.closePath()
+                bufferContext.beginPath()
+                bufferContext.arc(x, y, radiusCenter + radiusOuter, 0, 2 * Math.PI)
+                bufferContext.stroke()
+                bufferContext.restore()
+                bufferContext.closePath()
 
-                context.beginPath()
-                context.save()
-                context.shadowOffsetX = 0
-                context.shadowOffsetY = 3
-                context.shadowBlur = 6
-                context.shadowColor = "#496EA04D"
-                context.fillStyle = "#73A2FC"
-                context.arc(x, y - radiusCenter, radiusOuter, 0.5 * Math.PI, 1.5 * Math.PI)
-                context.arc(x, y, radiusCenter + radiusOuter, 1.5 * Math.PI, 1.5 * Math.PI + angle / 180 * Math.PI)
-                context.arc(x + radiusCenter * Math.cos(angleRadian), y + radiusCenter * Math.sin(angleRadian), radiusOuter, angleRadian, angleRadian + Math.PI)
-                context.arc(x, y, radiusCenter - radiusOuter, 1.5 * Math.PI + angle / 180 * Math.PI, 1.5 * Math.PI, true)
-                context.fill()
-                context.restore()
-                context.closePath()
+                bufferContext.beginPath()
+                bufferContext.save()
+                bufferContext.shadowOffsetX = 0
+                bufferContext.shadowOffsetY = 3
+                bufferContext.shadowBlur = 6
+                bufferContext.shadowColor = "#496EA04D"
+                bufferContext.fillStyle = "#73A2FC"
+                bufferContext.arc(x, y - radiusCenter, radiusOuter, 0.5 * Math.PI, 1.5 * Math.PI)
+                bufferContext.arc(x, y, radiusCenter + radiusOuter, 1.5 * Math.PI, 1.5 * Math.PI + angle / 180 * Math.PI)
+                bufferContext.arc(x + radiusCenter * Math.cos(angleRadian), y + radiusCenter * Math.sin(angleRadian), radiusOuter, angleRadian, angleRadian + Math.PI)
+                bufferContext.arc(x, y, radiusCenter - radiusOuter, 1.5 * Math.PI + angle / 180 * Math.PI, 1.5 * Math.PI, true)
+                bufferContext.fill()
+                bufferContext.restore()
+                bufferContext.closePath()
+
+                const context = element.getContext('2d')
+                if(context) {
+                    context.drawImage(buffer, 0, 0)
+                } else {
+                    console.log("context is null")
+                }
             } else {
-                console.log("context is null")
+                console.log("buffer context is null")
             }
         }
     }
 
     // 컴포넌트 마운트가 끝나면 캔버스에 '그' 호를 모바일,PC 둘 다 그려준다.
-    componentDidMount() {
-        this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, this.props.value / this.props.maxValue * 100)
-        this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, this.props.value / this.props.maxValue * 100)
-    }
+    // componentDidMount() {
+    //     this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, this.props.value / this.props.maxValue * 100)
+    //     this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, this.props.value / this.props.maxValue * 100)
+    // }
 
     // 온도, 습도같은 원 그래프를 보여주는 컴포넌트.
     render() {
+        this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, this.props.value / this.props.maxValue * 100)
+        this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, this.props.value / this.props.maxValue * 100)
+
         return (
           <>
               <div className="circleGraph_canvasBase">
