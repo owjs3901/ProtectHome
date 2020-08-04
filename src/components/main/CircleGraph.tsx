@@ -79,10 +79,11 @@ class CircleGraph extends Component<Props, State> {
     }
 
     // 컴포넌트 마운트가 끝나면 캔버스에 '그' 호를 모바일,PC 둘 다 그려준다.
-    // componentDidMount() {
-    //     this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, this.props.value / this.props.maxValue * 100)
-    //     this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, this.props.value / this.props.maxValue * 100)
-    // }
+    componentDidMount() {
+        console.log("circlegraph " + this.props.title + " loaded")
+        this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, this.props.value / this.props.maxValue * 100)
+        this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, this.props.value / this.props.maxValue * 100)
+    }
 
     // 온도, 습도같은 원 그래프를 보여주는 컴포넌트.
     render() {
