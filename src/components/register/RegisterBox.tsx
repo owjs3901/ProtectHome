@@ -106,12 +106,15 @@ class RegisterBox extends Component<Props, State> {
     componentWillMount() {
         window.addEventListener('resize', this.handleWindowSizeChange);
 
-        fetch("api/userCount").then(res=>res.json())
+        fetch("api/count").then(res=>res.json())
             .then(res=>{
+                let count = res.res;
+
                 this.setState({
-                    count:res.res
+                    count:count
                 })
-                if(res.res===0){
+
+                if(count === 0){
                     fetch('api/register', {
                         method: 'POST',
                         headers: {
@@ -141,7 +144,6 @@ class RegisterBox extends Component<Props, State> {
                             //등록과 동시에 로그인
                             store.dispatch(login({
                                 name:"admin"
-
                             }))
                             this.props.history.push('/main')
                         }
@@ -182,7 +184,6 @@ class RegisterBox extends Component<Props, State> {
                     }
                 }
             })
-
     }
 
     componentWillUnmount() {
@@ -193,16 +194,29 @@ class RegisterBox extends Component<Props, State> {
         this.setState({width: window.innerWidth});
     };
 
+    onBackButtonClicked = () => {
+        const state = this.state.state
+        if(state == Routine.NicknameInput) {
+            this.setState({
+                state: Routine.OTPInput
+            })
+        } else if(state == Routine.OTPInput) {
+            this.setState({
+                state: Routine.OTPTitle
+            })
+        }
+    }
+
     render() {
-        const {state} = this.state
-        const {width} = this.state
+        const {state, width} = this.state
+
         return (
             <div className="registerBox_container">
 
                 {/* 모바일인 경우 뒤로가기 버튼 같은거 보여줌 */}
                 <div className="registerBox_register_header">
-                    <img src={backImg} style={{width: "22px", height: "auto", marginLeft: "24px"}}/>
-                    {state == Routine.NicknameInput ? <img src={confirmImg} style={{width: "22px", height: "auto", marginLeft: "auto", marginRight: "24px"}}/> : <></>}
+                    <img src={backImg} style={{width: "22px", height: "auto", marginLeft: "24px"}} onClick={this.onBackButtonClicked}/>
+                    {state == Routine.NicknameInput ? <img onClick={this.registerUser} src={confirmImg} style={{width: "22px", height: "auto", marginLeft: "auto", marginRight: "24px"}}/> : <></>}
                 </div>
 
                 {/* 마스터키같은거 있냐 물어보는 창 */}
@@ -218,12 +232,9 @@ class RegisterBox extends Component<Props, State> {
                     </> : <></>
                 }
 
-
-
                 {/*
                 OTP입력을 받을 때 보여줄 창. 모바일 페이지라면 Nickname입력시 숨겨줌.
                 width장난 안치고 싶긴 했는데 사실 모바일 PC 따로 만드는게 존나 역겨워서 그냥 깔끔하게 이렇게 짰음.
-
                 */}
                 {state == Routine.OTPInput || (state == Routine.NicknameInput && width >= 1000) ?
                     <>
@@ -255,55 +266,57 @@ class RegisterBox extends Component<Props, State> {
                     <>
                         <div className="registerBox_register_nickname">닉네임 설정</div>
                         <input className="registerBox_register_nickname_input" id={"nickName"}/>
-                        <button className="registerBox_register_button" onClick={event => {
-                            const value=(document.getElementById("nickName") as HTMLInputElement).value
-
-                            if(!value) {
-                                alert("닉네임을 입력해주세요")
-                                return;
-                            }
-
-                            fetch('api/register', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ name:value, username:value })
-                            }).then(res => {
-                                return res.json()
-                            }).then(data => {
-                                if (data.stat === 0) {
-                                    return data
-                                }
-                                else {
-                                    alert(data.msg)
-                                    // throw new Error(data.msg)
-                                }
-                            }).then(res => {
-                                let publicKey = preformatMakeCredReq(res)
-                                return navigator.credentials.create({ publicKey })
-                            }).then(res => {
-                                let makeCredResponse = publicKeyCredentialToJSON(res!);
-                                return sendWebAuthnResponse(makeCredResponse)
-                            }).then(res=>{
-                                if(res.status===0){
-                                    // alert("마스터키가 등록되었습니다")
-                                    //등록과 동시에 로그인
-                                    store.dispatch(login({
-                                        name:value
-
-                                    }))
-                                    this.props.history.push('/main')
-                                }
-                                else alert('알 수 없는 오류')
-                            })
-
-                        }}>회원가입</button>
+                        <button className="registerBox_register_button" onClick={this.registerUser}>회원가입</button>
                     </>
                     : <></>}
             </div>
         );
+    }
+
+    registerUser = () => {
+        const value=(document.getElementById("nickName") as HTMLInputElement).value
+
+        if(!value) {
+            alert("닉네임을 입력해주세요")
+            return;
+        }
+
+        fetch('api/register', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name:value, username:value })
+        }).then(res => {
+            return res.json()
+        }).then(data => {
+            if (data.stat === 0) {
+                return data
+            }
+            else {
+                alert(data.msg)
+                // throw new Error(data.msg)
+            }
+        }).then(res => {
+            let publicKey = preformatMakeCredReq(res)
+            return navigator.credentials.create({ publicKey })
+        }).then(res => {
+            let makeCredResponse = publicKeyCredentialToJSON(res!);
+            return sendWebAuthnResponse(makeCredResponse)
+        }).then(res=>{
+            if(res.status===0){
+                // alert("마스터키가 등록되었습니다")
+                //등록과 동시에 로그인
+                store.dispatch(login({
+                    name:value
+
+                }))
+                this.props.history.push('/main')
+            }
+            else alert('알 수 없는 오류')
+        })
+
     }
 }
 

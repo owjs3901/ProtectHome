@@ -57,7 +57,7 @@ app.get('/api/logout', (req, res) => {
 	})
 })
 
-app.get('/api/userCount', (req, res) => {
+app.get('/api/count', (req, res) => {
 
 	let count=0;
 	for(const k in db){
