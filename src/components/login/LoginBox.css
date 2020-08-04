@@ -60,6 +60,12 @@
     width: 468px;
     height: 79px;
     margin-top: 27px;
+    transition: 0.1s;
+}
+
+.login_login_button:hover{
+    color: #73A2FC;
+    background-color: white;
 }
 
 .login_register_question {

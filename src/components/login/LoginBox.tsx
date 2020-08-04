@@ -105,37 +105,37 @@ class LoginBox extends Component<Props,State> {
                     // })
                 }
                 else{
-                    const b=window.confirm("마스터키로 로그인 하시겠습니까?")
-                    if(b){
-                        const username = "admin";
-
-                        getGetAssertionChallenge({ username/*,name:username*/ })
-                            .then((response) => {
-                                if(response){
-                                    let publicKey = preformatGetAssertReq(response);
-                                    return navigator.credentials.get({ publicKey })
-                                }
-                                else throw new Error();
-                            })
-                            .then((response) => {
-                                let getAssertionResponse = publicKeyCredentialToJSON(response!);
-                                return sendWebAuthnResponse(getAssertionResponse)
-                            })
-                            .then((response) => {
-                                if (response.status === 0) {
-                                    store.dispatch(login({
-                                        name:username
-                                    }))
-                                    this.props.history.push('/main')
-                                    // document.location.reload()
-                                } else {
-                                    alert(`Server responed with error. The message is: ${response.message}`);
-                                }
-                            })
-                            .catch((error) => {
-                                console.error(error)
-                            })
-                    }
+                    // const b=window.confirm("마스터키로 로그인 하시겠습니까?")
+                    // if(b){
+                    //     const username = "admin";
+                    //
+                    //     getGetAssertionChallenge({ username/*,name:username*/ })
+                    //         .then((response) => {
+                    //             if(response){
+                    //                 let publicKey = preformatGetAssertReq(response);
+                    //                 return navigator.credentials.get({ publicKey })
+                    //             }
+                    //             else throw new Error();
+                    //         })
+                    //         .then((response) => {
+                    //             let getAssertionResponse = publicKeyCredentialToJSON(response!);
+                    //             return sendWebAuthnResponse(getAssertionResponse)
+                    //         })
+                    //         .then((response) => {
+                    //             if (response.status === 0) {
+                    //                 store.dispatch(login({
+                    //                     name:username
+                    //                 }))
+                    //                 this.props.history.push('/main')
+                    //                 // document.location.reload()
+                    //             } else {
+                    //                 alert(`Server responed with error. The message is: ${response.message}`);
+                    //             }
+                    //         })
+                    //         .catch((error) => {
+                    //             console.error(error)
+                    //         })
+                    // }
                 }
             })
     }
