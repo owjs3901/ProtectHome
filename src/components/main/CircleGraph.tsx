@@ -86,6 +86,7 @@ class CircleGraph extends Component<Props, State> {
 
     // 온도, 습도같은 원 그래프를 보여주는 컴포넌트.
     render() {
+        console.log("circlegraph " + this.props.title + " updated")
         this.drawArc(this.canvasRef.current!, 128, 128, 75, 22, Math.min(this.props.value / this.props.maxValue * 100, 100))
         this.drawArc(this.canvasRefMobile.current!, 70, 70, 39, 11, Math.max(this.props.value / this.props.maxValue * 100))
 
