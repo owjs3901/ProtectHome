@@ -20,7 +20,7 @@ const base64url = require('base64url');
 
 const utils = require('./utils')
 
-const db = {}
+let db = {}
 const otp = ["3901"]
 
 app.use(bodyParser.json());
@@ -111,7 +111,13 @@ app.get('/api/addOTP', (req, res) => {
 })
 
 // door window led1, 2, 3, 온, 습도
-const data=[0,0,0,0,0,0,0]//size 7
+let data=[0,0,0,0,0,0,0]//size 7
+
+app.get('/api/reset', (req, res) => {
+	data=[0,0,0,0,0,0,0]//size 7
+	db = {}
+	res.text('리셋');
+})
 
 //온 습도
 app.get('/api/setData0', (req, res) => {
