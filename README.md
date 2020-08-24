@@ -22,4 +22,4 @@ FIDO를 이용하여 IoT 솔루션을 지킬 필요가 있습니다.
 - 임베디드
   > 라즈베리파이 + Python
 - 클라이언트
-  > 
+  > React + TypeScript
